@@ -4,7 +4,7 @@ import { BlockUIModule } from 'ng-block-ui';
 import { ToastrModule } from 'ngx-toastr';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
-
+import { OwlModule } from 'ngx-owl-carousel';
 @NgModule({
   declarations: [],
   imports: [
@@ -12,14 +12,16 @@ import { FormsModule } from '@angular/forms';
     BlockUIModule.forRoot(),
     ToastrModule.forRoot(),
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    OwlModule
   ],
   exports: [
     HttpClientModule,
     CommonModule,
     BlockUIModule,
     ToastrModule,
-    FormsModule
+    FormsModule,
+    OwlModule
   ],
   providers: [
     HttpClientModule,
