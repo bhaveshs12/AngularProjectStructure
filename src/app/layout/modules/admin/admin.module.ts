@@ -5,9 +5,15 @@ import {SharedModule} from '../../../shared/shared.module';
 import {AdminRoutingModule} from './admin-routing.module';
 import { HomeComponent } from './home/home.component';
 import { TopicPoolsComponent } from './topic-pools/topic-pools.component';
+import { ContentHistoryComponent } from './content-history/content-history.component';
+import { UsersComponent } from './users/users.component';
+import { MyAccountComponent } from './my-account/my-account.component';
+import { WinnersComponent } from './winners/winners.component';
+import { GoodVotersComponent } from './good-voters/good-voters.component';
+import { AddEditContestComponent } from './add-edit-contest/add-edit-contest.component';
 
 @NgModule({
-  declarations: [HomeComponent, TopicPoolsComponent],
+  declarations: [HomeComponent, TopicPoolsComponent, ContentHistoryComponent, UsersComponent, MyAccountComponent, WinnersComponent, GoodVotersComponent, AddEditContestComponent],
   imports: [
     CommonModule,
     SharedModule,

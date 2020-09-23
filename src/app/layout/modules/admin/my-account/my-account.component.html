@@ -1,0 +1,73 @@
+<div id="content-wrapper">
+    <div class="container-fluid pb-0">
+       <div class="top-category section-padding">
+          <div class="row">
+             <div class="col-md-12">
+                <div class="main-title">
+                    <h5 class="font-weight-bold mt-2"><span class="pr-2" style="color: #FF0000"><i class="fas fa-user"></i></span>John</h5>
+                    <div class="filter-btn customBtn mt-5">
+                        <a type="button" (click)="is_active = 1" [ngClass]="is_active == '1' ? 'activeBtn': ''">Account Details</a>
+                        <a type="button" (click)="is_active = 2" [ngClass]="is_active == '2' ? 'activeBtn': ''">Transactions</a>
+                    </div>
+                 </div>
+             </div>
+          </div>
+       </div>
+    </div>
+    <div class="container-fluid pb-0 bgWhite" *ngIf="is_active == 1">
+        <div class="row pt-4 bgWhite">
+            <div class="col-md-12">
+               <div class="main-title">
+                  <p>Your Address</p>
+                  <p class="font-weight-bold" style="color:#000">0xBeBE1538eb2b61C2CF6bCe309b7649435DdB57F2</p>
+               </div>
+            </div>
+         </div>
+         <hr class="mt-4 mb-4">
+         <div class="row pt-4 bgWhite">
+            <div class="col-md-12">
+               <div class="main-title">
+                  <p class="mb-1">Display Name</p>
+                  <p class="font-weight-bold mb-4" style="color:#000">John</p>
+                  <p class="mb-1">New Display Name</p>
+                  <p><input style="display:inline-block;width:250px;" type="text" class="form-control" placeholder="Search for..."><button class="ml-4 btn btn-outline-primary">Sign to Save</button></p>
+               </div>
+            </div>
+            
+         </div>
+         <hr class="mt-4 mb-4">
+         <div class="row pt-4 bgWhite">
+            <div class="col-md-12">
+               <div class="main-title">
+                  <p class="mb-1">SNAFU tokens</p>
+                  <p class="font-weight-bold" style="color:#000">50</p>
+               </div>
+            </div>
+         </div>
+    </div>
+    <div class="container-fluid pb-0 bgWhite" *ngIf="is_active == 2">
+        <div class="row pt-4">
+            <div class="col-md-8">
+               <div class="main-title">
+                  <p class="font-weight-bold" style="color:#000">Contest Created</p>
+                  <p style="color:#ccc">Oct 2, 2020 | 12.30 am <span class="ml-4">0xBeBE1538eb2b61C2CF6bCe309b7649435DdB57F2</span></p>
+               </div>
+            </div>
+            <div class="col-md-4 text-right">
+                <p class="font-weight-bold text-success">1000+ SNAFU Tokens</p>
+            </div>
+         </div>
+         <hr class="mt-4 mb-4">
+         <div class="row pt-4">
+            <div class="col-md-8">
+               <div class="main-title">
+                  <p class="font-weight-bold" style="color:#000">Contest Created</p>
+                  <p style="color:#ccc">Oct 2, 2020 | 12.30 am <span class="ml-4">0xBeBE1538eb2b61C2CF6bCe309b7649435DdB57F2</span></p>
+               </div>
+            </div>
+            <div class="col-md-4 text-right">
+                <p class="font-weight-bold text-danger">1000+ SNAFU Tokens</p>
+            </div>
+         </div>
+    </div>
+ </div>

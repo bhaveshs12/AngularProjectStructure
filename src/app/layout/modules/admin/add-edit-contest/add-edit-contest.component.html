@@ -1,0 +1,120 @@
+<div id="content-wrapper">
+    <div class="container-fluid pb-0">
+       <div class="top-category section-padding mb-2">
+          <div class="row">
+             <div class="col-md-12">
+                <div class="main-title">
+                    <h6 class="font-weight-bold mt-2">Contest Details</h6>
+                    <div class="row">
+                        <div class="col-md-2 pr-0">
+                            <p class="text-center" style="height:100px;background: #eceff0;padding-top:35px;"><i class="fa fa-upload fa-2x" aria-hidden="true"></i></p>
+                        </div>
+                        <div class="col-md-10">
+                            <p class="font-weight-bold mb-0" style="color: #000">Contrary to popular belief, Lorem Ipsum (2020) is not.</p>
+                            <p>Aug 28, 2020 - Sept 28, 2020</p>
+                        </div>
+                    </div>
+                 </div>
+             </div>
+          </div>
+       </div>
+        <div class="row pb-5">
+            <div class="col-md-12">
+                <form #contestForm="ngForm" (ngSubmit)="contestForm.form.valid && submit()">
+                    <div class="row">
+                        <div class="col-md-9">
+                            <div class="form-group">
+                                <label for="contestName">Contest Name</label>
+                                <input required [(ngModel)]="contestName" name="contestName" type="text" #contestNameRef="ngModel" class="form-control" id="contestNameRef">
+                                <div class="alert alert-danger" *ngIf="(contestNameRef.touched || contestForm.submitted) && !contestNameRef.valid">
+                                    <div *ngIf="contestNameRef.errors.required">Contest Name is required.</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="type">Type</label>
+                                <select required [(ngModel)]="type" type="text" #typeRef="ngModel" class="form-control" name="type"></select>
+                                <div class="alert alert-danger" *ngIf="(typeRef.touched || contestForm.submitted) && !typeRef.valid">
+                                    <div *ngIf="typeRef.errors.required">Type is required.</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="about">About</label>
+                                <textarea required [(ngModel)]="about" #aboutRef="ngModel" name="about" id="about" cols="30" rows="10" class="form-control"></textarea>
+                                <div class="alert alert-danger" *ngIf="(aboutRef.touched || contestForm.submitted) && !aboutRef.valid">
+                                    About Us is required.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="startDate">Start Date</label>
+                                <input required [(ngModel)]="startDate" type="text" #startDateRef="ngModel" class="form-control" name="startDate">
+                                <div class="alert alert-danger" *ngIf="(startDateRef.touched || contestForm.submitted) && !startDateRef.valid">
+                                    Start date is required.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="endDate">End Date</label>
+                                <input required ngModel [(ngModel)]="endDate" type="text" #endDateRef="ngModel" class="form-control" name="endDate">
+                                <div class="alert alert-danger" *ngIf="(endDateRef.touched || contestForm.submitted) && !endDateRef.valid">
+                                    End date is required.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="priceOne">1st Price</label>
+                                <input required [(ngModel)]="priceOne" type="text" #priceOneRef="ngModel" class="form-control" name="priceOne">
+                                <div class="alert alert-danger" *ngIf="(priceOneRef.touched || contestForm.submitted) && !priceOneRef.valid">
+                                    1st Price is required.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="priceTwo">2nd Price</label>
+                                <input required [(ngModel)]="priceTwo" type="text" #priceTwoRef="ngModel" class="form-control" name="priceTwo">
+                                <div class="alert alert-danger" *ngIf="(priceTwoRef.touched || contestForm.submitted) && !priceTwoRef.valid">
+                                    2nd Price is required.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="priceThree">3rd Price</label>
+                                <input required [(ngModel)]="priceThree" type="text" #priceThreeRef="ngModel" class="form-control" name="priceThree">
+                                <div class="alert alert-danger" *ngIf="(priceThreeRef.touched || contestForm.submitted) && !priceThreeRef.valid">
+                                    3rd ice is required.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="snafuPrice">SNAFU Price</label>
+                                <input required [(ngModel)]="snafuPrice" type="text" #snafuPriceRef="ngModel" class="form-control" name="snafuPrice">
+                                <div class="alert alert-danger" *ngIf="(snafuPriceRef.touched || contestForm.submitted) && !snafuPriceRef.valid">
+                                    SNAFU Price is required.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="btn btn-outline-primary pl-5 pr-5" type="submit">Create</button>
+                </form>
+            </div>
+        </div>
+    </div>
+ </div>

@@ -5,6 +5,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { OwlModule } from 'ngx-owl-carousel';
+import { EmbedVideo } from 'ngx-embed-video';
 @NgModule({
   declarations: [],
   imports: [
@@ -13,7 +14,8 @@ import { OwlModule } from 'ngx-owl-carousel';
     ToastrModule.forRoot(),
     HttpClientModule,
     FormsModule,
-    OwlModule
+    OwlModule,
+    EmbedVideo.forRoot()
   ],
   exports: [
     HttpClientModule,
@@ -21,7 +23,8 @@ import { OwlModule } from 'ngx-owl-carousel';
     BlockUIModule,
     ToastrModule,
     FormsModule,
-    OwlModule
+    OwlModule,
+    EmbedVideo
   ],
   providers: [
     HttpClientModule,

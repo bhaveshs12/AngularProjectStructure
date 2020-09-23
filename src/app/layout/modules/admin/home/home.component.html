@@ -1,3 +1,4 @@
+<block-ui message="Loading...">
 <div id="content-wrapper">
     <div class="container-fluid pb-0">
        <div class="top-category section-padding mb-4">
@@ -5,7 +6,7 @@
              <div class="col-md-12">
                 <div class="main-title">
                    <h6>Contest Topic of the Week</h6>
-                   <h4 class="font-weight-bold mt-2">What is most influential book all the time?</h4>
+                   <h4 *ngIf="ContestData != null" class="font-weight-bold mt-2">{{ContestData.name}}</h4>
                 </div>
              </div>
           </div>
@@ -20,29 +21,25 @@
                      Sort by <i class="fa fa-caret-down" aria-hidden="true"></i>
                      </a>
                      <div class="dropdown-menu dropdown-menu-right">
-                        <a class="dropdown-item" href="#"><i class="fas fa-fw fa-star"></i> &nbsp; Top Rated</a>
-                        <a class="dropdown-item" href="#"><i class="fas fa-fw fa-signal"></i> &nbsp; Viewed</a>
-                        <a class="dropdown-item" href="#"><i class="fas fa-fw fa-times-circle"></i> &nbsp; Close</a>
+                        <a class="dropdown-item" (click)="getExpertVideos('vote')">Top Votes</a>
+                        <a class="dropdown-item" (click)="getExpertVideos('hot')">Hottest</a>
+                        <a class="dropdown-item" (click)="getExpertVideos('recent')">Most Recent</a>
                      </div>
                   </div>
                   <h6 class="font-weight-bold">Expert Videos</h6>
                </div>
             </div>
             <div class="col-md-12 pr-0">
-               <owl-carousel  [carouselClasses]="['owl-theme', 'sliding']" [options]="sliderOptions">
-                  <div class="pr-4 item" *ngFor="let img of images">
+               <owl-carousel [items]="ExpertVideos" [carouselClasses]="['owl-theme', 'sliding']" [options]="sliderOptions">
+                  <div class="pr-4 item" *ngFor="let video of ExpertVideos">
                      <div class="video-card">
-                        <div class="video-card-image">
-                           <a class="play-icon" href="#"><i class="fas fa-play-circle"></i></a>
-                           <a href="#"><img class="img-fluid" [src]="img" alt=""></a>
-                           <div class="time">3:50</div>
-                        </div>
+                        <div class="video-card-image" [innerHtml]="video.url"></div>
                         <div class="video-card-body">
                            <div class="video-title">
-                              <a href="#">There are many variations of passages of Lorem</a>
+                              <a href="#">{{video.title}}</a>
                            </div>
                            <div class="video-view pt-3">
-                              1.8M views &nbsp;&nbsp;&nbsp; Upvotes: 2k
+                              Upvotes: {{video.up_vote}} &nbsp;&nbsp;&nbsp; Downvotes: {{video.down_vote}}
                            </div>
                         </div>
                      </div>
@@ -61,29 +58,25 @@
                      Sort by <i class="fa fa-caret-down" aria-hidden="true"></i>
                      </a>
                      <div class="dropdown-menu dropdown-menu-right">
-                        <a class="dropdown-item" href="#"><i class="fas fa-fw fa-star"></i> &nbsp; Top Rated</a>
-                        <a class="dropdown-item" href="#"><i class="fas fa-fw fa-signal"></i> &nbsp; Viewed</a>
-                        <a class="dropdown-item" href="#"><i class="fas fa-fw fa-times-circle"></i> &nbsp; Close</a>
+                        <a class="dropdown-item" (click)="getIntermediateVideos('vote')">Top Votes</a>
+                        <a class="dropdown-item" (click)="getIntermediateVideos('hot')">Hottest</a>
+                        <a class="dropdown-item" (click)="getIntermediateVideos('recent')">Most Recent</a>
                      </div>
                   </div>
                   <h6 class="font-weight-bold">Intermediate Videos</h6>
                </div>
             </div>
             <div class="col-md-12 pr-0">
-               <owl-carousel  [carouselClasses]="['owl-theme', 'sliding']" [options]="sliderOptions">
-                  <div class="pr-4 item" *ngFor="let img of images">
+               <owl-carousel [items]="IntermediateVideos" [carouselClasses]="['owl-theme', 'sliding']" [options]="sliderOptions">
+                  <div class="pr-4 item" *ngFor="let video of IntermediateVideos">
                      <div class="video-card">
-                        <div class="video-card-image">
-                           <a class="play-icon" href="#"><i class="fas fa-play-circle"></i></a>
-                           <a href="#"><img class="img-fluid" [src]="img" alt=""></a>
-                           <div class="time">3:50</div>
-                        </div>
+                        <div class="video-card-image" [innerHtml]="video.url"></div>
                         <div class="video-card-body">
                            <div class="video-title">
-                              <a href="#">There are many variations of passages of Lorem</a>
+                              <a href="#">{{video.title}}</a>
                            </div>
                            <div class="video-view pt-3">
-                              1.8M views &nbsp;&nbsp;&nbsp; Upvotes: 2k
+                              Upvotes: {{video.up_vote}} &nbsp;&nbsp;&nbsp; Downvotes: {{video.down_vote}}
                            </div>
                         </div>
                      </div>
@@ -102,29 +95,62 @@
                      Sort by <i class="fa fa-caret-down" aria-hidden="true"></i>
                      </a>
                      <div class="dropdown-menu dropdown-menu-right">
-                        <a class="dropdown-item" href="#"><i class="fas fa-fw fa-star"></i> &nbsp; Top Rated</a>
-                        <a class="dropdown-item" href="#"><i class="fas fa-fw fa-signal"></i> &nbsp; Viewed</a>
-                        <a class="dropdown-item" href="#"><i class="fas fa-fw fa-times-circle"></i> &nbsp; Close</a>
+                        <a class="dropdown-item" (click)="getBeginnerVideos('vote')">Top Votes</a>
+                        <a class="dropdown-item" (click)="getBeginnerVideos('hot')">Hottest</a>
+                        <a class="dropdown-item" (click)="getBeginnerVideos('recent')">Most Recent</a>
                      </div>
                   </div>
                   <h6 class="font-weight-bold">Beginner Videos</h6>
                </div>
             </div>
             <div class="col-md-12 pr-0">
-               <owl-carousel  [carouselClasses]="['owl-theme', 'sliding']" [options]="sliderOptions">
-                  <div class="pr-4 item" *ngFor="let img of images">
+               <owl-carousel [items]="BeginnerVideos" [carouselClasses]="['owl-theme', 'sliding']" [options]="sliderOptions">
+                  <div class="pr-4 item" *ngFor="let video of BeginnerVideos">
                      <div class="video-card">
-                        <div class="video-card-image">
-                           <a class="play-icon" href="#"><i class="fas fa-play-circle"></i></a>
-                           <a href="#"><img class="img-fluid" [src]="img" alt=""></a>
-                           <div class="time">3:50</div>
-                        </div>
+                        <div class="video-card-image" [innerHtml]="video.url"></div>
                         <div class="video-card-body">
                            <div class="video-title">
-                              <a href="#">There are many variations of passages of Lorem</a>
+                              <a href="#">{{video.title}}</a>
                            </div>
                            <div class="video-view pt-3">
-                              1.8M views &nbsp;&nbsp;&nbsp; Upvotes: 2k
+                              Upvotes: {{video.up_vote}} &nbsp;&nbsp;&nbsp; Downvotes: {{video.down_vote}}
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </owl-carousel>
+            </div>
+         </div>
+
+         <hr class="mt-4 mb-4">
+
+         <div class="row mt-4">
+            <div class="col-md-12">
+               <div class="main-title">
+                  <div class="btn-group float-right right-action">
+                     <a href="#" class="right-action-link text-gray" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                     Sort by <i class="fa fa-caret-down" aria-hidden="true"></i>
+                     </a>
+                     <div class="dropdown-menu dropdown-menu-right">
+                        <a class="dropdown-item" (click)="getSNAFUVideos('vote')">Top Votes</a>
+                        <a class="dropdown-item" (click)="getSNAFUVideos('hot')">Hottest</a>
+                        <a class="dropdown-item" (click)="getSNAFUVideos('recent')">Most Recent</a>
+                     </div>
+                  </div>
+                  <h6 class="font-weight-bold">SNAFU Videos</h6>
+               </div>
+            </div>
+            <div class="col-md-12 pr-0">
+               <owl-carousel [items]="SANFUVideos" [carouselClasses]="['owl-theme', 'sliding']" [options]="sliderOptions">
+                  <div class="pr-4 item" *ngFor="let video of SANFUVideos">
+                     <div class="video-card">
+                        <div class="video-card-image" [innerHtml]="video.url"></div>
+                        <div class="video-card-body">
+                           <div class="video-title">
+                              <a href="#">{{video.title}}</a>
+                           </div>
+                           <div class="video-view pt-3">
+                              Upvotes: {{video.up_vote}} &nbsp;&nbsp;&nbsp; Downvotes: {{video.down_vote}}
                            </div>
                         </div>
                      </div>
@@ -142,50 +168,14 @@
                   <h6 class="font-weight-bold">Upcoming Contets</h6>
                </div>
                <div class="row upcoming pb-5">
-                  <div class="col-sm-4 col-md-3 pr-4">
+                  <div class="col-sm-4 col-md-3 pr-4" *ngFor="let contest of UpcomingContests">
                      <div class="video-card">
                         <div class="video-card-body">
                            <div class="video-title pl-2">
-                              <a href="#">There are many variations of passages of Lorem</a>
+                              <a href="#">{{contest.name}}</a>
                            </div>
                            <div class="video-view">
-                              Aug 31 - Sep 5
-                           </div>
-                        </div>
-                     </div>
-                  </div>
-                  <div class="col-sm-4 col-md-3 pr-4">
-                     <div class="video-card">
-                        <div class="video-card-body">
-                           <div class="video-title pl-2">
-                              <a href="#">There are many variations of passages of Lorem</a>
-                           </div>
-                           <div class="video-view">
-                              Aug 31 - Sep 5
-                           </div>
-                        </div>
-                     </div>
-                  </div>
-                  <div class="col-sm-4 col-md-3 pr-4">
-                     <div class="video-card">
-                        <div class="video-card-body">
-                           <div class="video-title pl-2">
-                              <a href="#">There are many variations of passages of Lorem</a>
-                           </div>
-                           <div class="video-view">
-                              Aug 31 - Sep 5
-                           </div>
-                        </div>
-                     </div>
-                  </div>
-                  <div class="col-sm-4 col-md-3 pr-4">
-                     <div class="video-card">
-                        <div class="video-card-body">
-                           <div class="video-title pl-2">
-                              <a href="#">There are many variations of passages of Lorem</a>
-                           </div>
-                           <div class="video-view">
-                              Aug 31 - Sep 5
+                              {{contest.start_date_time | date: 'dd MMM'}} - {{contest.end_date_time | date: 'dd MMM'}}
                            </div>
                         </div>
                      </div>
@@ -195,4 +185,5 @@
          </div>
        </div>
     </div>
- </div>
+</div>
+</block-ui>

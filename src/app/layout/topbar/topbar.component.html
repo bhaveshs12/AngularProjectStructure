@@ -26,7 +26,8 @@
              <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal"><i class="fas fa-fw fa-sign-out-alt"></i> &nbsp; Logout</a>
           </div> -->
           <span><i class="far fa-bell fa-1x"></i></span>
-          <a href="#" class="ml-5">Connect to a Wallet</a>
+          <a *ngIf="status == 0" (click)="connectWallet()" style="cursor: pointer;" class="ml-5">Connect to a Wallet</a>
+          <a *ngIf="status == 1" class="ml-5 text-success">Connected to a Wallet</a>
        </li>
     </ul>
  </nav>

@@ -1,0 +1,69 @@
+<div id="content-wrapper">
+    <div class="container-fluid pb-0">
+        <div class="top-category section-padding mb-4">
+            <div class="row">
+               <div class="col-md-12">
+                  <div class="main-title">
+                      <div class="btn-group float-right right-action">
+                            <button class="btn btn-outline-primary">Send Tokens</button>
+                      </div>
+                      <h6 class="font-weight-bold mb-0" style="display:inline">Good Voters</h6>
+                      <a *ngIf="selectedLength !== checkBoxes.length" (click)="selectAll()" class="ml-4">Select All</a>
+                      <a *ngIf="selectedLength === checkBoxes.length" (click)="unSelectAll()" class="ml-4">Unselect All</a>
+                   </div>
+               </div>
+            </div>
+            <div class="row pt-5">
+                <div class="col-md-8">
+                   <div class="main-title">
+                        <div class="custom-control custom-checkbox">
+                            <input (change)="onChange($event.target.checked)" type="checkbox" class="custom-control-input" name="options" [(ngModel)]="checkBoxes[0].value" [id]="checkBoxes[0].name" >
+                            <label class="custom-control-label" [for]="checkBoxes[0].name">0xBeBE1538eb2b61C2CF6bCe309b7649435DdB57F2</label>
+                            <p class="mt-2">
+                                Jon
+                            </p>
+                        </div>
+                   </div>
+                </div>
+                <div class="col-md-4 pt-1 text-right">
+                    <button class="btn btn-outline-primary">Send Tokens</button>
+                </div>
+            </div>
+            <hr class="mt-4 mb-4">
+            <div class="row pt-5">
+                <div class="col-md-8">
+                   <div class="main-title">
+                        <div class="custom-control custom-checkbox">
+                            <input (change)="onChange($event.target.checked)" type="checkbox" class="custom-control-input" name="options" [(ngModel)]="checkBoxes[1].value" [id]="checkBoxes[1].name">
+                            <label class="custom-control-label" [for]="checkBoxes[1].name">0xBeBE1538eb2b61C2CF6bCe309b7649435DdB57F2</label>
+                            <p class="mt-2">
+                                Jon
+                            </p>
+                        </div>
+                   </div>
+                </div>
+                <div class="col-md-4 pt-1 text-right">
+                    <button class="btn btn-outline-primary">Send Tokens</button>
+                </div>
+            </div>
+            <hr class="mt-4 mb-4">
+            <div class="row pt-5">
+                <div class="col-md-8">
+                   <div class="main-title">
+                        <div class="custom-control custom-checkbox">
+                            <input (change)="onChange($event.target.checked)" type="checkbox" class="custom-control-input" name="options" [(ngModel)]="checkBoxes[2].value" [id]="checkBoxes[2].name">
+                            <label class="custom-control-label" [for]="checkBoxes[2].name">0xBeBE1538eb2b61C2CF6bCe309b7649435DdB57F2</label>
+                            <p class="mt-2">
+                                Jon
+                            </p>
+                        </div>
+                   </div>
+                </div>
+                <div class="col-md-4 pt-1 text-right">
+                    <button class="btn btn-outline-primary">Send Tokens</button>
+                </div>
+            </div>
+            <hr class="mt-4 mb-4">
+        </div>
+    </div>
+ </div>

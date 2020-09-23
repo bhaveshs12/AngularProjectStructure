@@ -490,18 +490,10 @@
  .border-none{
      border: none;
 }
- .bg-primary, .btn-primary, .btn-outline-primary:hover, .badge-primary {
-     border-color: transparent !important;
-     background: #ff516b;
-    /* Old browsers */
-     background: -moz-linear-gradient(-45deg, #ff516b 0%, #826cfd 100%);
-    /* FF3.6-15 */
-     background: -webkit-linear-gradient(-45deg, #ff516b 0%,#826cfd 100%);
-    /* Chrome10-25,Safari5.1-6 */
-     background: linear-gradient(135deg, #ff516b 0%,#826cfd 100%);
-    /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ff516b', endColorstr='#826cfd',GradientType=1 );
-    /* IE6-9 fallback on horizontal gradient */
+.btn-outline-primary:hover {
+    background-color: #fff !important;
+    border-color: #ff516b;
+    color: #ff516b;
 }
  .btn-outline-primary{
      border-color: #ff516b;
@@ -1831,4 +1823,13 @@
 }
 hr{
     border-top: 2px solid rgba(192,192,192,0.5);
+}
+.alert-danger {
+    margin-top:5px;
+}
+.dropdown-item{
+    cursor: pointer;
+}
+:ng-deep.html5-main-video{
+    width: 100% !important;
 }

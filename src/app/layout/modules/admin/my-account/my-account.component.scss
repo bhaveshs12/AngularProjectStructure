@@ -1,0 +1,15 @@
+.customBtn a {
+    color: #ff0000;
+    margin-right: 50px;
+    font-weight: 700;
+}
+
+.customBtn a.activeBtn {
+    color: #ff0000;
+    padding-bottom:2px;
+    border-bottom: 3px solid #ff0000;
+}
+
+.bgWhite {
+    background-color: #fff;
+}
