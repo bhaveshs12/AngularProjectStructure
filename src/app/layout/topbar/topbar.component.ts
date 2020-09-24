@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import $ from 'jQuery';
 import { ToastrService } from 'ngx-toastr';
-import { BlockUI, NgBlockUI } from 'ng-block-ui';
+import { NgxSpinnerService } from "ngx-spinner";
 import { ApiRequestService } from '../../services/api-request.service';
 @Component({
   selector: 'app-topbar',
@@ -11,8 +11,7 @@ import { ApiRequestService } from '../../services/api-request.service';
 export class TopbarComponent implements OnInit {
 
   status:any = 0;
-  @BlockUI() blockUI: NgBlockUI;
-  constructor(private api: ApiRequestService, private toastr: ToastrService) { 
+  constructor(private spinner: NgxSpinnerService, private api: ApiRequestService, private toastr: ToastrService) { 
   }
 
   ngOnInit() {
@@ -30,7 +29,7 @@ export class TopbarComponent implements OnInit {
   }
 
   async addUser(address) {
-    this.blockUI.start();
+    this.spinner.show();
     let params = {
       eth_address: address
     }
@@ -39,10 +38,10 @@ export class TopbarComponent implements OnInit {
         window['web3']['eth']['defaultAccount'] = address;
         this.status = 1;
         this.toastr.success("Your wallet connected successfully!", 'Connect Your Wallet');
-        this.blockUI.stop();
+        this.spinner.hide();
       }
       else {
-        this.blockUI.stop();
+        this.spinner.hide();
         this.toastr.error('Add User', 'Failed to Process !');
       }
     });

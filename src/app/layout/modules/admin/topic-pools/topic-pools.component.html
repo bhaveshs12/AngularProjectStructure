@@ -1,52 +1,51 @@
-<block-ui message="Loading...">
-   <div id="content-wrapper">
-      <div class="container-fluid pb-0">
-         <div class="top-category section-padding mb-4">
-            <div class="row">
-               <div class="col-md-12">
-                  <div class="main-title">
-                     <div class="btn-group float-right right-action">
-                        <a href="#" class="right-action-link text-gray" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Sort by <i class="fa fa-caret-down" aria-hidden="true"></i>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-right">
-                           <a class="dropdown-item" (click)="getTopicPools('vote')">Top Votes</a>
-                           <a class="dropdown-item" (click)="getTopicPools('hot')">Hottest</a>
-                           <a class="dropdown-item" (click)="getTopicPools('recent')">Most Recent</a>
-                        </div>
-                        </div>
-                     <h4 class="font-weight-bold mt-2">Topics Pool</h4>
-                  </div>
-               </div>
-            </div>
-         </div>
-
-         <div class="row" *ngIf="ContestData != null">
-            <div class="col-md-12 mt-4">
+<ngx-spinner type = "ball-spin" color = "#fff" bdColor = "rgba(0,0,0,0.4)" size = "default" [fullScreen] = "false"><p style="color: white" > Loading... </p></ngx-spinner>
+<div id="content-wrapper">
+   <div class="container-fluid pb-0">
+      <div class="top-category section-padding mb-4">
+         <div class="row">
+            <div class="col-md-12">
                <div class="main-title">
-                  <p class="font-weight-bold mb-0" style="color: #000"><span class="text-success pr-3">#Winner</span>{{ContestData.name}}</p>
-                  <p style="font-size:10px;color:#ACACAC">Rising</p>
-                  <!-- <div class="mt-4">
-                     <a style="color: #000" class="btn btn-outline-primary" routerLink="/createContest">Create Contest</a>
-                  </div> -->
+                  <div class="btn-group float-right right-action">
+                     <a href="#" class="right-action-link text-gray" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                     Sort by <i class="fa fa-caret-down" aria-hidden="true"></i>
+                     </a>
+                     <div class="dropdown-menu dropdown-menu-right">
+                        <a class="dropdown-item" (click)="getTopicPools('vote')">Top Votes</a>
+                        <a class="dropdown-item" (click)="getTopicPools('hot')">Hottest</a>
+                        <a class="dropdown-item" (click)="getTopicPools('recent')">Most Recent</a>
+                     </div>
+                     </div>
+                  <h4 class="font-weight-bold mt-2">Topics Pool</h4>
                </div>
-               <hr class="mt-4 mb-4">
-            </div>
-         </div>
-
-         <div class="row" *ngFor="let topic of poolsData; let i = index;">
-            <div *ngIf="ContestData.id != topic.id" class="col-md-12 mt-4">
-               <div class="main-title">
-                  <p class="font-weight-bold mb-0" style="color: #000"><span class="text-success pr-3">#{{topic.id}}</span>{{topic.name}}</p>
-                  <p style="font-size:10px;color:#ACACAC">{{(topic.currentCount - topic.prevCount) >= 0 ? 'Rising' : 'Failing'}}</p>
-                  <!-- <p>{{topic.description}}</p> -->
-                  <!-- <div class="mt-4">
-                     <a style="color: #000" class="btn btn-outline-primary" routerLink="/createContest">Create Contest</a>
-                  </div> -->
-               </div>
-               <hr class="mt-4 mb-4">
             </div>
          </div>
       </div>
+
+      <div class="row" *ngIf="ContestData != null">
+         <div class="col-md-12 mt-4">
+            <div class="main-title">
+               <p class="font-weight-bold mb-0" style="color: #000"><span class="text-success pr-3">#Winner</span>{{ContestData.name}}</p>
+               <p style="font-size:10px;color:#ACACAC">Rising</p>
+               <!-- <div class="mt-4">
+                  <a style="color: #000" class="btn btn-outline-primary" routerLink="/createContest">Create Contest</a>
+               </div> -->
+            </div>
+            <hr class="mt-4 mb-4">
+         </div>
+      </div>
+
+      <div class="row" *ngFor="let topic of poolsData; let i = index;">
+         <div *ngIf="ContestData.id != topic.id" class="col-md-12 mt-4">
+            <div class="main-title">
+               <p class="font-weight-bold mb-0" style="color: #000"><span class="text-success pr-3">#{{topic.id}}</span>{{topic.name}}</p>
+               <p style="font-size:10px;color:#ACACAC">{{(topic.currentCount - topic.prevCount) >= 0 ? 'Rising' : 'Failing'}}</p>
+               <!-- <p>{{topic.description}}</p> -->
+               <!-- <div class="mt-4">
+                  <a style="color: #000" class="btn btn-outline-primary" routerLink="/createContest">Create Contest</a>
+               </div> -->
+            </div>
+            <hr class="mt-4 mb-4">
+         </div>
+      </div>
    </div>
-</block-ui>
+</div>

@@ -7,9 +7,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AddEditContestComponent implements OnInit {
 
+  contestName:any;
+  type:any;
+  about:any;
+  startDate:any;
+  endDate:any;
+  priceOne:any;
+  priceTwo:any;
+  priceThree:any;
+  snafuPrice:any;
+
   constructor() { }
 
   ngOnInit() {
   }
 
+  submit() {}
 }

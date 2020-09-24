@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiRequestService } from '../../../../services/api-request.service';
 import { AdminService } from '../../../../services/admin-service';
-import { BlockUI, NgBlockUI } from 'ng-block-ui';
+import { NgxSpinnerService } from "ngx-spinner";
 import { ToastrService } from 'ngx-toastr';
 import { EmbedVideoService } from 'ngx-embed-video';
 
@@ -12,7 +12,6 @@ import { EmbedVideoService } from 'ngx-embed-video';
 })
 export class HomeComponent implements OnInit {
 
-  @BlockUI() blockUI: NgBlockUI;
   ContestData:any = null;
   ExpertVideos:any = [];
   BeginnerVideos:any = [];
@@ -48,7 +47,7 @@ export class HomeComponent implements OnInit {
     },
   }
 
-  constructor(private api: ApiRequestService, private adminService: AdminService, private toastr: ToastrService, private embedService: EmbedVideoService) { 
+  constructor(private spinner: NgxSpinnerService, private api: ApiRequestService, private adminService: AdminService, private toastr: ToastrService, private embedService: EmbedVideoService) { 
   }
 
   ngOnInit() {
@@ -57,12 +56,12 @@ export class HomeComponent implements OnInit {
 
   stopLoader() {
     setTimeout(() => {
-      this.blockUI.stop();
+      this.spinner.hide();
     }, 1100);
   }
 
   getExpertVideos(sortType) {
-    this.blockUI.start();
+    this.spinner.show();
     let params = {
       type: 'Expert',
       id: this.ContestData.id,
@@ -87,7 +86,7 @@ export class HomeComponent implements OnInit {
   }
 
   getIntermediateVideos(sortType) {
-    this.blockUI.start();
+    this.spinner.show();
     let params = {
       type: 'Intermediate',
       id: this.ContestData.id,
@@ -112,7 +111,7 @@ export class HomeComponent implements OnInit {
   }
 
   getBeginnerVideos(sortType) {
-    this.blockUI.start();
+    this.spinner.show();
     let params = {
       type: 'Beginner',
       id: this.ContestData.id,
@@ -137,7 +136,7 @@ export class HomeComponent implements OnInit {
   }
 
   getSNAFUVideos(sortType) {
-    this.blockUI.start();
+    this.spinner.show();
     let params = {
       type: 'SNAFU',
       id: this.ContestData.id,
@@ -162,7 +161,7 @@ export class HomeComponent implements OnInit {
   }
 
   getUpcomingContests() {
-    this.blockUI.start();
+    this.spinner.show();
     let body = this.adminService.getUpComingContest();
     this.api.post("crud/contest", body).subscribe((response :  any) => {
       if(response.statusCode == 200) {
@@ -177,7 +176,7 @@ export class HomeComponent implements OnInit {
   }
 
   getCurrentContest() {
-    this.blockUI.start();
+    this.spinner.show();
     let body = this.adminService.getCurrentContest(null);
     this.api.post("crud/contest", body).subscribe((response :  any) => {
       if(response.statusCode == 200) {
