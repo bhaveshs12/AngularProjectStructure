@@ -38,7 +38,7 @@
             <div *ngIf="ContestData.id != topic.id" class="col-md-12 mt-4">
                <div class="main-title">
                   <p class="font-weight-bold mb-0" style="color: #000"><span class="text-success pr-3">#{{topic.id}}</span>{{topic.name}}</p>
-                  <p style="font-size:10px;color:#ACACAC">Rising</p>
+                  <p style="font-size:10px;color:#ACACAC">{{(topic.currentCount - topic.prevCount) >= 0 ? 'Rising' : 'Failing'}}</p>
                   <!-- <p>{{topic.description}}</p> -->
                   <!-- <div class="mt-4">
                      <a style="color: #000" class="btn btn-outline-primary" routerLink="/createContest">Create Contest</a>

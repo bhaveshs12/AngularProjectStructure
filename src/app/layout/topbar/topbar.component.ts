@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import $ from 'jQuery';
 import { ToastrService } from 'ngx-toastr';
+import { BlockUI, NgBlockUI } from 'ng-block-ui';
+import { ApiRequestService } from '../../services/api-request.service';
 @Component({
   selector: 'app-topbar',
   templateUrl: './topbar.component.html',
@@ -9,7 +11,8 @@ import { ToastrService } from 'ngx-toastr';
 export class TopbarComponent implements OnInit {
 
   status:any = 0;
-  constructor(private toastr: ToastrService) { 
+  @BlockUI() blockUI: NgBlockUI;
+  constructor(private api: ApiRequestService, private toastr: ToastrService) { 
   }
 
   ngOnInit() {
@@ -26,13 +29,31 @@ export class TopbarComponent implements OnInit {
     }
   }
 
+  async addUser(address) {
+    this.blockUI.start();
+    let params = {
+      eth_address: address
+    }
+    this.api.post("user/add-user", params).subscribe((response :  any) => {
+      if(response.statusCode == 200) {
+        window['web3']['eth']['defaultAccount'] = address;
+        this.status = 1;
+        this.toastr.success("Your wallet connected successfully!", 'Connect Your Wallet');
+        this.blockUI.stop();
+      }
+      else {
+        this.blockUI.stop();
+        this.toastr.error('Add User', 'Failed to Process !');
+      }
+    });
+  }
+
   async connectWallet() {
     if(window['ethereum'] != undefined) {
       try {
         const account = await window['ethereum'].enable();
         console.log(account); // account's will be in array
-        window['web3']['eth']['defaultAccount'] = account[0];
-        this.status = 1;
+        this.addUser(account[0]);
       }
       catch(err) {
         this.toastr.warning(err.message, 'Connect Your Wallet');
