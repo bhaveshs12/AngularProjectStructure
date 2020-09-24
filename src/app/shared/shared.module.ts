@@ -6,6 +6,7 @@ import { FormsModule } from '@angular/forms';
 import { OwlModule } from 'ngx-owl-carousel';
 import { EmbedVideo } from 'ngx-embed-video';
 import { NgxSpinnerModule } from "ngx-spinner";
+import {NgxPaginationModule} from 'ngx-pagination';
 @NgModule({
   declarations: [],
   imports: [
@@ -15,7 +16,8 @@ import { NgxSpinnerModule } from "ngx-spinner";
     FormsModule,
     OwlModule,
     EmbedVideo.forRoot(),
-    NgxSpinnerModule
+    NgxSpinnerModule,
+    NgxPaginationModule
   ],
   exports: [
     HttpClientModule,
@@ -24,7 +26,8 @@ import { NgxSpinnerModule } from "ngx-spinner";
     FormsModule,
     OwlModule,
     NgxSpinnerModule,
-    EmbedVideo
+    EmbedVideo,
+    NgxPaginationModule
   ],
   providers: [
     HttpClientModule,

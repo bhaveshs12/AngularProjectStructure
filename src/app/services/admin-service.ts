@@ -92,4 +92,23 @@ export class AdminService {
             }
         }
     }
+
+    getContestHistory(data) {
+        return {
+            select: "contest.id, contest.created_at, contest.type, contest.start_date_time, contest.end_date_time, contest.total_up_vote, contest.total_down_vote, topic.name, topic.id AS topicId",
+            where: "DATE(contest.end_date_time) < DATE('"+moment().add(1, 'month').format('YYYY-MM-DD')+"') AND DATE('"+moment().add(1, 'month').format('YYYY-MM-DD')+"') NOT BETWEEN contest.start_date_time AND contest.end_date_time ",
+            join: [{
+              "type": "INNER",
+              "join_table": "topic",
+              "on_join_table": "id",
+              "on_from": "topic_id"
+            }],
+            search: {
+                "contest.name": data.search
+            },
+            sort_by: data.type == 'vote' ? 'contest.total_up_vote - contest.total_down_vote' : 'DATE(contest.created_at)',
+            sort_order: "DESC",
+            limit: data.limit
+        }
+    }
 }

@@ -22,8 +22,9 @@ export class TopbarComponent implements OnInit {
     });
 
     if(window['web3'] != undefined && window['web3']['eth'] != undefined) {
-      if(window['web3']['eth']['defaultAccount'] != null && window['web3']['eth']['defaultAccount'].length > 0) {
+      if(window['web3']['eth']['defaultAccount'] != null && window['web3']['eth']['defaultAccount'] != "") {
         this.status = 1;
+        this.addUser(window['web3']['eth']['defaultAccount'])
       }
     }
   }
@@ -37,7 +38,7 @@ export class TopbarComponent implements OnInit {
       if(response.statusCode == 200) {
         window['web3']['eth']['defaultAccount'] = address;
         this.status = 1;
-        this.toastr.success("Your wallet connected successfully!", 'Connect Your Wallet');
+        // this.toastr.success("Your wallet connected successfully!", 'Connect Your Wallet');
         this.spinner.hide();
       }
       else {

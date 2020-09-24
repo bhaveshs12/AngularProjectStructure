@@ -70,12 +70,13 @@ export class HomeComponent implements OnInit {
     let body = this.adminService.getHomePageVideos(params);
     this.api.post("crud/video", body).subscribe((response :  any) => {
       if(response.statusCode == 200) {
-        if(response.result.length > 0) {
-          response.result.forEach(element => {
+        let details = response.result.data;
+        if(details.length > 0) {
+          details.forEach(element => {
             element.url = this.embedService.embed(element.youtube_url, { attr:{width: '100%'}});
           });
         }
-        this.ExpertVideos = response.result;
+        this.ExpertVideos = details;
         this.stopLoader();
       }
       else {
@@ -95,12 +96,13 @@ export class HomeComponent implements OnInit {
     let body = this.adminService.getHomePageVideos(params);
     this.api.post("crud/video", body).subscribe((response :  any) => {
       if(response.statusCode == 200) {
-        if(response.result.length > 0) {
-          response.result.forEach(element => {
+        let details = response.result.data;
+        if(details.length > 0) {
+          details.forEach(element => {
             element.url = this.embedService.embed(element.youtube_url);
           });
         }
-        this.IntermediateVideos = response.result;
+        this.IntermediateVideos = details;
         this.stopLoader();
       }
       else {
@@ -120,12 +122,13 @@ export class HomeComponent implements OnInit {
     let body = this.adminService.getHomePageVideos(params);
     this.api.post("crud/video", body).subscribe((response :  any) => {
       if(response.statusCode == 200) {
-        if(response.result.length > 0) {
-          response.result.forEach(element => {
+        let details = response.result.data;
+        if(details.length > 0) {
+          details.forEach(element => {
             element.url = this.embedService.embed(element.youtube_url);
           });
         }
-        this.BeginnerVideos = response.result;
+        this.BeginnerVideos = details;
         this.stopLoader();
       }
       else {
@@ -145,12 +148,13 @@ export class HomeComponent implements OnInit {
     let body = this.adminService.getHomePageVideos(params);
     this.api.post("crud/video", body).subscribe((response :  any) => {
       if(response.statusCode == 200) {
-        if(response.result.length > 0) {
-          response.result.forEach(element => {
+        let details = response.result.data;
+        if(details.length > 0) {
+          details.forEach(element => {
             element.url = this.embedService.embed(element.youtube_url);
           });
         }
-        this.SANFUVideos = response.result;
+        this.SANFUVideos = details;
         this.stopLoader();
       }
       else {
@@ -165,7 +169,7 @@ export class HomeComponent implements OnInit {
     let body = this.adminService.getUpComingContest();
     this.api.post("crud/contest", body).subscribe((response :  any) => {
       if(response.statusCode == 200) {
-        this.UpcomingContests = response.result;
+        this.UpcomingContests = response.result.data;
         this.stopLoader();
       }
       else {
@@ -180,7 +184,7 @@ export class HomeComponent implements OnInit {
     let body = this.adminService.getCurrentContest(null);
     this.api.post("crud/contest", body).subscribe((response :  any) => {
       if(response.statusCode == 200) {
-        this.ContestData = response.result.length > 0 ? response.result[0] : null;
+        this.ContestData = response.result.data.length > 0 ? response.result.data[0] : null;
         this.stopLoader();
         this.getExpertVideos('vote');
         this.getIntermediateVideos('vote');

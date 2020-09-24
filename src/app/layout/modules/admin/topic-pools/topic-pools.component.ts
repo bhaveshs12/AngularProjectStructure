@@ -27,8 +27,7 @@ export class TopicPoolsComponent implements OnInit {
     let body = this.adminService.getTopicPools(params);
     this.api.post("crud/topic", body).subscribe((response :  any) => {
       if(response.statusCode == 200) {
-        this.poolsData = response.result;
-        console.log(this.poolsData);
+        this.poolsData = response.result.data;
         this.spinner.hide();
       }
       else {
@@ -44,7 +43,7 @@ export class TopicPoolsComponent implements OnInit {
     this.api.post("crud/contest", body).subscribe((response :  any) => {
       if(response.statusCode == 200) {
         this.spinner.hide();
-        this.ContestData = response.result.length > 0 ? response.result[0] : null;
+        this.ContestData = response.result.data.length > 0 ? response.result.data[0] : null;
         this.getTopicPools('vote');
       }
       else {
