@@ -1,3 +1,4 @@
+<ngx-spinner type = "ball-spin" color = "#fff" bdColor = "rgba(0,0,0,0.4)" size = "default" [fullScreen] = "false"><p style="color: white" > Loading... </p></ngx-spinner>
 <div id="content-wrapper">
     <div class="container-fluid pb-0">
         <div class="top-category section-padding mb-4">
@@ -9,60 +10,36 @@
                         Sort by <i class="fa fa-caret-down" aria-hidden="true"></i>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right">
-                        <a class="dropdown-item" href="#"><i class="fas fa-fw fa-star"></i> &nbsp; Top Rated</a>
-                        <a class="dropdown-item" href="#"><i class="fas fa-fw fa-signal"></i> &nbsp; Viewed</a>
-                        <a class="dropdown-item" href="#"><i class="fas fa-fw fa-times-circle"></i> &nbsp; Close</a>
+                           <a class="dropdown-item" (click)="getUserList('name', 0)">Name</a>
+                           <a class="dropdown-item" (click)="getUserList('address', 0)">Ether Address</a>
                         </div>
                       </div>
                       <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-5 my-2 my-md-0 osahan-navbar-search">
-                            <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Search for...">
-                            <div class="input-group-append">
-                                <button class="btn btn-light" type="button">
-                                <i class="fas fa-search"></i> 
-                                </button>
-                            </div>
-                            </div>
+                           <div class="input-group">
+                              <input (keydown.enter)="getUserList('name', 0)" name="searchText" [(ngModel)]="searchText" type="text" class="form-control" placeholder="Search for...">
+                              <div class="input-group-append">
+                                 <button (click)="getUserList('name', 0)" class="btn btn-light" type="button">
+                                 <i class="fas fa-search"></i> 
+                                 </button>
+                              </div>
+                           </div>
                         </form>
                    </div>
                </div>
             </div>
-            <div class="row pt-5">
+            <div *ngFor="let user of usersList | paginate: { id: 'contentPagination', itemsPerPage: itemsPerPage, currentPage: currentPage, totalItems: totalRecords };" class="row pt-5">
                 <div class="col-md-8">
                    <div class="main-title">
-                      <p class="font-weight-bold mb-0" style="color: #000">0xBeBE1538eb2b61C2CF6bCe309b7649435DdB57F2</p>
-                      <p style="font-size:10px;color:#ACACAC">Jon</p>
+                      <p class="font-bold-600 mb-0" style="color: #000">{{user.eth_address}}</p>
+                      <p style="font-size:10px;color:#000">{{user.display_name}}</p>
                    </div>
                 </div>
                 <div class="col-md-4 pt-1 text-right">
-                        <button class="btn btn-outline-primary">View Profile</button>
+                        <a routerLink="/myAccount/{{user.id}}" class="btn btn-outline-primary">View Profile</a>
                 </div>
-             </div>
-             <hr class="mt-4 mb-4">
-             <div class="row mt-4">
-                <div class="col-md-8">
-                   <div class="main-title">
-                      <p class="font-weight-bold mb-0" style="color: #000">0xBeBE1538eb2b61C2CF6bCe309b7649435DdB57F2</p>
-                      <p style="font-size:10px;color:#ACACAC">Jon</p>
-                   </div>
-                </div>
-                <div class="col-md-4 pt-1 text-right">
-                        <button class="btn btn-outline-primary">View Profile</button>
-                </div>
-             </div>
-             <hr class="mt-4 mb-4">
-             <div class="row mt-4">
-                <div class="col-md-8">
-                   <div class="main-title">
-                      <p class="font-weight-bold mb-0" style="color: #000">0xBeBE1538eb2b61C2CF6bCe309b7649435DdB57F2</p>
-                      <p style="font-size:10px;color:#ACACAC">Jon</p>
-                   </div>
-                </div>
-                <div class="col-md-4 pt-1 text-right">
-                        <button class="btn btn-outline-primary">View Profile</button>
-                </div>
-             </div>
-             <hr class="mt-4 mb-4">
+                <hr class="mt-4 mb-4">
+            </div>
+            <pagination-controls id="contentPagination" class="text-center" (pageChange)="pagignation($event)"></pagination-controls>
         </div>
     </div>
  </div>

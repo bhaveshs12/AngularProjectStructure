@@ -6,24 +6,25 @@
                <div class="col-md-12">
                   <div class="main-title">
                       <div class="btn-group float-right right-action">
-                        <a routerLink="/winners" class="right-action-link text-gray mr-5">Winners</a>
-                        <a routerLink="/goodVoters" class="right-action-link text-gray mr-5">Good Voters</a>
+                        <a *ngIf="userData != undefined && userData.role_id == 1" routerLink="/winners" class="right-action-link text-gray mr-5">Winners</a>
+                        <a *ngIf="userData != undefined && userData.role_id == 1" routerLink="/goodVoters" class="right-action-link text-gray mr-5">Good Voters</a>
                         <a href="#" class="right-action-link text-gray" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Sort by <i class="fa fa-caret-down" aria-hidden="true"></i>
+                        Filter by <i class="fa fa-caret-down" aria-hidden="true"></i>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right">
-                           <a class="dropdown-item" (click)="getContestHistory('vote')">Top Votes</a>
-                           <a class="dropdown-item" (click)="getContestHistory('recent')">Most Recent</a>
+                           <a class="dropdown-item" (click)="getContestHistory('main', 0)">Main Contest</a>
+                           <a class="dropdown-item" (click)="getContestHistory('public', 0)">Public Side Contest</a>
+                           <a class="dropdown-item" (click)="getContestHistory('private', 0)">Private Side Contest</a>
                         </div>
                       </div>
                       <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-5 my-2 my-md-0 osahan-navbar-search">
                             <div class="input-group">
-                            <input (keydown.enter)="getContestHistory()" name="searchText" [(ngModel)]="searchText" type="text" class="form-control" placeholder="Search for...">
-                            <div class="input-group-append">
-                                <button (click)="getContestHistory()" class="btn btn-light" type="button">
-                                <i class="fas fa-search"></i> 
-                                </button>
-                            </div>
+                              <input (keydown.enter)="getContestHistory('main', 0)" name="searchText" [(ngModel)]="searchText" type="text" class="form-control" placeholder="Search for...">
+                              <div class="input-group-append">
+                                 <button (click)="getContestHistory('main', 0)" class="btn btn-light" type="button">
+                                 <i class="fas fa-search"></i> 
+                                 </button>
+                              </div>
                             </div>
                         </form>
                    </div>
@@ -35,11 +36,11 @@
          <div class="row">
             <div class="col-md-12">
                <div class="row upcoming pb-5">
-                  <div *ngFor="let contest of historyData | paginate: { id: 'contentPagination', itemsPerPage: 2, currentPage: currentPage, totalItems: totalRecords };" class="col-sm-4 col-md-3 pr-4">
+                  <div *ngFor="let contest of historyData | paginate: { id: 'contentPagination', itemsPerPage: itemsPerPage, currentPage: currentPage, totalItems: totalRecords };" class="col-sm-4 col-md-3 pr-4 mt-5">
                      <div class="video-card">
                         <div class="video-card-body">
                            <div class="video-title pl-2">
-                              <a href="javascript:void(0);">{{contest.name}}</a>
+                              <a routerLink="/contestDetails/{{contest.id}}">{{contest.name}}</a>
                            </div>
                            <div class="video-view">
                               {{contest.start_date_time | date: 'dd MMM'}} - {{contest.end_date_time | date: 'dd MMM'}}

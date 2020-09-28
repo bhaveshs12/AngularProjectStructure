@@ -13,3 +13,7 @@
 .bgWhite {
     background-color: #fff;
 }
+
+.btn-outline-primary.disabled, .btn-outline-primary:disabled {
+    color: #ff0000;
+}

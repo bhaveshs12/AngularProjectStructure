@@ -15,7 +15,7 @@
                         <a class="dropdown-item" (click)="getTopicPools('recent')">Most Recent</a>
                      </div>
                      </div>
-                  <h4 class="font-weight-bold mt-2">Topics Pool</h4>
+                  <h4 class="font-bold-600 font-16 mt-2">Topics Pool</h4>
                </div>
             </div>
          </div>
@@ -24,7 +24,7 @@
       <div class="row" *ngIf="ContestData != null">
          <div class="col-md-12 mt-4">
             <div class="main-title">
-               <p class="font-weight-bold mb-0" style="color: #000"><span class="text-success pr-3">#Winner</span>{{ContestData.name}}</p>
+               <p class="font-bold-600 mb-0" style="color: #000"><span class="text-success pr-3">#Winner</span>{{ContestData.name}}</p>
                <p style="font-size:10px;color:#ACACAC">Rising</p>
                <!-- <div class="mt-4">
                   <a style="color: #000" class="btn btn-outline-primary" routerLink="/createContest">Create Contest</a>
@@ -37,7 +37,7 @@
       <div class="row" *ngFor="let topic of poolsData; let i = index;">
          <div *ngIf="ContestData.id != topic.id" class="col-md-12 mt-4">
             <div class="main-title">
-               <p class="font-weight-bold mb-0" style="color: #000"><span class="text-success pr-3">#{{topic.id}}</span>{{topic.name}}</p>
+               <p class="font-bold-600 mb-0" style="color: #000"><span class="text-success pr-3">#{{topic.id}}</span>{{topic.name}}</p>
                <p style="font-size:10px;color:#ACACAC">{{(topic.currentCount - topic.prevCount) >= 0 ? 'Rising' : 'Failing'}}</p>
                <!-- <p>{{topic.description}}</p> -->
                <!-- <div class="mt-4">

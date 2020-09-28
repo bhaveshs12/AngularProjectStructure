@@ -4,15 +4,47 @@
        <div class="top-category section-padding mb-4">
           <div class="row">
              <div class="col-md-12">
-                <div class="main-title">
-                   <h6 class="font-bold-400 font-16">Contest Topic of the Week</h6>
-                   <h4 *ngIf="ContestData != null" class="font-bold-600 font-20 mt-3">{{ContestData.name}}</h4>
+                <div class="main-title" *ngIf="ContestData != null">
+                   <h4 class="font-bold-600 font-20 mt-3">{{ContestData.name}}</h4>
+                   <p style="font-size:11px">{{ContestData.start_date_time | date:'longDate'}} - {{ContestData.end_date_time | date:'longDate'}}</p>
+                   <p *ngIf="ContestData.description != null" style="font-size:11px" class="mt-5">
+                     {{ContestData.description}}
+                   </p>
                 </div>
              </div>
           </div>
        </div>
        <hr class="mt-4 mb-4">
        <div class="video-block section-padding">
+
+         <div class="row">
+            <div class="col-md-12">
+               <div class="main-title">
+                  <h6 class="font-bold-600 font-16">Winners</h6>
+               </div>
+            </div>
+            <div class="col-md-12 pr-0">
+               <owl-carousel [items]="Winners" [carouselClasses]="['owl-theme', 'sliding']" [options]="sliderOptions">
+                  <div class="pr-4 item" *ngFor="let video of Winners">
+                     <div class="video-card">
+                        <div class="video-card-image" [innerHtml]="video.url"></div>
+                        <div class="video-card-body" style="position: relative;">
+                           <span class="pl-2 pr-2 pt-1 pb-1" style="color: #fff; background-color: #F5234A; position: absolute; right:5px; top: -35px;">{{video.type}}</span>
+                           <div class="video-title">
+                              <a href="javascript:void(0)">{{video.title}}</a>
+                           </div>
+                           <div class="pt-2">
+                              <a href="javascript:void(0)">Send awards tokens</a>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </owl-carousel>
+            </div>
+         </div>
+
+         <hr class="mt-4 mb-4">
+
          <div class="row">
             <div class="col-md-12">
                <div class="main-title">
@@ -156,31 +188,6 @@
                      </div>
                   </div>
                </owl-carousel>
-            </div>
-         </div>
-       </div>
-
-       <hr class="mt-4 mb-4">
-       <div class="video-block section-padding">
-         <div class="row">
-            <div class="col-md-12">
-               <div class="main-title">
-                  <h6 class="font-bold-600 font-16">Upcoming Contests</h6>
-               </div>
-               <div class="row upcoming pb-5">
-                  <div class="col-sm-4 col-md-3 pr-4" *ngFor="let contest of UpcomingContests">
-                     <div class="video-card">
-                        <div class="video-card-body">
-                           <div class="video-title pl-2">
-                              <a href="#">{{contest.name}}</a>
-                           </div>
-                           <div class="video-view">
-                              {{contest.start_date_time | date: 'dd MMM'}} - {{contest.end_date_time | date: 'dd MMM'}}
-                           </div>
-                        </div>
-                     </div>
-                  </div>
-               </div>
             </div>
          </div>
        </div>

@@ -1,3 +1,4 @@
+<ngx-spinner type = "ball-spin" color = "#fff" bdColor = "rgba(0,0,0,0.4)" size = "default" [fullScreen] = "false"><p style="color: white" > Loading... </p></ngx-spinner>
 <div id="content-wrapper">
     <div class="container-fluid pb-0">
        <div class="top-category section-padding">
@@ -8,6 +9,7 @@
                     <div class="filter-btn customBtn mt-5">
                         <a type="button" (click)="is_active = 1" [ngClass]="is_active == '1' ? 'activeBtn': ''">Account Details</a>
                         <a type="button" (click)="is_active = 2" [ngClass]="is_active == '2' ? 'activeBtn': ''">Transactions</a>
+                        <a *ngIf="isUserProfile == 0" type="button" (click)="is_active = 3" [ngClass]="is_active == '3' ? 'activeBtn': ''">Settings</a>
                     </div>
                  </div>
              </div>
@@ -19,7 +21,7 @@
             <div class="col-md-12">
                <div class="main-title">
                   <p>Your Address</p>
-                  <p class="font-weight-bold" style="color:#000">0xBeBE1538eb2b61C2CF6bCe309b7649435DdB57F2</p>
+                  <p *ngIf="userDetails != null" class="font-bold-600" style="color:#000">{{userDetails.eth_address}}</p>
                </div>
             </div>
          </div>
@@ -28,46 +30,106 @@
             <div class="col-md-12">
                <div class="main-title">
                   <p class="mb-1">Display Name</p>
-                  <p class="font-weight-bold mb-4" style="color:#000">John</p>
-                  <p class="mb-1">New Display Name</p>
-                  <p><input style="display:inline-block;width:250px;" type="text" class="form-control" placeholder="Search for..."><button class="ml-4 btn btn-outline-primary">Sign to Save</button></p>
+                  <p *ngIf="userDetails != null" class="font-weight-bold mb-4" style="color:#000">{{userDetails.display_name}}</p>
+                  <p *ngIf="isUserProfile == 0" class="mb-1">New Display Name</p>
+                  <p *ngIf="isUserProfile == 0"><input style="display:inline-block;width:250px;" [(ngModel)]="display_name" name="display_name" type="text" class="form-control" placeholder="Search for..."><button [disabled]="display_name == ''" class="ml-4 btn btn-outline-primary">Sign to Save</button></p>
                </div>
             </div>
             
          </div>
          <hr class="mt-4 mb-4">
          <div class="row pt-4 bgWhite">
-            <div class="col-md-12">
+            <div class="col-md-6">
+               <div class="main-title">
+                  <p class="mb-1">Wallet tokens</p>
+                  <p *ngIf="userDetails != null" class="font-weight-bold" style="color:#000">{{userDetails.tokens}}</p>
+               </div>
+            </div>
+            <div class="col-md-6">
                <div class="main-title">
                   <p class="mb-1">SNAFU tokens</p>
-                  <p class="font-weight-bold" style="color:#000">50</p>
+                  <p *ngIf="userDetails != null" class="font-weight-bold" style="color:#000">{{userDetails.tokens}}</p>
                </div>
             </div>
          </div>
     </div>
-    <div class="container-fluid pb-0 bgWhite" *ngIf="is_active == 2">
-        <div class="row pt-4">
+    <div style="min-height: 70vh" class="container-fluid pb-0 bgWhite" *ngIf="is_active == 2">
+        <div class="row pt-4" *ngFor="let transaction of transactions | paginate: { id: 'contentPagination', itemsPerPage: itemsPerPage, currentPage: currentPage, totalItems: totalRecords };">
             <div class="col-md-8">
                <div class="main-title">
-                  <p class="font-weight-bold" style="color:#000">Contest Created</p>
-                  <p style="color:#ccc">Oct 2, 2020 | 12.30 am <span class="ml-4">0xBeBE1538eb2b61C2CF6bCe309b7649435DdB57F2</span></p>
+                  <p class="font-weight-bold" style="color:#000">{{transaction.type}}</p>
+                  <p style="color:#ccc">{{transaction.created_at | date:'MMM dd, yyyy | hh:mm a'}} <span class="ml-4">{{transaction.transaction_hash}}</span></p>
                </div>
             </div>
             <div class="col-md-4 text-right">
-                <p class="font-weight-bold text-success">1000+ SNAFU Tokens</p>
+                <p *ngIf="transaction.action == 'Credit'" class="font-weight-bold text-success">+{{transaction.tokens}} SNAFU Tokens</p>
+                <p *ngIf="transaction.action == 'Debit'" class="font-weight-bold text-danger">{{transaction.tokens}} SNAFU Tokens</p>
+            </div>
+            <div class="col-md-12">
+               <hr class="mt-4 mb-4">
             </div>
          </div>
-         <hr class="mt-4 mb-4">
-         <div class="row pt-4">
-            <div class="col-md-8">
-               <div class="main-title">
-                  <p class="font-weight-bold" style="color:#000">Contest Created</p>
-                  <p style="color:#ccc">Oct 2, 2020 | 12.30 am <span class="ml-4">0xBeBE1538eb2b61C2CF6bCe309b7649435DdB57F2</span></p>
-               </div>
-            </div>
-            <div class="col-md-4 text-right">
-                <p class="font-weight-bold text-danger">1000+ SNAFU Tokens</p>
-            </div>
-         </div>
+         <pagination-controls *ngIf="transactions.length > 0" id="contentPagination" class="text-center" (pageChange)="pagignation($event)"></pagination-controls>
     </div>
+    <div style="min-height: 70vh" class="container-fluid pb-0 bgWhite" *ngIf="is_active == 3">
+      <div class="row pt-4">
+          <div class="col-md-12">
+            <form #settingForm="ngForm" (ngSubmit)="settingForm.form.valid && saveSetting()">
+               <div class="row">
+                  <div class="col-md-4">
+                     <div class="form-group">
+                        <label for="contestName">First Price</label>
+                        <input required [(ngModel)]="firstPrice" name="firstPrice" type="text" pattern="[0-9]+" #firstPriceRef="ngModel" class="form-control">
+                        <div class="alert alert-danger" *ngIf="(firstPriceRef.touched || settingForm.submitted) && !firstPriceRef.valid">
+                           <div *ngIf="firstPriceRef.errors.required">First Price is required.</div>
+                           <div *ngIf="firstPriceRef.errors.pattern">First Price must be numeric.</div>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="col-md-4">
+                     <div class="form-group">
+                        <label for="contestName">Second Price</label>
+                        <input required [(ngModel)]="secondPrice" name="secondPrice" type="text" pattern="[0-9]+" #secondPriceRef="ngModel" class="form-control">
+                        <div class="alert alert-danger" *ngIf="(secondPriceRef.touched || settingForm.submitted) && !secondPriceRef.valid">
+                           <div *ngIf="secondPriceRef.errors.required">Second Price is required.</div>
+                           <div *ngIf="secondPriceRef.errors.pattern">Second Price must be numeric.</div>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="col-md-4">
+                     <div class="form-group">
+                        <label for="contestName">Third Price</label>
+                        <input required [(ngModel)]="thirdPrice" name="thirdPrice" type="text" pattern="[0-9]+" #thirdPriceRef="ngModel" class="form-control">
+                        <div class="alert alert-danger" *ngIf="(thirdPriceRef.touched || settingForm.submitted) && !thirdPriceRef.valid">
+                           <div *ngIf="thirdPriceRef.errors.required">Third Price is required.</div>
+                           <div *ngIf="thirdPriceRef.errors.pattern">Third Price must be numeric.</div>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="col-md-4">
+                     <div class="form-group">
+                        <label for="contestName">SNAFU Price</label>
+                        <input required [(ngModel)]="snafuPrice" name="snafuPrice" type="text" pattern="[0-9]+" #snafuPriceRef="ngModel" class="form-control">
+                        <div class="alert alert-danger" *ngIf="(snafuPriceRef.touched || settingForm.submitted) && !snafuPriceRef.valid">
+                           <div *ngIf="snafuPriceRef.errors.required">SNAFU Price is required.</div>
+                           <div *ngIf="snafuPriceRef.errors.pattern">SNAFU Price must be numeric.</div>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="col-md-4">
+                     <div class="form-group">
+                        <label for="contestName">Good Voter Price</label>
+                        <input required [(ngModel)]="voterPrice" name="voterPrice" type="text" pattern="[0-9]+" #voterPriceRef="ngModel" class="form-control">
+                        <div class="alert alert-danger" *ngIf="(voterPriceRef.touched || settingForm.submitted) && !voterPriceRef.valid">
+                           <div *ngIf="voterPriceRef.errors.required">Good Voter Price is required.</div>
+                           <div *ngIf="voterPriceRef.errors.pattern">Good Voter Price must be numeric.</div>
+                        </div>
+                     </div>
+                  </div>              
+               </div>
+               <button class="btn btn-outline-primary pl-5 pr-5" type="submit">Create</button>
+           </form>
+          </div>
+       </div>
+   </div>
  </div>

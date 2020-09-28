@@ -7,7 +7,7 @@ import * as moment from 'moment';
 export class AdminService {
 
     constructor() { }
-
+    
     getCurrentContest(data) {
         return {
             select: "contest.id, contest.type, contest.start_date_time, contest.end_date_time, contest.total_up_vote, contest.total_down_vote, topic.name, topic.id AS topicId",
@@ -15,9 +15,25 @@ export class AdminService {
             join: [{
                 "type": "INNER",
                 "join_table": "topic",
-                "on_join_table": "id",
-                "on_from": "topic_id"
+                "on_join_table": "topic.id",
+                "on_from": "contest.topic_id"
             }]
+        }
+    }
+
+    getContest(id) {
+        return {
+            select: "contest.id, contest.type, contest.start_date_time, contest.end_date_time, contest.total_up_vote, contest.total_down_vote, topic.name, topic.description, topic.id AS topicId",
+            where: "contest.id = "+id+" AND topic.name LIKE '%%'",
+            join: [{
+              "type": "INNER",
+              "join_table": "topic",
+              "on_join_table": "topic.id",
+              "on_from": "contest.topic_id"
+            }],
+            sort_by: "topic_id",
+            sort_order: "ASC",
+            limit: "0,2"
         }
     }
 
@@ -59,8 +75,8 @@ export class AdminService {
             join: [{
                 "type": "INNER",
                 "join_table": "topic",
-                "on_join_table": "id",
-                "on_from": "topic_id"
+                "on_join_table": "topic.id",
+                "on_from": "contest.topic_id"
             }],
             limit: "0,4"
         }
@@ -94,20 +110,121 @@ export class AdminService {
     }
 
     getContestHistory(data) {
+        let type = "main_contest";
+        if(data.type == 'public')
+            type = "public_side_contest";
+        if(data.type == "private")
+            type = "private_side_contest";
+
         return {
             select: "contest.id, contest.created_at, contest.type, contest.start_date_time, contest.end_date_time, contest.total_up_vote, contest.total_down_vote, topic.name, topic.id AS topicId",
-            where: "DATE(contest.end_date_time) < DATE('"+moment().add(1, 'month').format('YYYY-MM-DD')+"') AND DATE('"+moment().add(1, 'month').format('YYYY-MM-DD')+"') NOT BETWEEN contest.start_date_time AND contest.end_date_time ",
+            where: "DATE(contest.end_date_time) < DATE('"+moment().add(1, 'month').format('YYYY-MM-DD')+"') AND DATE('"+moment().add(1, 'month').format('YYYY-MM-DD')+"') NOT BETWEEN contest.start_date_time AND contest.end_date_time AND topic.name LIKE '%"+data.search+"%' AND contest.type = '" + type + "'",
             join: [{
               "type": "INNER",
               "join_table": "topic",
-              "on_join_table": "id",
-              "on_from": "topic_id"
+              "on_join_table": "topic.id",
+              "on_from": "contest.topic_id"
             }],
-            search: {
-                "contest.name": data.search
-            },
-            sort_by: data.type == 'vote' ? 'contest.total_up_vote - contest.total_down_vote' : 'DATE(contest.created_at)',
             sort_order: "DESC",
+            limit: data.limit
+        }
+    }
+
+    getUserList(data) {
+        return {
+            select: "user_info.id, user_info.eth_address, user_info.display_name, user_info.created_at",
+            where: "role_id = 2 AND (user_info.eth_address LIKE '%"+data.search+"%' OR user_info.display_name LIKE '%"+data.search+"%')",
+            sort_by: data.type == 'name' ? "user_info.display_name" : "user_info.eth_address",
+            sort_order: "ASC",
+            limit: data.limit
+        }
+    }
+
+    getWinners(data) {
+        return {
+            select: "winner.id, winner.contest_id, winner.video_id, winner.created_at, video.user_id, video.youtube_url, video.title, video.type",
+            where: "winner.contest_id = " + data,
+            join: [{
+              "type": "INNER",
+              "join_table": "video",
+              "on_join_table": "video.id",
+              "on_from": "winner.video_id"
+            }]
+        }
+    }
+
+    sendTokens() {
+        return {
+
+        }
+    }
+
+    getWinnerList(limit) {
+        return {
+            select: "winner.id, winner.contest_id, winner.video_id, winner.created_at, user_info.eth_address, user_info.display_name, contest.type, video.user_id, video.type as videoType, false as value, winner.token_Send, (CASE WHEN video.type = 'Beginner' THEN contest.beginner_prize WHEN video.type = 'Expert' THEN contest.expert_prize WHEN video.type = 'Intermediate' THEN contest.intermediate_prize ELSE contest.snafu_prize END) AS tokens",
+            join: [
+                {
+                    "type": "INNER",
+                    "join_table": "video",
+                    "on_join_table": "video.id",
+                    "on_from": "winner.video_id"
+                },
+                {
+                    "type": "INNER",
+                    "join_table": "contest",
+                    "on_join_table": "contest.id",
+                    "on_from": "winner.contest_id"
+                },
+                {
+                    "type": "INNER",
+                    "join_table": "user_info",
+                    "on_join_table": "user_info.id",
+                    "on_from": "video.user_id"
+                }
+            ],
+            limit: limit
+        }
+    }
+
+    getGoodVoterList(limit) {
+        return {
+            select: "vote_for_video.id, vote_for_video.token_send, user_info.id AS user_id, user_info.eth_address, user_info.display_name, false as value, contest.good_voter_prize AS tokens",
+            where: "vote_for_video.type = 'up_vote'",
+            join: [
+                {
+                    "type": "INNER",
+                    "join_table": "vote_for_video",
+                    "on_join_table": "vote_for_video.video_id",
+                    "on_from": "winner.video_id"
+                },
+                {
+                    "type": "INNER",
+                    "join_table": "contest",
+                    "on_join_table": "contest.id",
+                    "on_from": "winner.contest_id"
+                },
+                {
+                    "type": "INNER",
+                    "join_table": "user_info",
+                    "on_join_table": "user_info.id",
+                    "on_from": "vote_for_video.user_id"
+                }
+            ],
+            limit: limit
+        }
+    }
+
+    getUserInfo(id) {
+        return {
+            select: "user_info.id, user_info.eth_address, user_info.display_name, user_info.created_at, (SELECT IFNULL(SUM(user_transaction.tokens), 0) FROM user_transaction WHERE user_id = user_info.id) AS tokens",
+            where: "user_info.id = " + id
+        }
+    }
+
+    getTransactions(data) {
+        return {
+            select: "user_transaction.id, user_transaction.transaction_hash, user_transaction.tokens, user_transaction.type, user_transaction.action,  user_transaction.created_at",
+            where: "user_transaction.user_id = " + data.id,
             limit: data.limit
         }
     }

@@ -1,75 +1,42 @@
+<ngx-spinner type = "ball-spin" color = "#fff" bdColor = "rgba(0,0,0,0.4)" size = "default" [fullScreen] = "false"><p style="color: white" > Loading... </p></ngx-spinner>
 <div id="content-wrapper">
     <div class="container-fluid pb-0">
         <div class="top-category section-padding mb-4">
-            <div class="row">
+            <div class="row pb-5">
                <div class="col-md-12">
-                  <div class="main-title">
+                    <div class="main-title">
                       <div class="btn-group float-right right-action">
-                            <button class="btn btn-outline-primary">Send Tokens</button>
+                            <button *ngIf="selectedLength > 0" (click)="sendTokens(null)" [disabled]="status == 0" class="btn btn-outline-primary">Send Tokens</button>
                       </div>
                       <h6 class="font-weight-bold mb-0" style="display:inline">Winners</h6>
-                      <a *ngIf="selectedLength !== checkBoxes.length" (click)="selectAll()" class="ml-4">Select All</a>
-                      <a *ngIf="selectedLength === checkBoxes.length" (click)="unSelectAll()" class="ml-4">Unselect All</a>
-                   </div>
+                      <a *ngIf="selectedLength !== winners.length" style="cursor: pointer;" (click)="selectAll()" [ngClass]="{'d-none': disableSelectAll}" class="ml-4">Select All</a>
+                      <a *ngIf="selectedLength === winners.length" style="cursor: pointer;" (click)="unSelectAll()" class="ml-4">Unselect All</a>
+                    </div>
                </div>
             </div>
-            <div class="row pt-5">
+            <hr class="mt-4 mb-4">
+            <div *ngFor="let winner of winners | paginate: { id: 'contentPagination', itemsPerPage: itemsPerPage, currentPage: currentPage, totalItems: totalRecords };" class="row pt-4">
                 <div class="col-md-8">
                    <div class="main-title">
                         <div class="custom-control custom-checkbox">
-                            <input (change)="onChange($event.target.checked)" type="checkbox" class="custom-control-input" name="options" [(ngModel)]="checkBoxes[0].value" [id]="checkBoxes[0].name">
-                            <label class="custom-control-label" for="{{checkBoxes[0].name}}">0xBeBE1538eb2b61C2CF6bCe309b7649435DdB57F2</label>
+                            <input *ngIf="status == 1 && winner.token_Send == 0" (change)="onChange($event.target.checked)" type="checkbox" class="custom-control-input" name="options" [(ngModel)]="winner.value" [id]="winner.id">
+                            <label *ngIf="status == 1 && winner.token_Send == 0" class="custom-label custom-control-label" for="{{winner.id}}">{{winner.eth_address}}</label>
+                            <label *ngIf="status != 1 || winner.token_Send == 1" class="custom-label">{{winner.eth_address}}</label>
                             <p class="mt-2">
-                                Jon - First Place Expert Contest
-                                <span class="ml-3"><i class="fa fa-circle"></i> &nbsp; &nbsp; Main Contest</span>
-                                <span class="ml-3"><i class="fa fa-circle"></i> &nbsp; &nbsp; 200 Tokens</span>
+                                <span *ngIf="winner.display_name != null">{{winner.display_name}} - </span> {{winner.videoType}} Contest
+                                <span class="ml-3"><i class="fa fa-circle"></i> &nbsp; &nbsp; {{winner.type}}</span>
+                                <span class="ml-3"><i class="fa fa-circle"></i> &nbsp; &nbsp; {{winner.tokens}} Tokens</span>
                             </p>
                         </div>
                    </div>
                 </div>
                 <div class="col-md-4 pt-1 text-right">
-                    <button class="btn btn-outline-primary">Send Tokens</button>
+                    <button (click)="sendTokens(winner)" *ngIf="winner.token_Send == 0" [disabled]="status == 1" class="btn btn-outline-primary">Send Tokens</button>
                 </div>
+                <div class="col-md-12"><hr class="mt-4 mb-4"></div>
             </div>
-            <hr class="mt-4 mb-4">
-            <div class="row pt-5">
-                <div class="col-md-8">
-                   <div class="main-title">
-                        <div class="custom-control custom-checkbox">
-                            <input (change)="onChange($event.target.checked)" type="checkbox" class="custom-control-input" name="options" [(ngModel)]="checkBoxes[1].value" [id]="checkBoxes[1].name">
-                            <label class="custom-control-label" for="{{checkBoxes[1].name}}">0xBeBE1538eb2b61C2CF6bCe309b7649435DdB57F2</label>
-                            <p class="mt-2">
-                                Jon - First Place Expert Contest
-                                <span class="ml-3"><i class="fa fa-circle"></i> &nbsp; &nbsp; Main Contest</span>
-                                <span class="ml-3"><i class="fa fa-circle"></i> &nbsp; &nbsp; 200 Tokens</span>
-                            </p>
-                        </div>
-                   </div>
-                </div>
-                <div class="col-md-4 pt-1 text-right">
-                    <button class="btn btn-outline-primary">Send Tokens</button>
-                </div>
-            </div>
-            <hr class="mt-4 mb-4">
-            <div class="row pt-5">
-                <div class="col-md-8">
-                   <div class="main-title">
-                        <div class="custom-control custom-checkbox">
-                            <input (change)="onChange($event.target.checked)" type="checkbox" class="custom-control-input" name="options" [(ngModel)]="checkBoxes[2].value" [id]="checkBoxes[2].name">
-                            <label class="custom-control-label" for="{{checkBoxes[2].name}}">0xBeBE1538eb2b61C2CF6bCe309b7649435DdB57F2</label>
-                            <p class="mt-2">
-                                Jon - First Place Expert Contest
-                                <span class="ml-3"><i class="fa fa-circle"></i> &nbsp; &nbsp; Main Contest</span>
-                                <span class="ml-3"><i class="fa fa-circle"></i> &nbsp; &nbsp; 200 Tokens</span>
-                            </p>
-                        </div>
-                   </div>
-                </div>
-                <div class="col-md-4 pt-1 text-right">
-                    <button class="btn btn-outline-primary">Send Tokens</button>
-                </div>
-            </div>
-            <hr class="mt-4 mb-4">
+
+            <pagination-controls *ngIf="winners.length > 0" id="contentPagination" class="text-center" (pageChange)="pagignation($event)"></pagination-controls>
         </div>
     </div>
  </div>

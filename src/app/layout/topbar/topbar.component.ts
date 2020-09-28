@@ -26,7 +26,11 @@ export class TopbarComponent implements OnInit {
         this.status = 1;
         this.addUser(window['web3']['eth']['defaultAccount'])
       }
+      else 
+        this.api.removeData();
     }
+    else 
+      this.api.removeData();
   }
 
   async addUser(address) {
@@ -38,6 +42,7 @@ export class TopbarComponent implements OnInit {
       if(response.statusCode == 200) {
         window['web3']['eth']['defaultAccount'] = address;
         this.status = 1;
+        this.api.setData(response.result);
         // this.toastr.success("Your wallet connected successfully!", 'Connect Your Wallet');
         this.spinner.hide();
       }

@@ -1,7 +1,6 @@
-.custom-control-label {
+.custom-label {
     font-size:15px;
     color: #000;
-    font-weight: 700;
 }
 
 .custom-control p {
@@ -11,4 +10,8 @@
 .fa.fa-circle {
     color: #ff0000;
     font-size:9px;
+}
+
+.btn-outline-primary.disabled, .btn-outline-primary:disabled {
+    color: #ff0000;
 }

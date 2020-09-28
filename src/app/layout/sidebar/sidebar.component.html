@@ -1,31 +1,31 @@
 <ul class="sidebar navbar-nav">
     <li class="nav-item" [ngClass]="{'active' : url == '/admin/home'}">
        <a class="nav-link" routerLink="/home">
-       <i class="fas fa-fw fa-home"></i>
+       <img height="20" src="assets/images/default/home.png" />
        <span>Home</span>
        </a>
     </li>
     <li class="nav-item" [ngClass]="{'active' : url == '/admin/topicsPool'}">
        <a class="nav-link" routerLink="/topicsPool">
-       <i class="fas fa-fw fa-users"></i>
+         <img height="20" src="assets/images/default/topic.png" />
        <span>Topics Pool</span>
        </a>
     </li>
     <li class="nav-item" [ngClass]="{'active' : url == '/admin/contentHistory'}">
        <a class="nav-link" routerLink="/contentHistory">
-       <i class="fas fa-fw fa-user-alt"></i>
-       <span>Cotent History</span>
+         <img height="22" src="assets/images/default/contest.png" />
+       <span>Contest History</span>
        </a>
     </li>
     <li class="nav-item" [ngClass]="{'active' : url == '/admin/users'}">
        <a class="nav-link" routerLink="/users">
-       <i class="fas fa-fw fa-video"></i>
+         <img height="20" src="assets/images/default/users.png" />
        <span>Users</span>
        </a>
     </li>
-    <li class="nav-item" [ngClass]="{'active' : url == '/admin/myAccount'}">
+    <li class="nav-item" *ngIf="userData != undefined && userData.role_id == 1" [ngClass]="{'active' : url == '/admin/myAccount'}">
        <a class="nav-link" routerLink="/myAccount">
-       <i class="fas fa-fw fa-cloud-upload-alt"></i>
+         <img height="20" src="assets/images/default/account.png" />
        <span>My account</span>
        </a>
     </li>

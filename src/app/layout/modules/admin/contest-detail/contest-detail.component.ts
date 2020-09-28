@@ -4,20 +4,21 @@ import { AdminService } from '../../../../services/admin-service';
 import { NgxSpinnerService } from "ngx-spinner";
 import { ToastrService } from 'ngx-toastr';
 import { EmbedVideoService } from 'ngx-embed-video';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+  selector: 'app-contest-detail',
+  templateUrl: './contest-detail.component.html',
+  styleUrls: ['./contest-detail.component.scss']
 })
-export class HomeComponent implements OnInit {
+export class ContestDetailComponent implements OnInit {
 
   ContestData:any = null;
   ExpertVideos:any = [];
   BeginnerVideos:any = [];
   IntermediateVideos:any = [];
   SANFUVideos:any = [];
-  UpcomingContests:any = [];
+  Winners:any = [];
 
   sliderOptions = {
     items: 4,
@@ -47,11 +48,16 @@ export class HomeComponent implements OnInit {
     },
   }
 
-  constructor(private spinner: NgxSpinnerService, private api: ApiRequestService, private adminService: AdminService, private toastr: ToastrService, private embedService: EmbedVideoService) { 
+  constructor(private route:ActivatedRoute, private spinner: NgxSpinnerService, private api: ApiRequestService, private adminService: AdminService, private toastr: ToastrService, private embedService: EmbedVideoService) { 
   }
 
   ngOnInit() {
-    this.getCurrentContest();
+    this.route.params.subscribe(params => {
+      console.log(params)
+      let id = params['id'];
+      this.getContest(id);
+      this.getWinners(id);
+    });
   }
 
   stopLoader() {
@@ -164,24 +170,9 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  getUpcomingContests() {
+  getContest(id) {
     this.spinner.show();
-    let body = this.adminService.getUpComingContest();
-    this.api.post("crud/contest", body).subscribe((response :  any) => {
-      if(response.statusCode == 200) {
-        this.UpcomingContests = response.result.data;
-        this.stopLoader();
-      }
-      else {
-        this.stopLoader();
-        this.toastr.error('Get Upcoming Contest', 'Failed to Process !');
-      }
-    });
-  }
-
-  getCurrentContest() {
-    this.spinner.show();
-    let body = this.adminService.getCurrentContest(null);
+    let body = this.adminService.getContest(id);
     this.api.post("crud/contest", body).subscribe((response :  any) => {
       if(response.statusCode == 200) {
         this.ContestData = response.result.data.length > 0 ? response.result.data[0] : null;
@@ -190,7 +181,6 @@ export class HomeComponent implements OnInit {
         this.getIntermediateVideos('vote');
         this.getBeginnerVideos('vote');
         this.getSNAFUVideos('vote');
-        this.getUpcomingContests();
       }
       else {
         this.stopLoader();
@@ -198,4 +188,26 @@ export class HomeComponent implements OnInit {
       }
     });
   }
+
+  getWinners(id) {
+    this.spinner.show();
+    let body = this.adminService.getWinners(id);
+    this.api.post("crud/winner", body).subscribe((response :  any) => {
+      if(response.statusCode == 200) {
+        let details = response.result.data;
+        if(details.length > 0) {
+          details.forEach(element => {
+            element.url = this.embedService.embed(element.youtube_url);
+          });
+        }
+        this.Winners = details;
+        this.stopLoader();
+      }
+      else {
+        this.stopLoader();
+        this.toastr.error('Get Winners', 'Failed to Process !');
+      }
+    });
+  }
+
 }

@@ -1,6 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
 
-@import url('https://fonts.googleapis.com/css?family=Poppins:300,300i,400,400i,600,600i,700,700i,800,800i&display=swap');
 @import "@fortawesome/fontawesome-free/css/all.css";
 
  html {
@@ -26,15 +25,6 @@
 .sidebar-toggled #wrapper #content-wrapper .container-fluid{
      padding: 30px 30px 30px 121px;
 }
-.single-channel-page{
-    padding: 0px 0px 0px 225px;
-}
-.sidebar-toggled .single-channel-page{
-    padding: 0px 0px 0px 90px;
-}
-.single-channel-page .container-fluid {
-    padding: 30px 30px 30px !important;
-}
  body.fixed-nav #content-wrapper {
      margin-top: 56px;
      padding-left: 90px;
@@ -49,31 +39,6 @@
      body.fixed-nav.sidebar-toggled #content-wrapper {
          padding-left: 90px;
     }
-}
-.carousel-login-card {
-    padding: 11px 0;
-}
- .scroll-to-top {
-     background: rgba(52, 58, 64, 0.5) none repeat scroll 0 0;
-     border-radius: 70px !important;
-     bottom: 86px;
-     color: #fff;
-     display: none;
-     height: 50px;
-     line-height: 46px;
-     position: fixed;
-     right: 15px;
-     text-align: center;
-     width: 50px;
-}
- .scroll-to-top:focus, .scroll-to-top:hover {
-     color: white;
-}
- .scroll-to-top:hover {
-     background: #343a40;
-}
- .scroll-to-top i {
-     font-weight: 800;
 }
  .smaller {
      font-size: 0.7rem;
@@ -421,70 +386,6 @@
    border-radius: 10px;
     -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
     background-color: #555;
-}
-
- .channel-sidebar-list {
-     border-top: 1px solid #ff516b;
-     margin: 6px 0 0;
-     padding: 7px 14px;
-}
- .channel-sidebar-list h6 {
-     color: #fff;
-     font-size: 14px;
-     font-weight: 600;
-     margin-bottom: 15px;
-     margin-top: 9px;
-}
- .channel-sidebar-list ul {
-     list-style: outside none none;
-     margin: 0;
-     padding: 0;
-}
- .channel-sidebar-list ul li img {
-     border-radius: 50px;
-     height: 28px;
-     margin: 0 14px 0 0;
-     width: 28px;
-}
- .channel-sidebar-list li a {
-     color: #fff;
-    display: inline-block;
-    overflow: hidden;
-    padding: 6px 0;
-    text-decoration: none;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    width: 100%;
-}
-.channel-sidebar-list li a .badge {
-    float: right;
-    margin: 7px 0 0;
-    position: absolute;
-    right: 20px;
-}
- .sidebar.toggled .nav-item .nav-link span {
-     margin: 0;
-}
- .sidebar.toggled .channel-sidebar-list h6 {
-     font-size: 11px;
-     text-overflow: ellipsis;
-     overflow: hidden;
-    white-space: nowrap;
-}
- .sidebar.toggled .channel-sidebar-list {
-     padding: 7px;
-     text-align: center;
-}
- .sidebar.toggled .channel-sidebar-list li img {
-     display: list-item;
-     margin: auto auto 4px;
-}
- .sidebar.toggled .channel-sidebar-list li a {
-     font-size: 10px;
-     font-weight: 500;
-}
- .sidebar.toggled .channel-sidebar-list li .badge {
-     display: none;
 }
 /* Customize Bootstrap */
  .border-none{
@@ -1019,58 +920,6 @@
     -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
     background-color: #555;
 }
-/* Channels Card */
- .channels-card {
-     background: #fff none repeat scroll 0 0;
-     border-radius: 2px;
-     box-shadow: 0 0 11px #ececec;
-     padding: 24px 12px;
-     position: relative;
-     text-align: center;
-     transition-duration: 0.4s;
-}
- .channels-card::after {
-     background: #dcdcdc none repeat scroll 0 0;
-     border-radius: 0 0 5px 6px;
-     bottom: -4px;
-     content: "";
-     height: 7px;
-     left: 15px;
-     position: absolute;
-     right: 15px;
-     z-index: -1;
-}
- .channels-card:hover::after {
-     background: #cccccc none repeat scroll 0 0;
-}
- .channels-title a {
-     color: #000;
-     font-weight: 500;
-     text-decoration: none;
-}
- .channels-view {
-     color: #acacac;
-}
- .channels-card-image .btn {
-     font-size: 12px;
-     padding: 3px 10px;
-}
- .channels-card-image .btn strong {
-     margin: 0 0 0 5px;
-}
- .channels-card-image img {
-     background: #fff none repeat scroll 0 0;
-     border-radius: 50px;
-     box-shadow: 0 0 2px #ccc;
-     height: 80px;
-     margin: 1px 0 8px;
-     object-fit: scale-down;
-     transform: scale(1);
-     width: 80px;
-}
- .channels-card-image-btn {
-     margin: 3px 0 7px;
-}
 /* Login Pages */
  .login-main-wrapper {
      background: #ff516b;
@@ -1169,52 +1018,6 @@
      font-weight: 700;
      height: 13px;
      margin: 12px 14px -4px 13px;
-}
-/* Single Channel */
- .single-channel-image {
-     position: relative;
-}
- .single-channel-nav .navbar {
-     padding: 0;
-}
- .single-channel-nav {
-     background: #fff none repeat scroll 0 0 !important;
-     box-shadow: 0 0 11px #ececec;
-     padding: 0rem 30px 0;
-}
- .channel-brand {
-     color: #000;
-     font-size: 16px;
-     font-weight: bold;
-}
- .single-channel-nav .nav-link {
-     border-bottom: 2px solid transparent;
-     margin: 0 12px;
-     padding: 14px 0 !important;
-}
- .single-channel-nav .nav-item.active .nav-link, .single-channel-nav .nav-item .nav-link:hover {
-     border-color: #ff516b;
-     color: #ff516b;
-}
- .single-channel-nav .navbar-nav {
-     margin: 0 0 0 40px;
-}
- .channel-profile {
-     bottom: 0;
-     left: 0;
-     padding: 1rem 30px;
-     position: absolute;
-     right: 0;
-}
-.single-channel-image .img-fluid {
-    width: 100%;
-}
- .channel-profile-img {
-     background: #fff none repeat scroll 0 0;
-     border: 6px solid #fff;
-     border-radius: 50px;
-     height: 90px;
-     width: 90px;
 }
  .social {
      color: #fff;
@@ -1402,15 +1205,6 @@
     .sidebar-toggled #wrapper #content-wrapper .container-fluid {
         padding-left: 15px;
     }
-    .single-channel-page {
-         padding: 0 0 0 90px !important;
-    }
-    .sidebar-toggled .single-channel-page {
-        padding: 0 !important;
-    }
-    .single-channel-page .container-fluid {
-        padding: 30px 15px 15px !important;
-    }
 
     .single-video-author .float-right {
         float: none !important;
@@ -1430,9 +1224,6 @@
 
      .sidebar .nav-item .nav-link span {
          margin: 0 !important;
-    }
-     .sidebar .channel-sidebar-list h6 {
-         font-size: 11px !important;
     }
     .sidebar .nav-item .nav-link span {
          display: block;
@@ -1460,25 +1251,11 @@
      .owl-theme .owl-controls .owl-buttons div {
          margin: 4px !important;
     }
-     .single-channel-nav {
-         padding: 15px;
-    }
-     .channel-profile {
-         padding: 10px;
-         position: relative;
-         text-align: center;
-    }
      .social {
          display: none;
     }
      .navbar-toggler {
          padding: 1px 3px;
-    }
-     .single-channel-nav .navbar-nav {
-         margin: 0;
-    }
-     .single-channel-nav .nav-link {
-         margin: 0;
     }
     .imgplace {
         margin-bottom: 15px;
@@ -1491,28 +1268,6 @@
     }
     .sidebar-toggled footer.sticky-footer {
         margin: 0;
-    }
-
-    .sidebar .channel-sidebar-list h6 {
-        font-size: 11px;
-        text-overflow: ellipsis;
-        overflow: hidden;
-        white-space: nowrap;
-    }
-     .sidebar .channel-sidebar-list {
-        padding: 7px;
-        text-align: center;
-    }
-     .sidebar .channel-sidebar-list li img {
-        display: list-item;
-        margin: auto auto 4px;
-    }
-     .sidebar .channel-sidebar-list li a {
-        font-size: 10px;
-        font-weight: 500;
-    }
-     .sidebar .channel-sidebar-list li .badge {
-        display: none;
     }
     .footer-logo {
         margin: 0 0 13px !important;
@@ -1538,15 +1293,6 @@
     .sidebar-toggled #wrapper #content-wrapper .container-fluid {
         padding-left: 15px;
     }
-    .single-channel-page {
-         padding: 0 0 0 90px !important;
-    }
-    .sidebar-toggled .single-channel-page {
-        padding: 0 !important;
-    }
-    .single-channel-page .container-fluid {
-        padding: 30px 15px 15px !important;
-    }
     .container {
        max-width: 100%;
     }
@@ -1556,9 +1302,6 @@
 
      .sidebar .nav-item .nav-link span {
          margin: 0 !important;
-    }
-     .sidebar .channel-sidebar-list h6 {
-         font-size: 11px !important;
     }
     .sidebar .nav-item .nav-link span {
          display: block;
@@ -1586,25 +1329,11 @@
      .owl-theme .owl-controls .owl-buttons div {
          margin: 4px !important;
     }
-     .single-channel-nav {
-         padding: 15px;
-    }
-     .channel-profile {
-         padding: 10px;
-         position: relative;
-         text-align: center;
-    }
      .social {
          display: none;
     }
      .navbar-toggler {
          padding: 1px 3px;
-    }
-     .single-channel-nav .navbar-nav {
-         margin: 0;
-    }
-     .single-channel-nav .nav-link {
-         margin: 0;
     }
     .imgplace {
         margin-bottom: 15px;
@@ -1617,28 +1346,6 @@
     }
     .sidebar-toggled footer.sticky-footer {
         margin: 0;
-    }
-
-    .sidebar .channel-sidebar-list h6 {
-        font-size: 11px;
-        text-overflow: ellipsis;
-        overflow: hidden;
-        white-space: nowrap;
-    }
-     .sidebar .channel-sidebar-list {
-        padding: 7px;
-        text-align: center;
-    }
-     .sidebar .channel-sidebar-list li img {
-        display: list-item;
-        margin: auto auto 4px;
-    }
-     .sidebar .channel-sidebar-list li a {
-        font-size: 10px;
-        font-weight: 500;
-    }
-     .sidebar .channel-sidebar-list li .badge {
-        display: none;
     }
     .footer-logo {
         margin: 0 0 13px !important;
@@ -1661,15 +1368,6 @@
     .sidebar-toggled #wrapper #content-wrapper .container-fluid {
         padding-left: 105px;
     }
-    .single-channel-page {
-         padding: 0 0 0 225px !important;
-    }
-    .sidebar-toggled .single-channel-page {
-        padding: 0 0 0 90px !important;
-    }
-    .single-channel-page .container-fluid {
-        padding: 30px 15px 15px !important;
-    }
      .video-card-image img {
          width: 100%;
     }
@@ -1688,23 +1386,11 @@
      .container {
          max-width: 100%;
     }
-     .single-channel-nav {
-         padding: 15px;
-    }
-     .channel-profile {
-         padding: 15px;
-    }
      .social {
          display: none;
     }
      .navbar-toggler {
          padding: 1px 3px;
-    }
-     .single-channel-nav .navbar-nav {
-         margin: 0;
-    }
-     .single-channel-nav .nav-link {
-         margin: 0;
     }
      .osahan-navbar-search .form-control {
          width: auto !important;
@@ -1733,15 +1419,6 @@
     .sidebar-toggled #wrapper #content-wrapper .container-fluid {
         padding-left: 105px;
     }
-    .single-channel-page {
-         padding: 0 0 0 225px !important;
-    }
-    .sidebar-toggled .single-channel-page {
-        padding: 0 0 0 90px !important;
-    }
-    .single-channel-page .container-fluid {
-        padding: 30px 15px 15px !important;
-    }
      .video-card-image img {
          width: 100%;
     }
@@ -1760,26 +1437,11 @@
      .container {
          max-width: 100%;
     }
-     .single-channel-nav {
-         padding: 0 15px;
-    }
-     .channel-profile {
-         padding: 15px;
-    }
      .social {
          display: none;
     }
      .navbar-toggler {
          padding: 1px 3px;
-    }
-     .single-channel-nav .navbar-nav {
-         margin: 0 0 0 20px;
-    }
-     .single-channel-nav .nav-link {
-         margin: 0 7px;
-    }
-    .single-channel-nav .form-control, .single-channel-nav .btn-outline-success {
-        display: none;
     }
     .osahan-navbar-search .form-control {
          width: auto !important;
@@ -1822,7 +1484,7 @@
     left: -2%;
 }
 hr{
-    border-top: 2px solid rgba(192,192,192,0.5);
+    border-top: 2px solid rgba(192,192,192,0.3);
 }
 .alert-danger {
     margin-top:5px;
@@ -1832,4 +1494,19 @@ hr{
 }
 :ng-deep.html5-main-video{
     width: 100% !important;
+}
+.ngx-pagination .current {
+    background-color: #ff0000 !important;
+}
+.font-bold-400 {
+    font-weight: 400 !important;
+}
+.font-bold-600 {
+    font-weight: 600 !important;
+}
+.font-16 {
+    font-size: 16px !important;
+}
+.font-20 {
+    font-size: 20px !important;
 }
