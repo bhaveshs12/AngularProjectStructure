@@ -34,6 +34,7 @@ export class GoodVotersComponent implements OnInit {
 
   getGoodVoterList() {
     this.spinner.show();
+    this.disableSelectAll = true;
     let offset = this.currentPage == 0 ? 0 : (this.currentPage - 1) * this.itemsPerPage;
     let limit = offset + "," + this.itemsPerPage;
     let body = this.adminService.getGoodVoterList(limit);

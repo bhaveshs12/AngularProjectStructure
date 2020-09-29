@@ -9,7 +9,7 @@
                             <button *ngIf="selectedLength > 0" (click)="sendTokens(null)" [disabled]="status == 0" class="btn btn-outline-primary">Send Tokens</button>
                       </div>
                       <h6 class="font-weight-bold mb-0" style="display:inline">Winners</h6>
-                      <a *ngIf="selectedLength !== winners.length" style="cursor: pointer;" (click)="selectAll()" [ngClass]="{'d-none': disableSelectAll}" class="ml-4">Select All</a>
+                      <a *ngIf="selectedLength !== winners.length && !disableSelectAll" style="cursor: pointer;" (click)="selectAll()" class="ml-4">Select All</a>
                       <a *ngIf="selectedLength === winners.length" style="cursor: pointer;" (click)="unSelectAll()" class="ml-4">Unselect All</a>
                     </div>
                </div>
@@ -37,6 +37,7 @@
             </div>
 
             <pagination-controls *ngIf="winners.length > 0" id="contentPagination" class="text-center" (pageChange)="pagignation($event)"></pagination-controls>
+            <p *ngIf="winners.length == 0">No Winners found.</p>
         </div>
     </div>
  </div>

@@ -45,6 +45,7 @@
                      </div>
                   </div>
                </owl-carousel>
+               <p *ngIf="ExpertVideos.length == 0">No Expert Videos found.</p>
             </div>
          </div>
 
@@ -82,6 +83,7 @@
                      </div>
                   </div>
                </owl-carousel>
+               <p *ngIf="IntermediateVideos.length == 0">No Intermediate Videos found.</p>
             </div>
          </div>
 
@@ -119,6 +121,7 @@
                      </div>
                   </div>
                </owl-carousel>
+               <p *ngIf="BeginnerVideos.length == 0">No Beginner Videos found.</p>
             </div>
          </div>
 
@@ -156,6 +159,7 @@
                      </div>
                   </div>
                </owl-carousel>
+               <p *ngIf="SANFUVideos.length == 0">No SNAFU Videos found.</p>
             </div>
          </div>
        </div>
@@ -179,6 +183,9 @@
                            </div>
                         </div>
                      </div>
+                  </div>
+                  <div class="col-md-12">
+                     <p *ngIf="UpcomingContests.length == 0">No Upcoming Contests found.</p>
                   </div>
                </div>
             </div>

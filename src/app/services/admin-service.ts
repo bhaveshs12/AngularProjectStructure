@@ -228,4 +228,26 @@ export class AdminService {
             limit: data.limit
         }
     }
+
+    updateUserInfo(data) {
+        return {
+            set: {
+                "display_name": data.name
+            },
+            where: "id = " + data.id
+        }
+    }
+
+    saveSetting(data) {
+       return {
+            set: {
+                "beginner_prize": data.beginnerPrice,
+                "expert_prize": data.expertPrice,
+                "intermediate_prize": data.intermediatePrice,
+                "snafu_prize": data.snafuPrice,
+                "good_voter_prize": data.voterPrice
+            },
+            where: "id = " + data.id
+        }
+    }
 }

@@ -22,12 +22,12 @@ export class MyAccountComponent implements OnInit {
   totalRecords:any = 0;
   itemsPerPage:any = 8;
 
-  firstPrice = 0;
-  secondPrice = 0;
-  thirdPrice = 0;
+  expertPrice = 0;
+  beginnerPrice = 0;
+  intermediatePrice = 0;
   snafuPrice = 0;
   voterPrice = 0;
-
+  settingId:any = 0;
   constructor(private route:ActivatedRoute, private spinner: NgxSpinnerService, private api: ApiRequestService, private adminService: AdminService, private toastr: ToastrService) { 
   }
 
@@ -41,23 +41,24 @@ export class MyAccountComponent implements OnInit {
       else {
         let data = this.api.getData();
         this.userId = data.id;
+        this.getSetting();
       }
     });
 
-    this.getUserInfo(this.userId);
-    this.getTransactions(this.userId);
+    this.getUserInfo();
+    this.getTransactions();
   }
 
   pagignation(ev) {
     this.currentPage = ev;
-    this.getTransactions(this.userId);
+    this.getTransactions();
   }
 
-  getTransactions(id) {
+  getTransactions() {
     this.spinner.show();
     let offset = this.currentPage == 0 ? 0 : (this.currentPage - 1) * this.itemsPerPage;
     let params = {
-      id: id,
+      id: this.userId,
       limit: offset + "," + this.itemsPerPage,
     }
     let body = this.adminService.getTransactions(params);
@@ -73,12 +74,12 @@ export class MyAccountComponent implements OnInit {
     });
   }
 
-  getUserInfo(id) {
+  getUserInfo() {
     this.spinner.show();
-    let body = this.adminService.getUserInfo(id);
-    this.api.post("crud/user_info", body).subscribe((response :  any) => {
+    let body = {"user_id": this.userId}
+    this.api.post("user/get-user-details", body).subscribe((response :  any) => {
       if(response.statusCode == 200) {
-        this.userDetails = response.result.data.length > 0 ? response.result.data[0] : null;
+        this.userDetails = response.result;
         this.spinner.hide();
       }
       else {
@@ -88,7 +89,68 @@ export class MyAccountComponent implements OnInit {
     });
   }
 
-  saveSetting() {
+  getSetting() {
+    this.spinner.show();
+    this.api.get("crud/setting").subscribe((response :  any) => {
+      if(response.statusCode == 200) {
+        let priceDetails = response.result[0];
+        this.beginnerPrice = priceDetails.beginner_prize,
+        this.intermediatePrice = priceDetails.intermediate_prize,
+        this.expertPrice = priceDetails.expert_prize,
+        this.snafuPrice = priceDetails.snafu_prize,
+        this.voterPrice = priceDetails.good_voter_prize,
+        this.settingId = priceDetails.id
+        this.spinner.hide();
+      }
+      else {
+        this.spinner.hide();
+        this.toastr.error('Get Price Details', 'Failed to Process !');
+      }
+    });
+  }
 
+  updateUserInfo() {
+    this.spinner.show();
+    let data = {
+      name: this.display_name,
+      id: this.userId
+    }
+
+    let body = this.adminService.updateUserInfo(data);
+    this.api.put("crud/user_info", body).subscribe((response :  any) => {
+      if(response.statusCode == 200) {
+        this.toastr.success('', 'Profile updated successfully!');
+        this.spinner.hide();
+        this.getUserInfo();
+      }
+      else {
+        this.spinner.hide();
+        this.toastr.error('Get User Details', 'Failed to Process !');
+      }
+    });
+  }
+
+  saveSetting() {
+    this.spinner.show();
+    let data = {
+      beginnerPrice: this.beginnerPrice,
+      intermediatePrice: this.intermediatePrice,
+      expertPrice:this.expertPrice,
+      snafuPrice: this.snafuPrice,
+      voterPrice: this.voterPrice,
+      id: this.settingId
+    }
+
+    let body = this.adminService.saveSetting(data);
+    this.api.put("crud/setting", body).subscribe((response :  any) => {
+      if(response.statusCode == 200) {
+        this.toastr.success('', 'Price details saved successfully!');
+        this.spinner.hide();
+      }
+      else {
+        this.spinner.hide();
+        this.toastr.error('Get User Details', 'Failed to Process !');
+      }
+    });
   }
 }

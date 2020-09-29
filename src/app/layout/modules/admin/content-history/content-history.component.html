@@ -49,7 +49,8 @@
                      </div>
                   </div>
                </div>
-               <pagination-controls id="contentPagination" class="text-center" (pageChange)="pagignation($event)"></pagination-controls>
+               <pagination-controls *ngIf="historyData.length > 0" id="contentPagination" class="text-center" (pageChange)="pagignation($event)"></pagination-controls>
+               <p class="mt-4" *ngIf="historyData.length == 0">No Contest history found.</p>
             </div>
          </div>
        </div>

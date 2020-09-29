@@ -28,11 +28,19 @@ export class ApiRequestService {
   }
 
   post(uri: string, payload: Object) {
-    this.getToken()
     return this.http.post(`${this.baseUrl}/${uri}`, payload, {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
-        'auth': this.getToken()
+        // 'auth': this.getToken()
+      })
+    })
+  }
+
+  put(uri: string, payload: Object) {
+    return this.http.put(`${this.baseUrl}/${uri}`, payload, {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        // 'auth': data.token != undefined ? data.token : null
       })
     })
   }

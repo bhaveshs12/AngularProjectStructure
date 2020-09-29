@@ -14,7 +14,7 @@ const routes: Routes = [
     { path: '', redirectTo: 'home' },
     { path: 'home', component: HomeComponent },
     { path: 'topicsPool', component: TopicPoolsComponent},
-    { path: 'contentHistory', component: ContentHistoryComponent},
+    { path: 'contestHistory', component: ContentHistoryComponent},
     { path: 'users', component: UsersComponent},
     { path: 'myAccount', component: MyAccountComponent},
     { path: 'myAccount/:id', component: MyAccountComponent},
