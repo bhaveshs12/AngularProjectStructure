@@ -33,10 +33,11 @@
                <owl-carousel [items]="ExpertVideos" [carouselClasses]="['owl-theme', 'sliding']" [options]="sliderOptions">
                   <div class="pr-4 item" *ngFor="let video of ExpertVideos">
                      <div class="video-card">
+                        <div routerLink="/voteVideo/{{ContestData.id}}/{{video.id}}" class="overlay"></div>
                         <div class="video-card-image" [innerHtml]="video.url"></div>
                         <div class="video-card-body">
                            <div class="video-title">
-                              <a href="javascript:void(0)">{{video.title}}</a>
+                              <a href="#">{{video.title}}</a>
                            </div>
                            <div class="video-view pt-3">
                               Upvotes: {{video.up_vote}} &nbsp;&nbsp;&nbsp; Downvotes: {{video.down_vote}}
@@ -71,10 +72,11 @@
                <owl-carousel [items]="IntermediateVideos" [carouselClasses]="['owl-theme', 'sliding']" [options]="sliderOptions">
                   <div class="pr-4 item" *ngFor="let video of IntermediateVideos">
                      <div class="video-card">
+                        <div routerLink="/voteVideo/{{ContestData.id}}/{{video.id}}" class="overlay"></div>
                         <div class="video-card-image" [innerHtml]="video.url"></div>
                         <div class="video-card-body">
                            <div class="video-title">
-                              <a href="javascript:void(0)">{{video.title}}</a>
+                              <a>{{video.title}}</a>
                            </div>
                            <div class="video-view pt-3">
                               Upvotes: {{video.up_vote}} &nbsp;&nbsp;&nbsp; Downvotes: {{video.down_vote}}
@@ -109,10 +111,11 @@
                <owl-carousel [items]="BeginnerVideos" [carouselClasses]="['owl-theme', 'sliding']" [options]="sliderOptions">
                   <div class="pr-4 item" *ngFor="let video of BeginnerVideos">
                      <div class="video-card">
+                        <div routerLink="/voteVideo/{{ContestData.id}}/{{video.id}}" class="overlay"></div>
                         <div class="video-card-image" [innerHtml]="video.url"></div>
                         <div class="video-card-body">
                            <div class="video-title">
-                              <a href="javascript:void(0)">{{video.title}}</a>
+                              <a href="#">{{video.title}}</a>
                            </div>
                            <div class="video-view pt-3">
                               Upvotes: {{video.up_vote}} &nbsp;&nbsp;&nbsp; Downvotes: {{video.down_vote}}
@@ -147,10 +150,11 @@
                <owl-carousel [items]="SANFUVideos" [carouselClasses]="['owl-theme', 'sliding']" [options]="sliderOptions">
                   <div class="pr-4 item" *ngFor="let video of SANFUVideos">
                      <div class="video-card">
+                        <div routerLink="/voteVideo/{{ContestData.id}}/{{video.id}}" class="overlay"></div>
                         <div class="video-card-image" [innerHtml]="video.url"></div>
                         <div class="video-card-body">
                            <div class="video-title">
-                              <a href="javascript:void(0)">{{video.title}}</a>
+                              <a href="#">{{video.title}}</a>
                            </div>
                            <div class="video-view pt-3">
                               Upvotes: {{video.up_vote}} &nbsp;&nbsp;&nbsp; Downvotes: {{video.down_vote}}
@@ -193,4 +197,3 @@
        </div>
     </div>
 </div>
-   

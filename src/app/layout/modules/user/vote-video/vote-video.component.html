@@ -1,0 +1,51 @@
+<ngx-spinner type = "ball-spin" color = "#fff" bdColor = "rgba(0,0,0,0.4)" size = "default" [fullScreen] = "false"><p style="color: white" > Loading... </p></ngx-spinner>
+<div id="content-wrapper">
+    <div class="container-fluid pb-0">
+       <div class="video-block section-padding">
+         <div class="row">
+            <div class="col-md-8">
+                <div *ngIf="videoDetails != null" [innerHtml]="videoDetails.url"></div>
+                <div class="row ml-0 mr-0 mt-3 pt-3 pb-5 video-card" *ngIf="videoDetails != null">
+                    <div class="col-md-9"><h3 style="font-size:18px;">{{videoDetails.title}} </h3></div>
+                    <div class="col-md-3 mt-1 text-right"><span class="mr-3 pl-4 pr-4 pt-2 pb-2" style="color: #fff; background-color: #ccc;">{{videoDetails.type}}</span></div>
+                    <div class="col-md-12 mt-4">
+                        <button class="btn btn-success pl-3 pr-3" (click)="voteVideo('up_vote')" style="color: #000" type="submit">UpVote</button>
+                        <button class="btn btn-danger pl-3 pr-3 ml-3" (click)="voteVideo('down_vote')" type="submit">DownVote</button>
+                        <button class="btn btn-outline-primary pl-3 pr-3 ml-3" (click)="voteVideo('snafu')" type="submit">SNAFU</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+               <div class="main-title">
+                  <div class="btn-group float-right right-action">
+                     <a href="#" class="right-action-link text-gray" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                     Sort by <i class="fa fa-caret-down" aria-hidden="true"></i>
+                     </a>
+                     <div class="dropdown-menu dropdown-menu-right">
+                        <a class="dropdown-item" (click)="getVideos('vote')">Top Votes</a>
+                        <a class="dropdown-item" (click)="getVideos('hot')">Hottest</a>
+                        <a class="dropdown-item" (click)="getVideos('recent')">Most Recent</a>
+                     </div>
+                  </div>
+                  <h6 class="font-bold-600 font-16">Up Next</h6>
+               </div>
+               <div class="col-md-12 pr-0">
+                    <div routerLink="/voteVideo/{{contestId}}/{{video.id}}" class="row mb-2" *ngFor="let video of Videos">
+                        <div class="col-md-5 pl-0">
+                            <div [innerHtml]="video.url"></div>
+                            <div class="overlay"></div>
+                        </div>
+                        <div class="col-md-7 pl-0">
+                            <div class="video-title" style="min-height: 50px;">
+                                <a href="javascript:void(0)">{{video.title}}</a>
+                            </div>
+                            <div class="video-view pt-3">
+                                Upvotes: {{video.up_vote}} &nbsp;&nbsp;&nbsp; Downvotes: {{video.down_vote}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+         </div>
+    </div>
+</div>

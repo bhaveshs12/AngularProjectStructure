@@ -7,6 +7,8 @@ import { OwlModule } from 'ngx-owl-carousel';
 import { EmbedVideo } from 'ngx-embed-video';
 import { NgxSpinnerModule } from "ngx-spinner";
 import {NgxPaginationModule} from 'ngx-pagination';
+import { NgxYoutubePlayerModule } from 'ngx-youtube-player';
+
 @NgModule({
   declarations: [],
   imports: [
@@ -16,6 +18,7 @@ import {NgxPaginationModule} from 'ngx-pagination';
     FormsModule,
     OwlModule,
     EmbedVideo.forRoot(),
+    NgxYoutubePlayerModule.forRoot(),
     NgxSpinnerModule,
     NgxPaginationModule
   ],
@@ -27,7 +30,8 @@ import {NgxPaginationModule} from 'ngx-pagination';
     OwlModule,
     NgxSpinnerModule,
     EmbedVideo,
-    NgxPaginationModule
+    NgxPaginationModule,
+    NgxYoutubePlayerModule
   ],
   providers: [
     HttpClientModule,

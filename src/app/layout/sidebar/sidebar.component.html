@@ -1,32 +1,92 @@
-<ul class="sidebar navbar-nav">
-    <li class="nav-item" [ngClass]="{'active' : url == '/admin/home'}">
-       <a class="nav-link" routerLink="/home">
+<ul class="sidebar navbar-nav" *ngIf="role == 'user'">
+    <li class="nav-item" [ngClass]="{'active' : url == '/user/home'}">
+       <a class="nav-link" routerLink="/user/home">
        <img height="20" src="assets/images/default/home.png" />
        <span>Home</span>
        </a>
     </li>
-    <li class="nav-item" [ngClass]="{'active' : url == '/admin/topicsPool'}">
-       <a class="nav-link" routerLink="/topicsPool">
+    <li class="nav-item" [ngClass]="{'active' : url == '/user/topicsPool'}">
+       <a class="nav-link" routerLink="/user/topicsPool">
          <img height="20" src="assets/images/default/topic.png" />
        <span>Topics Pool</span>
        </a>
     </li>
-    <li class="nav-item" [ngClass]="{'active' : url == '/admin/contestHistory'}">
-       <a class="nav-link" routerLink="/contestHistory">
+    <li class="nav-item" [ngClass]="{'active' : url == '/user/contests'}">
+      <a class="nav-link" routerLink="/user/contests">
+        <img height="20" src="assets/images/default/contest.png" />
+      <span>Side Contests</span>
+      </a>
+   </li>
+    <li class="nav-item" [ngClass]="{'active' : url == '/user/suggestTopic'}">
+       <a class="nav-link" routerLink="/user/suggestTopic">
+         <img height="22" src="assets/images/default/suggest.png" />
+       <span>Suggest a Topic</span>
+       </a>
+    </li>
+    <li class="nav-item" [ngClass]="{'active' : url == '/user/contestHistory'}">
+       <a class="nav-link" routerLink="/user/contestHistory">
          <img height="22" src="assets/images/default/contest.png" />
        <span>Contest History</span>
        </a>
     </li>
-    <li class="nav-item" [ngClass]="{'active' : url == '/admin/users'}">
-       <a class="nav-link" routerLink="/users">
-         <img height="20" src="assets/images/default/users.png" />
-       <span>Users</span>
-       </a>
-    </li>
-    <li class="nav-item" *ngIf="userData != undefined && userData.role_id == 1" [ngClass]="{'active' : url == '/admin/myAccount'}">
-       <a class="nav-link" routerLink="/myAccount">
+    <li class="nav-item" [ngClass]="{'active' : url == '/user/myAccount'}">
+       <a class="nav-link" routerLink="/user/myAccount">
          <img height="20" src="assets/images/default/account.png" />
        <span>My account</span>
        </a>
     </li>
+</ul>
+
+<ul class="sidebar navbar-nav" *ngIf="role == 'admin'">
+  <li class="nav-item" [ngClass]="{'active' : url == '/admin/home'}">
+     <a class="nav-link" routerLink="/admin/home">
+     <img height="20" src="assets/images/default/home.png" />
+     <span>Home</span>
+     </a>
+  </li>
+  <li class="nav-item" [ngClass]="{'active' : url == '/admin/topicsPool'}">
+     <a class="nav-link" routerLink="/admin/topicsPool">
+       <img height="20" src="assets/images/default/topic.png" />
+     <span>Topics Pool</span>
+     </a>
+  </li>
+  <li class="nav-item" [ngClass]="{'active' : url == '/admin/contestHistory'}">
+     <a class="nav-link" routerLink="/admin/contestHistory">
+       <img height="22" src="assets/images/default/contest.png" />
+     <span>Contest History</span>
+     </a>
+  </li>
+  <li class="nav-item" [ngClass]="{'active' : url == '/admin/users'}">
+     <a class="nav-link" routerLink="/admin/users">
+       <img height="20" src="assets/images/default/users.png" />
+     <span>Users</span>
+     </a>
+  </li>
+  <li class="nav-item" [ngClass]="{'active' : url == '/admin/myAccount' || url == '/user/myAccount'}">
+     <a class="nav-link" routerLink="/admin/myAccount">
+       <img height="20" src="assets/images/default/account.png" />
+     <span>My account</span>
+     </a>
+  </li>
+</ul>
+
+<ul class="sidebar navbar-nav" *ngIf="role == 'guest'">
+  <li class="nav-item" [ngClass]="{'active' : url == '/admin/home'}">
+     <a class="nav-link" routerLink="/admin/home">
+     <img height="20" src="assets/images/default/home.png" />
+     <span>Home</span>
+     </a>
+  </li>
+  <li class="nav-item" [ngClass]="{'active' : url == '/admin/topicsPool'}">
+     <a class="nav-link" routerLink="/admin/topicsPool">
+       <img height="20" src="assets/images/default/topic.png" />
+     <span>Topics Pool</span>
+     </a>
+  </li>
+  <li class="nav-item" [ngClass]="{'active' : url == '/admin/contestHistory'}">
+     <a class="nav-link" routerLink="/admin/contestHistory">
+       <img height="22" src="assets/images/default/contest.png" />
+     <span>Contest History</span>
+     </a>
+  </li>
 </ul>
