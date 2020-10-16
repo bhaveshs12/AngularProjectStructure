@@ -16,20 +16,22 @@ export class ContentHistoryComponent implements OnInit {
   itemsPerPage:any = 8;
   searchText:any = "";
   userData:any;
+  sortType:any = '';
 
   constructor(private spinner: NgxSpinnerService, private api: ApiRequestService, private adminService: AdminService, private toastr: ToastrService) { }
 
   ngOnInit() {
     this.api.userDataChange$.subscribe(val => {this.userData = this.api.getData(); });
-    this.getContestHistory('main', 0);
+    this.getContestHistory(this.sortType, 0);
   }
 
   pagignation(ev) {
     this.currentPage = ev;
-    this.getContestHistory('main', 1);
+    this.getContestHistory(this.sortType, 1);
   }
 
   getContestHistory(sortType, resetPage) {
+    this.sortType = sortType;
     let offset = this.currentPage == 0 ? 0 : (this.currentPage - 1) * this.itemsPerPage;
     this.spinner.show();
     let params = {

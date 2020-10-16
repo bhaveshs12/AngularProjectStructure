@@ -1,6 +1,6 @@
 .upcoming a {
-    font-size:13px;
-    height: 80px;
+    font-size:15px;
+    min-height: 80px;
 }
 .upcoming .video-title {
     min-height: 90px;
@@ -13,4 +13,8 @@
 }
 .upcoming .video-card {
     min-height: 170px;
+}
+a.createLink {
+    cursor: pointer;
+    color: #ff0000 !important;
 }

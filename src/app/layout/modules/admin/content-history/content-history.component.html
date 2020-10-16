@@ -12,6 +12,7 @@
                         Filter by <i class="fa fa-caret-down" aria-hidden="true"></i>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right">
+                           <a class="dropdown-item" (click)="getContestHistory('', 0)">Show All</a>
                            <a class="dropdown-item" (click)="getContestHistory('main', 0)">Main Contest</a>
                            <a class="dropdown-item" (click)="getContestHistory('public', 0)">Public Side Contest</a>
                            <a class="dropdown-item" (click)="getContestHistory('private', 0)">Private Side Contest</a>
@@ -19,9 +20,9 @@
                       </div>
                       <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-5 my-2 my-md-0 osahan-navbar-search">
                             <div class="input-group">
-                              <input (keydown.enter)="getContestHistory('main', 0)" name="searchText" [(ngModel)]="searchText" type="text" class="form-control" placeholder="Search for...">
+                              <input (keydown.enter)="getContestHistory(sortType, 0)" name="searchText" [(ngModel)]="searchText" type="text" class="form-control" placeholder="Search for...">
                               <div class="input-group-append">
-                                 <button (click)="getContestHistory('main', 0)" class="btn btn-light" type="button">
+                                 <button (click)="getContestHistory(sortType, 0)" class="btn btn-light" type="button">
                                  <i class="fas fa-search"></i> 
                                  </button>
                               </div>

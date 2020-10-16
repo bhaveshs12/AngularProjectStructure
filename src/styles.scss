@@ -1,6 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 
 @import "@fortawesome/fontawesome-free/css/all.css";
+@import "~ng-pick-datetime/assets/style/picker.min.css";
 
  html {
      position: relative;
@@ -393,18 +394,15 @@
 }
 .btn-outline-primary:hover {
     background-color: #fff !important;
-    border-color: #ff516b;
-    color: #ff516b;
+    border-color: #ff0000;
+    color: #ff0000;
 }
  .btn-outline-primary{
-     border-color: #ff516b;
-     color: #ff516b;
+     border-color: #ff0000;
+     color: #ff0000;
 }
  .text-primary{
-     color: #ff516b !important;
-}
- .progress-bar{
-     background-color: #ff516b;
+     color: #ff0000 !important;
 }
  .bg-success, .btn-success, .btn-outline-success:hover, .badge-success {
      border-color: transparent !important;
@@ -601,7 +599,7 @@
  .dropdown-menu {
      border-radius:2px;
      margin: 0;
-     border-color: #eff2f3;
+     border-color: #fff;
 }
  .dropdown-menu .dropdown-item {
      color: rgba(0, 0, 0, 0.5);
@@ -1504,9 +1502,23 @@ hr{
 .font-bold-600 {
     font-weight: 600 !important;
 }
+.font-12 {
+    font-size: 12px !important;
+}
 .font-16 {
     font-size: 16px !important;
 }
 .font-20 {
     font-size: 20px !important;
+}
+.dropdown-menu {
+    box-shadow: 0px 0px 6px #ECECEC;
+}
+.dropdown-menu a {
+    font-size:13px !important;
+    color: #000 !important;
+}
+.customBtn {
+    color: #ff253a !important;
+    border-color: #ff253a !important;
 }

@@ -25,7 +25,6 @@ export class VoteVideoComponent implements OnInit {
   ngOnInit() {
     this.api.userDataChange$.subscribe(val => {this.userData = this.api.getData(); });
     this.route.params.subscribe(params => {
-      console.log(params)
       this.contestId = params['contestId'];
       this.videoId = params['videoId'];
       this.getVideoDetails();
@@ -83,21 +82,23 @@ export class VoteVideoComponent implements OnInit {
     let params = {
       video_id: this.videoId,
       contest_id: this.contestId,
-      type: type,
-      user_id: this.userData.id
+      type: type == 'snafu' ? 'up_vote' : type,
+      user_id: this.userData.id,
+      vote_type: type == 'snafu' ? 'Snafu' : 'Normal'
     }
-    let body = this.userService.voteVideo(params);
-    this.api.post("crud/create", body).subscribe((response :  any) => {
+    this.api.post("video/video-vote", params).subscribe((response :  any) => {
       if(response.statusCode == 200) {
         this.spinner.hide();
         if(type == 'up_vote')
           this.toastr.success('', 'You have up voted video successfully');
+        else if(type == 'snafu')
+          this.toastr.success('', 'You have voted as Snafu successfully');
         else
           this.toastr.success('', 'You have down voted video successfully');
       }
       else {
         this.spinner.hide();
-        this.toastr.error('Get Expert Videos', 'Failed to Process !');
+        this.toastr.error('Vot a Video', 'Failed to Process !');
       }
     });
   }

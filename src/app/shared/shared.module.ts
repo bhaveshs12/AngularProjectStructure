@@ -8,7 +8,7 @@ import { EmbedVideo } from 'ngx-embed-video';
 import { NgxSpinnerModule } from "ngx-spinner";
 import {NgxPaginationModule} from 'ngx-pagination';
 import { NgxYoutubePlayerModule } from 'ngx-youtube-player';
-
+import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 @NgModule({
   declarations: [],
   imports: [
@@ -20,7 +20,9 @@ import { NgxYoutubePlayerModule } from 'ngx-youtube-player';
     EmbedVideo.forRoot(),
     NgxYoutubePlayerModule.forRoot(),
     NgxSpinnerModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    OwlDateTimeModule,
+    OwlNativeDateTimeModule
   ],
   exports: [
     HttpClientModule,
@@ -31,7 +33,9 @@ import { NgxYoutubePlayerModule } from 'ngx-youtube-player';
     NgxSpinnerModule,
     EmbedVideo,
     NgxPaginationModule,
-    NgxYoutubePlayerModule
+    NgxYoutubePlayerModule,
+    OwlDateTimeModule,
+    OwlNativeDateTimeModule
   ],
   providers: [
     HttpClientModule,

@@ -45,7 +45,7 @@ export class UsersComponent implements OnInit {
       if(response.statusCode == 200) {
         this.totalRecords = response.result.totalrecords; 
         this.usersList = response.result.data;
-        console.log(this.usersList)
+        // console.log(this.usersList)
         this.spinner.hide();
       }
       else {

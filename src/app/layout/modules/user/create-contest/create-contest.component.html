@@ -1,0 +1,120 @@
+<ngx-spinner type = "ball-spin" color = "#fff" bdColor = "rgba(0,0,0,0.4)" size = "default" [fullScreen] = "false"><p style="color: white" > Loading... </p></ngx-spinner>
+<div id="content-wrapper">
+    <div class="container-fluid pb-0">
+       <div class="top-category section-padding mb-2">
+          <div class="row">
+             <div class="col-md-12">
+                <div class="main-title">
+                    <h6 *ngIf="pageType == 1" class="font-bold-600 font-16 mt-2">Public contest details</h6>
+                    <h6 *ngIf="pageType == 2" class="font-bold-600 font-16 mt-2">Private contest details</h6>
+                 </div>
+             </div>
+          </div>
+       </div>
+        <div class="row pb-5">
+            <div class="col-md-12">
+                <form #contestForm="ngForm" (ngSubmit)="contestForm.form.valid && submit(contestForm)">
+                    <div class="row">
+                        <div class="col-md-9">
+                            <div class="form-group">
+                                <label for="contestName">Contest Name</label>
+                                <input required [(ngModel)]="contestName" minlength="5" maxlength="100" name="contestName" type="text" #contestNameRef="ngModel" class="form-control" id="contestNameRef">
+                                <div class="alert alert-danger" *ngIf="(contestNameRef.touched || contestForm.submitted) && !contestNameRef.valid">
+                                    <div *ngIf="contestNameRef.errors.required">Contest Name is required.</div>
+                                    <div *ngIf="contestNameRef.errors.minlength">Contest Name must be of at least 5 characters.</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="type">Type</label>
+                                <select required [(ngModel)]="type" type="text" #typeRef="ngModel" class="form-control" name="type">
+                                    <option value="">-Select Type-</option>
+                                    <option value="public_side_contest">Public Side Contest</option>
+                                    <option value="private_side_contest">Private Side Contest</option>
+                                </select>
+                                <div class="alert alert-danger" *ngIf="(typeRef.touched || contestForm.submitted) && !typeRef.valid">
+                                    <div *ngIf="typeRef.errors.required">Type is required.</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="about">About</label>
+                                <textarea required [(ngModel)]="about" #aboutRef="ngModel" minlength="100" maxlength="300" name="about" id="about" cols="30" rows="5" class="form-control"></textarea>
+                                <div class="alert alert-danger" *ngIf="(aboutRef.touched || contestForm.submitted) && !aboutRef.valid">
+                                    <div *ngIf="aboutRef.errors.required">About Us is required.</div>
+                                    <div *ngIf="aboutRef.errors.minlength">About must be of at least 100 characters.</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="startDate">Start date</label>
+                                <input [min]="min" (dateTimeInput)="change()" required readonly [owlDateTime]="dt2" [owlDateTimeTrigger]="dt2" placeholder="Date Time" name="startDate" [(ngModel)]="startDate" type="text" #startDateRef="ngModel" class="form-control">
+                                <owl-date-time #dt2></owl-date-time>
+                                <div class="alert alert-danger" *ngIf="contestForm.submitted && !startDateRef.valid">
+                                    Start date is required.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="endDate">End date</label>
+                                <input [min]="min" required readonly [owlDateTime]="dt22" [owlDateTimeTrigger]="dt22" placeholder="Date Time" name="endDate" [(ngModel)]="endDate" type="text" #endDateRef="ngModel" class="form-control">
+                                <owl-date-time #dt22></owl-date-time>
+                                <div class="alert alert-danger" *ngIf="contestForm.submitted && !endDateRef.valid">
+                                    End date is required.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="priceOne">Beginner Video Prize</label>
+                                <input required [(ngModel)]="priceOne" pattern="[0-9]+" type="text" #priceOneRef="ngModel" class="form-control" name="priceOne">
+                                <div class="alert alert-danger" *ngIf="(priceOneRef.touched || contestForm.submitted) && !priceOneRef.valid">
+                                    <div *ngIf="priceOneRef.errors.required">Beginner Video Price is required.</div>
+                                    <div *ngIf="priceOneRef.errors.pattern">Beginner Video Price must be numeric.</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="priceTwo">Intermediate video prize</label>
+                                <input required [(ngModel)]="priceTwo" pattern="[0-9]+" type="text" #priceTwoRef="ngModel" class="form-control" name="priceTwo">
+                                <div class="alert alert-danger" *ngIf="(priceTwoRef.touched || contestForm.submitted) && !priceTwoRef.valid">
+                                    <div *ngIf="priceTwoRef.errors.required">Intermediate Video Price is required.</div>
+                                    <div *ngIf="priceTwoRef.errors.pattern">Intermediate Video Price must be numeric.</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="priceThree">Expert video Prize</label>
+                                <input required [(ngModel)]="priceThree" pattern="[0-9]+" type="text" #priceThreeRef="ngModel" class="form-control" name="priceThree">
+                                <div class="alert alert-danger" *ngIf="(priceThreeRef.touched || contestForm.submitted) && !priceThreeRef.valid">
+                                    <div *ngIf="priceThreeRef.errors.required">Expert Video Price is required.</div>
+                                    <div *ngIf="priceThreeRef.errors.pattern">Expert Video Price must be numeric.</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <p *ngIf="pageType == 1 && public_side_contest_prize > 0" style="color: #000; font-size:13px;">{{public_side_contest_prize}} SNAFU tokens are required to create public contest. Also you have to sent 1000 prize tokens in advance</p>
+                    <p *ngIf="pageType == 2 && private_side_contest_prize > 0" style="color: #000; font-size:13px;">{{private_side_contest_prize}} SNAFU tokens are required to create public contest. Also you have to sent 1000 prize tokens in advance</p>
+                    <p>
+                        <a routerLink="/user/contests" style="font-size:14px" class="pl-2 pr-2" type="submit">Cancel</a>
+                        <button class="btn btn-outline-primary ml-4 pl-5 pr-5" type="submit">Create</button>
+                    </p>
+                </form>
+            </div>
+        </div>
+    </div>
+ </div>

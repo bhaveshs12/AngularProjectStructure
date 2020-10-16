@@ -15,24 +15,35 @@ export class SidebarComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.userData = this.api.getData();
+    this.checkUserLogin(0);
     this.api.userDataChange$.subscribe(val => {
-      this.userData = this.api.getData(); 
-      if(this.userData != undefined && this.userData != null) {
-        if(this.userData.role_id == 1) {
-          this.role = 'admin';
-        }
-        else if(this.userData.role_id == 2){
-          this.role = 'user';
-        }
-        else {
-          this.role = 'guest';
-        }
+      if(val) {
+        this.userData = this.api.getData();
+        this.checkUserLogin(1);
       }
     });
+
     this.url = this.router.url;
     $(document).on('click', '.sidebar .nav-item', function() {
       $(".sidebar .nav-item").removeClass("active");
       $(this).addClass("active");
     });
+  }
+
+  checkUserLogin(status) {
+    if(this.userData != undefined && this.userData != null) {
+      if(this.userData.role_id == 1) {
+        this.role = 'admin';
+      }
+      else if(this.userData.role_id == 2){
+        this.role = 'user';
+        if(status)
+          this.router.navigateByUrl('/user/home')
+      }
+      else {
+        this.role = 'guest';
+      }
+    }
   }
 }

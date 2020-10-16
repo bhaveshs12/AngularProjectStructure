@@ -27,6 +27,12 @@ export class MyAccountComponent implements OnInit {
   intermediatePrice = 0;
   snafuPrice = 0;
   voterPrice = 0;
+  addTopicPrice = 0;
+  addVideoPrice = 0;
+  videoVotePrice = 0;
+  topicVotePrice = 0;
+  publicContestPrice = 0;
+  privateContestPrice = 0; 
   settingId:any = 0;
   constructor(private route:ActivatedRoute, private spinner: NgxSpinnerService, private api: ApiRequestService, private adminService: AdminService, private toastr: ToastrService) { 
   }
@@ -94,12 +100,18 @@ export class MyAccountComponent implements OnInit {
     this.api.get("crud/setting").subscribe((response :  any) => {
       if(response.statusCode == 200) {
         let priceDetails = response.result[0];
-        this.beginnerPrice = priceDetails.beginner_prize,
-        this.intermediatePrice = priceDetails.intermediate_prize,
-        this.expertPrice = priceDetails.expert_prize,
-        this.snafuPrice = priceDetails.snafu_prize,
-        this.voterPrice = priceDetails.good_voter_prize,
-        this.settingId = priceDetails.id
+        this.beginnerPrice = priceDetails.beginner_prize;
+        this.intermediatePrice = priceDetails.intermediate_prize;
+        this.expertPrice = priceDetails.expert_prize;
+        this.snafuPrice = priceDetails.snafu_prize;
+        this.voterPrice = priceDetails.good_voter_prize;
+        this.settingId = priceDetails.id;
+        this.addTopicPrice = priceDetails.add_topic_prize;
+        this.addVideoPrice = priceDetails.add_video_prize;
+        this.videoVotePrice = priceDetails.video_vote_prize;
+        this.topicVotePrice = priceDetails.topic_vote_prize;
+        this.publicContestPrice = priceDetails.public_side_contest_prize;
+        this.privateContestPrice = priceDetails.private_side_contest_prize;
         this.spinner.hide();
       }
       else {
@@ -110,24 +122,27 @@ export class MyAccountComponent implements OnInit {
   }
 
   updateUserInfo() {
-    this.spinner.show();
-    let data = {
-      name: this.display_name,
-      id: this.userId
+    this.display_name = this.display_name.trim();
+    if(this.display_name != "") {
+      this.spinner.show();
+      let data = {
+        name: this.display_name,
+        id: this.userId
+      }
+  
+      let body = this.adminService.updateUserInfo(data);
+      this.api.put("crud/user_info", body).subscribe((response :  any) => {
+        if(response.statusCode == 200) {
+          this.toastr.success('', 'Profile updated successfully!');
+          this.spinner.hide();
+          this.getUserInfo();
+        }
+        else {
+          this.spinner.hide();
+          this.toastr.error('Get User Details', 'Failed to Process !');
+        }
+      });
     }
-
-    let body = this.adminService.updateUserInfo(data);
-    this.api.put("crud/user_info", body).subscribe((response :  any) => {
-      if(response.statusCode == 200) {
-        this.toastr.success('', 'Profile updated successfully!');
-        this.spinner.hide();
-        this.getUserInfo();
-      }
-      else {
-        this.spinner.hide();
-        this.toastr.error('Get User Details', 'Failed to Process !');
-      }
-    });
   }
 
   saveSetting() {
@@ -138,6 +153,12 @@ export class MyAccountComponent implements OnInit {
       expertPrice:this.expertPrice,
       snafuPrice: this.snafuPrice,
       voterPrice: this.voterPrice,
+      addTopicPrice : this.addTopicPrice,
+      addVideoPrice: this.addVideoPrice,
+      videoVotePrice: this.videoVotePrice,
+      topicVotePrice: this.topicVotePrice,
+      publicContestPrice: this.publicContestPrice,
+      privateContestPrice: this.privateContestPrice,
       id: this.settingId
     }
 

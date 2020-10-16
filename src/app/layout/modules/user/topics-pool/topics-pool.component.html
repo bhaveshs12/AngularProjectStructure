@@ -1,1 +1,51 @@
-<p>topics-pool works!</p>
+<ngx-spinner type = "ball-spin" color = "#fff" bdColor = "rgba(0,0,0,0.4)" size = "default" [fullScreen] = "false"><p style="color: white" > Loading... </p></ngx-spinner>
+<div id="content-wrapper">
+   <div class="container-fluid pb-0">
+      <div class="top-category section-padding mb-4">
+         <div class="row">
+            <div class="col-md-12">
+               <div class="main-title">
+                  <div class="btn-group float-right right-action">
+                     <a href="#" class="right-action-link text-gray" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                     Sort by <i class="fa fa-caret-down" aria-hidden="true"></i>
+                     </a>
+                     <div class="dropdown-menu dropdown-menu-right">
+                        <a class="dropdown-item" (click)="getTopicPools('vote', 0)">Top Voted</a>
+                        <a class="dropdown-item" (click)="getTopicPools('hot', 0)">Hottest</a>
+                        <a class="dropdown-item" (click)="getTopicPools('recent', 0)">Most Recent</a>
+                     </div>
+                     </div>
+                  <h4 class="font-bold-600 font-16 mt-2 mr-2">Topics Pool &nbsp;<a class="ml-5 font-bold-400" style="font-size: 13px;" routerLink="/user/suggestTopic/">Suggest a topic</a></h4>
+               </div>
+            </div>
+         </div>
+      </div>
+
+      <div class="row" *ngIf="ContestData != null">
+         <div class="col-md-12 mt-4">
+            <div class="main-title">
+               <p class="font-bold-600 mb-0" style="color: #000"><span class="text-success pr-3">#Winner</span>{{ContestData.name}}</p>
+               <p style="font-size:10px;color:#ACACAC">Rising</p>
+               <p *ngIf="ContestData.description != null">{{ContestData.description}}</p>
+            </div>
+            <hr class="mt-4 mb-4">
+         </div>
+      </div>
+
+      <div class="row" *ngFor="let topic of poolsData | paginate: { id: 'contentPagination', itemsPerPage: itemsPerPage, currentPage: currentPage, totalItems: totalRecords }; let i = index;">
+         <div class="col-md-12 mt-4">
+            <div class="main-title">
+               <p class="font-bold-600 mb-0" style="color: #000"><span class="text-success" style="padding-right: 57px;">#{{topic.id}}</span>{{topic.name}}</p>
+               <p style="font-size:10px;color:#ACACAC">{{(topic.currentCount - topic.prevCount) >= 0 ? 'Rising' : 'Failing'}}</p>
+               <p *ngIf="topic.description != null">{{topic.description}}</p>
+               <div class="mt-4">
+                  <a style="color: #000" class="btn btn-success pl-3 pr-2" (click)="voteTopic(topic.id, 'up_vote')">Upvote &nbsp;&nbsp;<span class="font-weight-bold">{{topic.up_vote}}</span></a>
+                  <a style="color: #000" class="btn btn-outline-primary ml-3" (click)="voteTopic(topic.id, 'down_vote')">Downvote <span class="font-weight-bold">{{topic.down_vote}}</span></a>
+               </div>
+            </div>
+            <hr class="mt-4 mb-4">
+         </div>
+      </div>
+      <pagination-controls *ngIf="poolsData.length > 0" id="contentPagination" class="text-center" (pageChange)="pagignation($event)"></pagination-controls>
+   </div>
+</div>

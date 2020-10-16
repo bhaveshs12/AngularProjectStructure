@@ -10,27 +10,16 @@ export class AdminService {
     
     getCurrentContest(data) {
         return {
-            select: "contest.id, contest.type, contest.start_date_time, contest.end_date_time, contest.total_up_vote, contest.total_down_vote, topic.name, topic.id AS topicId",
-            where: "DATE('" + moment().format('YYYY-MM-DD') + "') BETWEEN contest.start_date_time AND contest.end_date_time",
-            join: [{
-                "type": "INNER",
-                "join_table": "topic",
-                "on_join_table": "topic.id",
-                "on_from": "contest.topic_id"
-            }]
+            select: "contest.topic_id, contest.id, contest.name, contest.description, contest.type, contest.start_date_time, contest.end_date_time, contest.total_up_vote, contest.total_down_vote",
+            where: "DATE('" + moment().format('YYYY-MM-DD') + "') BETWEEN contest.start_date_time AND contest.end_date_time AND type='main_contest'",
+            limit: "1"
         }
     }
 
     getContest(id) {
         return {
-            select: "contest.id, contest.type, contest.start_date_time, contest.end_date_time, contest.total_up_vote, contest.total_down_vote, topic.name, topic.description, topic.id AS topicId",
-            where: "contest.id = "+id+" AND topic.name LIKE '%%'",
-            join: [{
-              "type": "INNER",
-              "join_table": "topic",
-              "on_join_table": "topic.id",
-              "on_from": "contest.topic_id"
-            }],
+            select: "contest.topic_id, contest.id, contest.name, contest.description, contest.type, contest.start_date_time, contest.end_date_time, contest.total_up_vote, contest.total_down_vote",
+            where: "contest.id = "+id,
             sort_by: "topic_id",
             sort_order: "ASC",
             limit: "0,2"
@@ -70,14 +59,8 @@ export class AdminService {
 
     getUpComingContest() {
         return {
-            select: "contest.id, contest.type, contest.start_date_time, contest.end_date_time, contest.total_up_vote, contest.total_down_vote, topic.name, topic.id AS topicId",
-            where: "DATE(contest.end_date_time) > DATE('" + moment().format('YYYY-MM-DD') + "') AND DATE('" + moment().format('YYYY-MM-DD') + "') NOT BETWEEN contest.start_date_time AND contest.end_date_time ",
-            join: [{
-                "type": "INNER",
-                "join_table": "topic",
-                "on_join_table": "topic.id",
-                "on_from": "contest.topic_id"
-            }],
+            select: "contest.topic_id, contest.id, contest.name, contest.description, contest.type, contest.start_date_time, contest.end_date_time, contest.total_up_vote, contest.total_down_vote",
+            where: "DATE(contest.end_date_time) > DATE('" + moment().format('YYYY-MM-DD') + "') AND DATE('" + moment().format('YYYY-MM-DD') + "') NOT BETWEEN contest.start_date_time AND contest.end_date_time AND type='main_contest'",
             limit: "0,4"
         }
     }
@@ -90,42 +73,48 @@ export class AdminService {
             return {
                 select: "topic.id, topic.name, topic.user_id, topic.description, topic.created_at, (SELECT count(id) FROM vote_for_topic WHERE vote_for_topic.topic_id = topic.id AND type = 'up_vote') AS up_vote, (SELECT count(id) FROM vote_for_topic WHERE vote_for_topic.topic_id = topic.id AND type = 'down_vote') AS down_vote, ((SELECT count(id) FROM vote_for_topic  WHERE vote_for_topic.topic_id = topic.id AND vote_for_topic.type = 'up_vote' AND vote_for_topic.created_at > '"+pastDate+"' AND vote_for_topic.created_at < '"+currentDate+"') - (SELECT count(id) FROM vote_for_topic WHERE vote_for_topic.topic_id = topic.id AND vote_for_topic.type = 'down_vote' AND vote_for_topic.created_at > '"+pastDate+"' AND vote_for_topic.created_at < '"+currentDate+"')) AS currentCount, ((SELECT count(id) FROM vote_for_topic WHERE vote_for_topic.topic_id = topic.id AND vote_for_topic.type = 'up_vote' AND vote_for_topic.created_at > '"+pastOfPastDate+"' AND vote_for_topic.created_at < '"+pastDate+"' ) - (SELECT count(id) FROM vote_for_topic WHERE vote_for_topic.topic_id = topic.id AND vote_for_topic.type = 'down_vote' AND vote_for_topic.created_at > '"+pastOfPastDate+"' AND vote_for_topic.created_at < '"+pastDate+"')) AS prevCount",
                 sort_by: "up_vote - down_vote",
-                sort_order: "DESC"
+                sort_order: "DESC",
+                limit: data.limit
             }
         }
         else if (data.sortType == 'hot'){
             return {
                 select: "topic.id, topic.name, topic.user_id, topic.description, topic.created_at, (SELECT count(id) FROM vote_for_topic WHERE vote_for_topic.topic_id = topic.id AND type = 'up_vote') AS up_vote, (SELECT count(id) FROM vote_for_topic WHERE vote_for_topic.topic_id = topic.id AND type = 'down_vote') AS down_vote, ((SELECT count(id) FROM vote_for_topic  WHERE vote_for_topic.topic_id = topic.id AND vote_for_topic.type = 'up_vote' AND vote_for_topic.created_at > '"+pastDate+"' AND vote_for_topic.created_at < '"+currentDate+"') - (SELECT count(id) FROM vote_for_topic WHERE vote_for_topic.topic_id = topic.id AND vote_for_topic.type = 'down_vote' AND vote_for_topic.created_at > '"+pastDate+"' AND vote_for_topic.created_at < '"+currentDate+"')) AS currentCount, ((SELECT count(id) FROM vote_for_topic WHERE vote_for_topic.topic_id = topic.id AND vote_for_topic.type = 'up_vote' AND vote_for_topic.created_at > '"+pastOfPastDate+"' AND vote_for_topic.created_at < '"+pastDate+"' ) - (SELECT count(id) FROM vote_for_topic WHERE vote_for_topic.topic_id = topic.id AND vote_for_topic.type = 'down_vote' AND vote_for_topic.created_at > '"+pastOfPastDate+"' AND vote_for_topic.created_at < '"+pastDate+"')) AS prevCount",
                 sort_by: "currentCount - prevCount",
-                sort_order: "DESC"
+                sort_order: "DESC",
+                limit: data.limit
             }
         }
         else {
             return {
                 select: "topic.id, topic.name, topic.user_id, topic.description, topic.created_at, (SELECT count(id) FROM vote_for_topic WHERE vote_for_topic.topic_id = topic.id AND type = 'up_vote') AS up_vote, (SELECT count(id) FROM vote_for_topic WHERE vote_for_topic.topic_id = topic.id AND type = 'down_vote') AS down_vote, ((SELECT count(id) FROM vote_for_topic  WHERE vote_for_topic.topic_id = topic.id AND vote_for_topic.type = 'up_vote' AND vote_for_topic.created_at > '"+pastDate+"' AND vote_for_topic.created_at < '"+currentDate+"') - (SELECT count(id) FROM vote_for_topic WHERE vote_for_topic.topic_id = topic.id AND vote_for_topic.type = 'down_vote' AND vote_for_topic.created_at > '"+pastDate+"' AND vote_for_topic.created_at < '"+currentDate+"')) AS currentCount, ((SELECT count(id) FROM vote_for_topic WHERE vote_for_topic.topic_id = topic.id AND vote_for_topic.type = 'up_vote' AND vote_for_topic.created_at > '"+pastOfPastDate+"' AND vote_for_topic.created_at < '"+pastDate+"' ) - (SELECT count(id) FROM vote_for_topic WHERE vote_for_topic.topic_id = topic.id AND vote_for_topic.type = 'down_vote' AND vote_for_topic.created_at > '"+pastOfPastDate+"' AND vote_for_topic.created_at < '"+pastDate+"')) AS prevCount",
                 sort_by: "DATE(topic.created_at)",
-                sort_order: "DESC"
+                sort_order: "DESC",
+                limit: data.limit
             }
         }
     }
 
     getContestHistory(data) {
-        let type = "main_contest";
+        let type = "";
         if(data.type == 'public')
             type = "public_side_contest";
-        if(data.type == "private")
+        else if(data.type == "main")
+            type = "main_contest";
+        else if(data.type == "private")
             type = "private_side_contest";
 
+        let where = "DATE(contest.end_date_time) < DATE('"+moment().format('YYYY-MM-DD')+"') AND DATE('"+moment().format('YYYY-MM-DD')+"') NOT BETWEEN contest.start_date_time AND contest.end_date_time";
+        if(data.search != '')
+            where += " AND contest.name LIKE '%"+data.search+"%'";
+        if(data.type != '')
+            where += " AND contest.type = '" + type + "'";
+
         return {
-            select: "contest.id, contest.created_at, contest.type, contest.start_date_time, contest.end_date_time, contest.total_up_vote, contest.total_down_vote, topic.name, topic.id AS topicId",
-            where: "DATE(contest.end_date_time) < DATE('"+moment().add(1, 'month').format('YYYY-MM-DD')+"') AND DATE('"+moment().add(1, 'month').format('YYYY-MM-DD')+"') NOT BETWEEN contest.start_date_time AND contest.end_date_time AND topic.name LIKE '%"+data.search+"%' AND contest.type = '" + type + "'",
-            join: [{
-              "type": "INNER",
-              "join_table": "topic",
-              "on_join_table": "topic.id",
-              "on_from": "contest.topic_id"
-            }],
-            sort_order: "DESC",
+            select: "contest.topic_id, contest.id, contest.name, contest.description, contest.type, contest.start_date_time, contest.end_date_time, contest.total_up_vote, contest.total_down_vote",
+            where: where,
+            sort_by: "contest.created_at",
+            sort_order: "ASC",
             limit: data.limit
         }
     }
@@ -245,7 +234,13 @@ export class AdminService {
                 "expert_prize": data.expertPrice,
                 "intermediate_prize": data.intermediatePrice,
                 "snafu_prize": data.snafuPrice,
-                "good_voter_prize": data.voterPrice
+                "good_voter_prize": data.voterPrice,
+                "add_topic_prize": data.addTopicPrice,
+                "add_video_prize": data.addVideoPrice,
+                "private_side_contest_prize": data.privateContestPrice,
+                "public_side_contest_prize": data.publicContestPrice,
+                "topic_vote_prize": data.topicVotePrice,
+                "video_vote_prize": data.videoVotePrice,
             },
             where: "id = " + data.id
         }

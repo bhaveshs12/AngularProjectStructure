@@ -56,7 +56,6 @@ export class ContestDetailComponent implements OnInit {
       // console.log(params)
       let id = params['id'];
       this.getContest(id);
-      this.getWinners(id);
     });
   }
 
@@ -192,27 +191,4 @@ export class ContestDetailComponent implements OnInit {
       }
     });
   }
-
-  getWinners(id) {
-    this.spinner.show();
-    let body = this.adminService.getWinners(id);
-    this.api.post("crud/winner", body).subscribe((response :  any) => {
-      if(response.statusCode == 200) {
-        let details = response.result.data;
-        if(details.length > 0) {
-          details.forEach(element => {
-            let id = this.api.getVideoId(element.youtube_url);
-            element.url = this.embedService.embed_youtube(id, { attr: { width: "100%", height: "auto" }});
-          });
-        }
-        this.Winners = details;
-        this.stopLoader();
-      }
-      else {
-        this.stopLoader();
-        this.toastr.error('Get Winners', 'Failed to Process !');
-      }
-    });
-  }
-
 }

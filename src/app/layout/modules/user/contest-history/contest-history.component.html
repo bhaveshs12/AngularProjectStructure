@@ -1,1 +1,47 @@
-<p>contest-history works!</p>
+<ngx-spinner type = "ball-spin" color = "#fff" bdColor = "rgba(0,0,0,0.4)" size = "default" [fullScreen] = "false"><p style="color: white" > Loading... </p></ngx-spinner>
+<div id="content-wrapper">
+    <div class="container-fluid pb-0">
+        <div class="top-category section-padding">
+            <div class="row">
+               <div class="col-md-12">
+                  <div class="main-title">
+                      <div class="btn-group float-right right-action">
+                        <a href="#" class="right-action-link text-gray" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Filter by <i class="fa fa-caret-down" aria-hidden="true"></i>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right">
+                           <a class="dropdown-item" (click)="getContestHistory('', 0)">Show All</a>
+                           <a class="dropdown-item" (click)="getContestHistory('main', 0)">Main Contest</a>
+                           <a class="dropdown-item" (click)="getContestHistory('public', 0)">Public Side Contest</a>
+                           <a class="dropdown-item" (click)="getContestHistory('private', 0)">Private Side Contest</a>
+                        </div>
+                      </div>
+                      <p style="color: #333" class="font-bold-600 font-16 mb-0">Contest history</p>
+                   </div>
+               </div>
+            </div>
+        </div>
+       <div class="video-block section-padding">
+         <div class="row">
+            <div class="col-md-12">
+               <div class="row upcoming pb-5">
+                  <div *ngFor="let contest of historyData | paginate: { id: 'contentPagination', itemsPerPage: itemsPerPage, currentPage: currentPage, totalItems: totalRecords };" class="col-sm-4 col-md-3 pr-4 mt-5">
+                     <div class="video-card">
+                        <div class="video-card-body">
+                           <div class="video-title pl-2">
+                              <a routerLink="/user/contestDetails/{{contest.id}}">{{contest.name}}</a>
+                           </div>
+                           <div class="video-view">
+                              {{contest.start_date_time | date: 'dd MMM'}} - {{contest.end_date_time | date: 'dd MMM'}}
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <pagination-controls *ngIf="historyData.length > 0" id="contentPagination" class="text-center" (pageChange)="pagignation($event)"></pagination-controls>
+               <p class="mt-3" *ngIf="historyData.length == 0">No Contest history found.</p>
+            </div>
+         </div>
+       </div>
+    </div>
+ </div>

@@ -47,22 +47,33 @@ export class ApiRequestService {
 
   setData(data) {
     data = JSON.stringify(data);
-    localStorage.setItem("userData", data);
+    localStorage.setItem("userDetail", data);
     this.userDataChange$.next(true);
   }
 
   getData() {
-    if(localStorage.getItem("userData") != undefined) {
-      let data = localStorage.getItem("userData");
-      return JSON.parse(data);
+    if(window['web3'] != undefined && window['web3']['eth'] != undefined) {
+      if(window['web3']['eth']['defaultAccount'] != null && window['web3']['eth']['defaultAccount'] != "") {
+        if(localStorage.getItem("userDetail") != undefined) {
+          let data = localStorage.getItem("userDetail");
+          return JSON.parse(data);
+        }
+        else
+          return undefined;
+      }
+      else {
+        this.removeData();
+        return undefined;
+      }  
     }
-    else
+    else {
+      this.removeData();
       return undefined;
+    }
   }
 
   removeData() {
     localStorage.clear();
-    this.userDataChange$.next(false);
   }
 
   getVideoId(url) {

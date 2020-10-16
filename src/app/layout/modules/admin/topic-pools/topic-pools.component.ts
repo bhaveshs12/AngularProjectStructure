@@ -10,31 +10,48 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./topic-pools.component.scss']
 })
 export class TopicPoolsComponent implements OnInit {
-
   poolsData:any = [];
   ContestData:any = null;
+  userData:any;
+  currentPage:any = 0;
+  totalRecords:any = 0;
+  itemsPerPage:any = 7;
+  sortType:any = 'vote';
   constructor(private spinner: NgxSpinnerService, private api: ApiRequestService, private adminService: AdminService, private toastr: ToastrService) { }
 
   ngOnInit() {
+    this.api.userDataChange$.subscribe(val => {this.userData = this.api.getData(); });
     this.getCurrentContest();
   }
 
-  getTopicPools(sortType) {
+  getTopicPools(sortType, resetPage) {
+    this.sortType = sortType;
+    if(resetPage == 0)
+      this.currentPage = 0;
+
     this.spinner.show();
+    let offset = this.currentPage == 0 ? 0 : (this.currentPage - 1) * this.itemsPerPage;
     let params = {
-      sortType: sortType
+      sortType: sortType,
+      limit: offset + "," + this.itemsPerPage,
     }
-    let body = this.adminService.getTopicPools(params);
-    this.api.post("crud/topic", body).subscribe((response :  any) => {
-      if(response.statusCode == 200) {
-        this.poolsData = response.result.data;
-        this.spinner.hide();
-      }
-      else {
-        this.spinner.hide();
-        this.toastr.error('Get Topic Pools', 'Failed to Process !');
-      }
+      let body = this.adminService.getTopicPools(params);
+      this.api.post("crud/topic", body).subscribe((response :  any) => {
+        if(response.statusCode == 200) {
+          this.poolsData = response.result.data;
+          this.totalRecords = response.result.totalrecords;
+          this.spinner.hide();
+        }
+        else {
+          this.spinner.hide();
+          this.toastr.error('Get Topic Pools', 'Failed to Process !');
+        }
     });
+  }
+  
+  pagignation(ev) {
+    this.currentPage = ev;
+    this.getTopicPools(this.sortType, 1);
   }
 
   getCurrentContest() {
@@ -44,7 +61,7 @@ export class TopicPoolsComponent implements OnInit {
       if(response.statusCode == 200) {
         this.spinner.hide();
         this.ContestData = response.result.data.length > 0 ? response.result.data[0] : null;
-        this.getTopicPools('vote');
+        this.getTopicPools(this.sortType, 1);
       }
       else {
         this.spinner.hide();

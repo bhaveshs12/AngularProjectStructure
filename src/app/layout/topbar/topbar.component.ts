@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import $ from 'jQuery';
 import { ToastrService } from 'ngx-toastr';
 import { NgxSpinnerService } from "ngx-spinner";
+import { Router } from '@angular/router';
 import { ApiRequestService } from '../../services/api-request.service';
 @Component({
   selector: 'app-topbar',
@@ -11,7 +12,7 @@ import { ApiRequestService } from '../../services/api-request.service';
 export class TopbarComponent implements OnInit {
 
   status:any = 0;
-  constructor(private spinner: NgxSpinnerService, private api: ApiRequestService, private toastr: ToastrService) { 
+  constructor(private router: Router, private spinner: NgxSpinnerService, private api: ApiRequestService, private toastr: ToastrService) { 
   }
 
   ngOnInit() {
@@ -21,16 +22,10 @@ export class TopbarComponent implements OnInit {
       $(".sidebar").toggleClass("toggled");
     });
 
-    if(window['web3'] != undefined && window['web3']['eth'] != undefined) {
-      if(window['web3']['eth']['defaultAccount'] != null && window['web3']['eth']['defaultAccount'] != "") {
-        this.status = 1;
-        this.addUser(window['web3']['eth']['defaultAccount'])
-      }
-      else 
-        this.api.removeData();
+    let data = this.api.getData();
+    if(data != undefined) {
+      this.status = 1;
     }
-    else 
-      this.api.removeData();
   }
 
   async addUser(address) {
@@ -58,7 +53,7 @@ export class TopbarComponent implements OnInit {
       try {
         const account = await window['ethereum'].enable();
         console.log(account); // account's will be in array
-        this.addUser(account[0]);
+        await this.addUser(account[0]);
       }
       catch(err) {
         this.toastr.warning(err.message, 'Connect Your Wallet');

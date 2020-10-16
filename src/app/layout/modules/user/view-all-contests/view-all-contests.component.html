@@ -1,0 +1,51 @@
+<ngx-spinner type = "ball-spin" color = "#fff" bdColor = "rgba(0,0,0,0.4)" size = "default" [fullScreen] = "false"><p style="color: white" > Loading... </p></ngx-spinner>
+<div id="content-wrapper">
+    <div class="container-fluid pb-0">
+        <div class="top-category section-padding mb-4">
+            <div class="row">
+               <div class="col-md-12">
+                  <div class="main-title">
+                        <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-5 my-2 my-md-0 osahan-navbar-search">
+                            <div class="input-group">
+                              <input (keydown.enter)="getContests()" name="searchText" [(ngModel)]="searchText" type="text" class="form-control" placeholder="Search for...">
+                              <div class="input-group-append">
+                                 <button (click)="getContests()" class="btn btn-light" type="button">
+                                 <i class="fas fa-search"></i> 
+                                 </button>
+                              </div>
+                            </div>
+                        </form>
+                   </div>
+               </div>
+            </div>
+        </div>
+        <div class="video-block section-padding">
+          <div class="row">
+             <div class="col-md-12">
+                <div class="main-title">
+                   <h6 *ngIf="type == 0" class="font-bold-600 font-16">Public contests</h6>
+                   <h6 *ngIf="type == 1" class="font-bold-600 font-16">My Public contests</h6>
+                   <h6 *ngIf="type == 2" class="font-bold-600 font-16">My Private contests</h6>
+                </div>
+             </div>
+             <div class="col-md-12 pr-0">
+               <div class="row upcoming">
+                  <div *ngFor="let contest of contests" class="col-sm-4 col-md-3 pr-3 mt-2 mb-3">
+                     <div class="video-card">
+                        <div class="video-card-body">
+                           <div class="video-title pl-2">
+                              <a routerLink="/contestDetails/{{contest.id}}">{{contest.name}}</a>
+                           </div>
+                           <div class="video-view pt-2">
+                              {{contest.start_date_time | date: 'dd MMM'}} - {{contest.end_date_time | date: 'dd MMM'}}
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+                  <p *ngIf="contests.length == 0">No contests found.</p>
+               </div>
+             </div>
+          </div>
+        </div> 
+    </div>
+ </div>
