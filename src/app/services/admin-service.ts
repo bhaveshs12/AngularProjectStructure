@@ -18,7 +18,7 @@ export class AdminService {
 
     getContest(id) {
         return {
-            select: "contest.topic_id, contest.id, contest.name, contest.description, contest.type, contest.start_date_time, contest.end_date_time, contest.total_up_vote, contest.total_down_vote",
+            select: "contest.topic_id, contest.id, contest.name, contest.description, contest.type, contest.start_date_time, DATEDIFF(DATE(NOW()), DATE(contest.end_date_time)) as diff, contest.end_date_time, contest.total_up_vote, contest.total_down_vote",
             where: "contest.id = "+id,
             sort_by: "topic_id",
             sort_order: "ASC",
@@ -214,6 +214,8 @@ export class AdminService {
         return {
             select: "user_transaction.id, user_transaction.transaction_hash, user_transaction.tokens, user_transaction.type, user_transaction.action,  user_transaction.created_at",
             where: "user_transaction.user_id = " + data.id,
+            sort_by: "user_transaction.id",
+            sort_order: "DESC",
             limit: data.limit
         }
     }

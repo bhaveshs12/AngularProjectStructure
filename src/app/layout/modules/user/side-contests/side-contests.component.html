@@ -6,7 +6,7 @@
              <div class="col-md-12">
                 <div class="main-title">
                    <div class="btn-group float-right right-action">
-                     <a routerLink="/user/viewAllContests/0">View All</a>
+                     <a *ngIf="publicContests.length > 0 || currentPublicContest.length > 0" routerLink="/user/viewAllContests/0">View All</a>
                    </div>
                    <h6 class="font-bold-600 font-16">Public contests</h6>
                 </div>
@@ -37,8 +37,8 @@
                         </div>
                      </div>
                   </div>
-                  <p *ngIf="publicContests.length == 0 && currentPublicContest.length == 0">No contests found.</p>
                </div>
+               <p *ngIf="publicContests.length == 0 && currentPublicContest.length == 0">No contests found.</p>
              </div>
           </div>
  
@@ -48,7 +48,7 @@
              <div class="col-md-12">
                 <div class="main-title">
                    <div class="btn-group float-right right-action">
-                     <a routerLink="/user/viewAllContests/1">View All</a>
+                     <a *ngIf="myPublicContests.length > 0 || currentMyPublicContest.length > 0" routerLink="/user/viewAllContests/1">View All</a>
                    </div>
                    <h6 class="font-bold-600 font-16">My public contests <a routerLink="/user/createContest/1" class="createLink ml-4 font-bold-400" style="font-size: 13px;">
                      <svg width="18" height="18" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -95,7 +95,7 @@
              <div class="col-md-12">
                 <div class="main-title">
                    <div class="btn-group float-right right-action">
-                      <a routerLink="/user/viewAllContests/2">View All</a>
+                      <a *ngIf="myPrivateContests.length > 0 || currentMyPrivateContest.length > 0" routerLink="/user/viewAllContests/2">View All</a>
                    </div>
                    <h6 class="font-bold-600 font-16">My private contests <a routerLink="/user/createContest/2" class="createLink ml-4 font-bold-400" style="font-size: 13px;">
                      <svg width="18" height="18" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -131,8 +131,8 @@
                         </div>
                      </div>
                   </div>
-                  <p *ngIf="myPrivateContests.length == 0 && currentMyPrivateContest.length == 0">No contests found.</p>
                </div>
+               <p *ngIf="myPrivateContests.length == 0 && currentMyPrivateContest.length == 0">No contests found.</p>
             </div>
           </div>
 

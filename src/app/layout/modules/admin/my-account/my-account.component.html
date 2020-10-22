@@ -8,7 +8,7 @@
                     <h5 class="font-weight-bold mt-2"><span class="pr-2" style="color: #FF0000"><i class="fas fa-user"></i></span><span *ngIf="userDetails != null">{{userDetails.display_name}}</span></h5>
                     <div class="filter-btn customBtn mt-5">
                         <a type="button" (click)="is_active = 1" [ngClass]="is_active == '1' ? 'activeBtn': ''">Account Details</a>
-                        <a type="button" (click)="is_active = 2" [ngClass]="is_active == '2' ? 'activeBtn': ''">Transactions</a>
+                        <a *ngIf="isUserProfile == 1" type="button" (click)="is_active = 2" [ngClass]="is_active == '2' ? 'activeBtn': ''">Transactions</a>
                         <a *ngIf="isUserProfile == 0" type="button" (click)="is_active = 3" [ngClass]="is_active == '3' ? 'activeBtn': ''">Settings</a>
                     </div>
                  </div>
@@ -39,13 +39,7 @@
          </div>
          <hr class="mt-4 mb-4">
          <div class="row pt-2 bgWhite">
-            <div class="col-md-6">
-               <div class="main-title">
-                  <p style="color: #000" class="mb-1">Wallet tokens</p>
-                  <p *ngIf="userDetails != null" class="font-bold-600" style="color:#000">{{userDetails.walletToken}}</p>
-               </div>
-            </div>
-            <div class="col-md-6">
+            <div class="col-md-12">
                <div class="main-title">
                   <p style="color: #000" class="mb-1">SNAFU tokens</p>
                   <p *ngIf="userDetails != null" class="font-weight-bold" style="color:#000">{{userDetails.tokens}}</p>
@@ -77,113 +71,119 @@
           <div class="col-md-12">
             <form autocomplete="off" #settingForm="ngForm" (ngSubmit)="settingForm.form.valid && saveSetting()">
                <div class="row">
+                  <div class="col-md-12">
+                     <p class="font-bold-600" style="color: #333">Below awards are in SNAFU tokens</p>
+                  </div>
                   <div class="col-md-3">
                      <div class="form-group">
-                        <label for="contestName">Beginner Price</label>
+                        <label for="contestName">Beginner</label>
                         <input autocomplete="off" required [(ngModel)]="beginnerPrice" name="beginnerPrice" type="text" pattern="[0-9]+" #firstPriceRef="ngModel" class="form-control">
                         <div class="alert alert-danger" *ngIf="(firstPriceRef.touched || settingForm.submitted) && !firstPriceRef.valid">
-                           <div *ngIf="firstPriceRef.errors.required">Beginner Price is required.</div>
-                           <div *ngIf="firstPriceRef.errors.pattern">Beginner Price must be numeric.</div>
+                           <div *ngIf="firstPriceRef.errors.required">Beginner is required.</div>
+                           <div *ngIf="firstPriceRef.errors.pattern">Beginner must be numeric.</div>
                         </div>
                      </div>
                   </div>
                   <div class="col-md-3">
                      <div class="form-group">
-                        <label for="contestName">Intermediate Price</label>
+                        <label for="contestName">Intermediate</label>
                         <input autocomplete="off" required [(ngModel)]="intermediatePrice" name="intermediatePrice" type="text" pattern="[0-9]+" #secondPriceRef="ngModel" class="form-control">
                         <div class="alert alert-danger" *ngIf="(secondPriceRef.touched || settingForm.submitted) && !secondPriceRef.valid">
-                           <div *ngIf="secondPriceRef.errors.required">Intermediate Price is required.</div>
-                           <div *ngIf="secondPriceRef.errors.pattern">Intermediate Price must be numeric.</div>
+                           <div *ngIf="secondPriceRef.errors.required">Intermediate is required.</div>
+                           <div *ngIf="secondPriceRef.errors.pattern">Intermediate must be numeric.</div>
                         </div>
                      </div>
                   </div>
                   <div class="col-md-3">
                      <div class="form-group">
-                        <label for="contestName">Expert Price</label>
+                        <label for="contestName">Expert</label>
                         <input autocomplete="off" required [(ngModel)]="expertPrice" name="expertPrice" type="text" pattern="[0-9]+" #thirdPriceRef="ngModel" class="form-control">
                         <div class="alert alert-danger" *ngIf="(thirdPriceRef.touched || settingForm.submitted) && !thirdPriceRef.valid">
-                           <div *ngIf="thirdPriceRef.errors.required">Expert Price is required.</div>
-                           <div *ngIf="thirdPriceRef.errors.pattern">Expert Price must be numeric.</div>
+                           <div *ngIf="thirdPriceRef.errors.required">Expert is required.</div>
+                           <div *ngIf="thirdPriceRef.errors.pattern">Expert must be numeric.</div>
                         </div>
                      </div>
                   </div>
                   <div class="col-md-3">
                      <div class="form-group">
-                        <label for="contestName">SNAFU Price</label>
+                        <label for="contestName">SNAFU</label>
                         <input autocomplete="off" required [(ngModel)]="snafuPrice" name="snafuPrice" type="text" pattern="[0-9]+" #snafuPriceRef="ngModel" class="form-control">
                         <div class="alert alert-danger" *ngIf="(snafuPriceRef.touched || settingForm.submitted) && !snafuPriceRef.valid">
-                           <div *ngIf="snafuPriceRef.errors.required">SNAFU Price is required.</div>
-                           <div *ngIf="snafuPriceRef.errors.pattern">SNAFU Price must be numeric.</div>
+                           <div *ngIf="snafuPriceRef.errors.required">SNAFU is required.</div>
+                           <div *ngIf="snafuPriceRef.errors.pattern">SNAFU must be numeric.</div>
                         </div>
                      </div>
                   </div>
                   <div class="col-md-3">
                      <div class="form-group">
-                        <label for="contestName">Good Voter Price</label>
+                        <label for="contestName">Good Voter</label>
                         <input autocomplete="off" required [(ngModel)]="voterPrice" name="voterPrice" type="text" pattern="[0-9]+" #voterPriceRef="ngModel" class="form-control">
                         <div class="alert alert-danger" *ngIf="(voterPriceRef.touched || settingForm.submitted) && !voterPriceRef.valid">
-                           <div *ngIf="voterPriceRef.errors.required">Good Voter Price is required.</div>
-                           <div *ngIf="voterPriceRef.errors.pattern">Good Voter Price must be numeric.</div>
+                           <div *ngIf="voterPriceRef.errors.required">Good Voter is required.</div>
+                           <div *ngIf="voterPriceRef.errors.pattern">Good Voter must be numeric.</div>
                         </div>
                      </div>
                   </div>
+                  <div class="col-md-12">
+                     <p class="font-bold-600" style="color: #333">SNAFU tokens required for below action</p>
+                  </div>
                   <div class="col-md-3">
                      <div class="form-group">
-                        <label for="contestName">Add Topic Price</label>
+                        <label for="contestName">Add topic</label>
                         <input autocomplete="off" required [(ngModel)]="addTopicPrice" name="addTopicPrice" type="text" pattern="[0-9]+" #addTopicPriceRef="ngModel" class="form-control">
                         <div class="alert alert-danger" *ngIf="(addTopicPriceRef.touched || settingForm.submitted) && !addTopicPriceRef.valid">
-                           <div *ngIf="addTopicPriceRef.errors.required">Add Topic Price is required.</div>
-                           <div *ngIf="addTopicPriceRef.errors.pattern">Add Topic Price must be numeric.</div>
+                           <div *ngIf="addTopicPriceRef.errors.required">Add topic is required.</div>
+                           <div *ngIf="addTopicPriceRef.errors.pattern">Add topic must be numeric.</div>
                         </div>
                      </div>
                   </div> 
                   <div class="col-md-3">
                      <div class="form-group">
-                        <label for="contestName">Add Video Price</label>
+                        <label for="contestName">Add video</label>
                         <input autocomplete="off" required [(ngModel)]="addVideoPrice" name="addVideoPrice" type="text" pattern="[0-9]+" #addVideoPriceRef="ngModel" class="form-control">
                         <div class="alert alert-danger" *ngIf="(addVideoPriceRef.touched || settingForm.submitted) && !addVideoPriceRef.valid">
-                           <div *ngIf="addVideoPriceRef.errors.required">Add Video Price is required.</div>
-                           <div *ngIf="addVideoPriceRef.errors.pattern">Add Video Price must be numeric.</div>
+                           <div *ngIf="addVideoPriceRef.errors.required">Add video is required.</div>
+                           <div *ngIf="addVideoPriceRef.errors.pattern">Add video must be numeric.</div>
                         </div>
                      </div>
                   </div> 
                   <div class="col-md-3">
                      <div class="form-group">
-                        <label for="contestName">Topic Vote Price</label>
+                        <label for="contestName">Topic vote</label>
                         <input autocomplete="off" required [(ngModel)]="topicVotePrice" name="topicVotePrice" type="text" pattern="[0-9]+" #topicVotePriceRef="ngModel" class="form-control">
                         <div class="alert alert-danger" *ngIf="(topicVotePriceRef.touched || settingForm.submitted) && !topicVotePriceRef.valid">
-                           <div *ngIf="topicVotePriceRef.errors.required">Topic Vote Price is required.</div>
-                           <div *ngIf="topicVotePriceRef.errors.pattern">Topic Vote Price must be numeric.</div>
+                           <div *ngIf="topicVotePriceRef.errors.required">Topic vote is required.</div>
+                           <div *ngIf="topicVotePriceRef.errors.pattern">Topic vote must be numeric.</div>
                         </div>
                      </div>
                   </div> 
                   <div class="col-md-3">
                      <div class="form-group">
-                        <label for="contestName">Video Vote Price</label>
+                        <label for="contestName">Video vote</label>
                         <input autocomplete="off" required [(ngModel)]="videoVotePrice" name="videoVotePrice" type="text" pattern="[0-9]+" #videoVotePriceRef="ngModel" class="form-control">
                         <div class="alert alert-danger" *ngIf="(videoVotePriceRef.touched || settingForm.submitted) && !videoVotePriceRef.valid">
-                           <div *ngIf="videoVotePriceRef.errors.required">Video Vote Price is required.</div>
-                           <div *ngIf="videoVotePriceRef.errors.pattern">Video Vote Price must be numeric.</div>
+                           <div *ngIf="videoVotePriceRef.errors.required">Video vote is required.</div>
+                           <div *ngIf="videoVotePriceRef.errors.pattern">Video vote must be numeric.</div>
                         </div>
                      </div>
                   </div> 
                   <div class="col-md-3">
                      <div class="form-group">
-                        <label for="contestName">Private Side Contest Price</label>
+                        <label for="contestName">Private side contest</label>
                         <input autocomplete="off" required [(ngModel)]="privateContestPrice" name="privateContestPrice" type="text" pattern="[0-9]+" #privateContestPriceRef="ngModel" class="form-control">
                         <div class="alert alert-danger" *ngIf="(privateContestPriceRef.touched || settingForm.submitted) && !privateContestPriceRef.valid">
-                           <div *ngIf="privateContestPriceRef.errors.required">Private Side Contest Price is required.</div>
-                           <div *ngIf="privateContestPriceRef.errors.pattern">Private Side Contest Price must be numeric.</div>
+                           <div *ngIf="privateContestPriceRef.errors.required">Private side contest is required.</div>
+                           <div *ngIf="privateContestPriceRef.errors.pattern">Private side contest must be numeric.</div>
                         </div>
                      </div>
                   </div> 
                   <div class="col-md-3">
                      <div class="form-group">
-                        <label for="contestName">Public Side Contest Price</label>
+                        <label for="contestName">Public side contest</label>
                         <input autocomplete="off" required [(ngModel)]="publicContestPrice" name="publicContestPrice" type="text" pattern="[0-9]+" #publicContestPriceRef="ngModel" class="form-control">
                         <div class="alert alert-danger" *ngIf="(publicContestPriceRef.touched || settingForm.submitted) && !publicContestPriceRef.valid">
-                           <div *ngIf="publicContestPriceRef.errors.required">Public Side Contest Price is required.</div>
-                           <div *ngIf="publicContestPriceRef.errors.pattern">Public Side Contest Price must be numeric.</div>
+                           <div *ngIf="publicContestPriceRef.errors.required">Public side contest is required.</div>
+                           <div *ngIf="publicContestPriceRef.errors.pattern">Public side contest must be numeric.</div>
                         </div>
                      </div>
                   </div> 

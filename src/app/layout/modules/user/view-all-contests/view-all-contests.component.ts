@@ -40,7 +40,7 @@ export class ViewAllContestsComponent implements OnInit {
     if(this.type == 1) {
       body = this.userService.getMyPublicContests(params);
     }
-    else if(this.type == 1) {
+    else if(this.type == 2) {
       body = this.userService.getMyPrivateContests(params);
     }
     else

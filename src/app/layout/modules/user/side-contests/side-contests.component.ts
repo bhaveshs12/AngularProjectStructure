@@ -88,8 +88,8 @@ export class SideContestsComponent implements OnInit {
         if(response.result.data.length > 0) {
             let details = [];
             response.result.data.forEach(element => {
-              let index = this.currentPublicContest.findIndex(obj => obj.id != element.id);
-              if(index >= 0)
+              let index = this.currentPublicContest.findIndex(obj => obj.id == element.id);
+              if(index < 0)
                 details.push(element)
             });
             this.publicContests = details;
@@ -109,8 +109,9 @@ export class SideContestsComponent implements OnInit {
         if(response.result.data.length > 0) {
             let details = [];
             response.result.data.forEach(element => {
-              let index = this.currentMyPublicContest.findIndex(obj => obj.id != element.id);
-              if(index >= 0)
+              let index = this.currentMyPublicContest.findIndex(obj => obj.id == element.id);
+              console.log(index);
+              if(index < 0)
                 details.push(element)
             });
             this.myPublicContests = details;
@@ -130,8 +131,8 @@ export class SideContestsComponent implements OnInit {
         if(response.result.data.length > 0) {
             let details = [];
             response.result.data.forEach(element => {
-              let index = this.currentMyPrivateContest.findIndex(obj => obj.id != element.id);
-              if(index >= 0)
+              let index = this.currentMyPrivateContest.findIndex(obj => obj.id == element.id);
+              if(index < 0)
                 details.push(element)
             });
             this.myPrivateContests = details;

@@ -23,7 +23,7 @@ export class CreateContestComponent implements OnInit {
   endDate: any;
   pageType:any = 1;
   contestName:any;
-  type:any = "";
+  type:any = 'public_side_contest';
   about:any;
   priceOne:any;
   priceTwo:any;
@@ -42,8 +42,14 @@ export class CreateContestComponent implements OnInit {
     this.api.userDataChange$.subscribe(val => {this.userData = this.api.getData(); });
     this.route.params.subscribe(params => {
       this.pageType = params['type'] != undefined && params['type'] != '' ? params['type'] : 1;
+      this.type = this.pageType == 1 ? 'public_side_contest' : 'private_side_contest';
     });
     this.getSetting();
+  }
+
+  selectChange() {
+    if(this.type != '')
+      this.pageType = this.type == 'public_side_contest' ? 1 : 2;
   }
 
   getSetting() {

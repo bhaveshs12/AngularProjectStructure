@@ -71,6 +71,7 @@ export class MyAccountComponent implements OnInit {
     this.api.post("crud/user_transaction", body).subscribe((response :  any) => {
       if(response.statusCode == 200) {
         this.transactions = response.result.data;
+        this.totalRecords = response.result.totalrecords;
         this.spinner.hide();
       }
       else {

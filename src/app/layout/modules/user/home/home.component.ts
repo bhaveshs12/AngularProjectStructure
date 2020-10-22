@@ -18,7 +18,8 @@ export class HomeComponent implements OnInit {
   IntermediateVideos:any = [];
   SANFUVideos:any = [];
   UpcomingContests:any = [];
-
+  userData:any = null;
+  
   player: YT.Player;
   private id: string = 'qDuKsiwS5xw';
 
@@ -54,6 +55,7 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.api.userDataChange$.subscribe(val => {this.userData = this.api.getData(); });
     this.getCurrentContest();
   }
 

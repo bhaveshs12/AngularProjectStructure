@@ -19,6 +19,7 @@ export class ContestDetailComponent implements OnInit {
   IntermediateVideos:any = [];
   SANFUVideos:any = [];
   Winners:any = [];
+  userData:any = null;
 
   sliderOptions = {
     items: 4,
@@ -52,6 +53,7 @@ export class ContestDetailComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.api.userDataChange$.subscribe(val => {this.userData = this.api.getData(); });
     this.route.params.subscribe(params => {
       // console.log(params)
       let id = params['id'];

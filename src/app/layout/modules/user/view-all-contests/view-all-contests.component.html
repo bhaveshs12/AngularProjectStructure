@@ -34,7 +34,7 @@
                      <div class="video-card">
                         <div class="video-card-body">
                            <div class="video-title pl-2">
-                              <a routerLink="/contestDetails/{{contest.id}}">{{contest.name}}</a>
+                              <a routerLink="/user/contestDetails/{{contest.id}}">{{contest.name}}</a>
                            </div>
                            <div class="video-view pt-2">
                               {{contest.start_date_time | date: 'dd MMM'}} - {{contest.end_date_time | date: 'dd MMM'}}
@@ -42,8 +42,8 @@
                         </div>
                      </div>
                   </div>
-                  <p *ngIf="contests.length == 0">No contests found.</p>
                </div>
+               <p *ngIf="contests.length == 0">No contests found.</p>
              </div>
           </div>
         </div> 

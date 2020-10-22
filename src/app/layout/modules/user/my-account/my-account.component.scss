@@ -1,0 +1,36 @@
+.customBtn a {
+    color: #ff0000;
+    margin-right: 50px;
+    font-weight: 700;
+}
+
+.customBtn a.activeBtn {
+    color: #ff0000;
+    padding-bottom:2px;
+    border-bottom: 3px solid #ff0000;
+}
+
+.bgWhite {
+    background-color: #fff;
+}
+
+.btn-outline-primary.disabled, .btn-outline-primary:disabled {
+    color: #ff0000;
+}
+
+.upcoming a {
+    font-size:13px;
+    min-height: 80px;
+}
+.upcoming .video-title {
+    min-height: 90px;
+    text-align: center;
+    padding-top: 10px;
+}
+.upcoming .video-view {
+    font-size:13px;
+    text-align: center;
+}
+.upcoming .video-card {
+    min-height: 150px;
+}

@@ -1,1 +1,167 @@
-<p>my-account works!</p>
+<ngx-spinner type = "ball-spin" color = "#fff" bdColor = "rgba(0,0,0,0.4)" size = "default" [fullScreen] = "false"><p style="color: white" > Loading... </p></ngx-spinner>
+<div id="content-wrapper">
+    <div class="container-fluid pb-0">
+       <div class="top-category section-padding">
+          <div class="row">
+             <div class="col-md-12">
+                <div class="main-title">
+                    <h5 class="font-weight-bold mt-2"><span class="pr-2" style="color: #FF0000"><i class="fas fa-user"></i></span><span *ngIf="userDetails != null">{{userDetails.display_name}}</span></h5>
+                    <div class="filter-btn customBtn mt-5">
+                        <a type="button" (click)="resetFields(1)" [ngClass]="is_active == '1' ? 'activeBtn': ''">Voted videos</a>
+                        <a type="button" (click)="resetFields(2)" [ngClass]="is_active == '2' ? 'activeBtn': ''">Contests entered</a>
+                        <a type="button" (click)="resetFields(3)" [ngClass]="is_active == '3' ? 'activeBtn': ''">Account details</a>
+                        <a type="button" (click)="resetFields(4)" [ngClass]="is_active == '4' ? 'activeBtn': ''">Transactions</a>
+                    </div>
+                 </div>
+             </div>
+          </div>
+       </div>
+    </div>
+    <div style="min-height: 70vh" class="container-fluid pb-0 bgWhite" *ngIf="is_active == 1">
+        <div class="row pt-4">
+            <div class="col-md-12">
+               <div class="row mb-4">
+                  <div class="col-xs-6 col-sm-4 col-md-3" *ngFor="let video of votedVideos | paginate: { id: 'contentPagination', itemsPerPage: itemsPerPage, currentPage: currentPage, totalItems: totalRecords };">
+                     <div class="video-card">
+                        <div class="video-card-image" [innerHtml]="video.url"></div>
+                        <div class="video-card-body">
+                           <div class="video-title">
+                              <a href="javascript:void(0)">{{video.title}}</a>
+                           </div>
+                           <div class="video-view pt-3">
+                              Upvotes: {{video.up_vote}} &nbsp;&nbsp;&nbsp; Downvotes: {{video.down_vote}}
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <pagination-controls *ngIf="votedVideos.length > 0" id="contentPagination" class="text-center" (pageChange)="pagignation($event)"></pagination-controls>
+               <p class="mt-4" *ngIf="votedVideos.length == 0">No Videos found.</p>
+            </div>
+         </div>
+     </div>
+     <div style="min-height: 70vh" class="container-fluid pb-0 bgWhite" *ngIf="is_active == 2">
+      <div class="row">
+         <div class="col-md-12">
+            <div class="main-title">
+                <div class="btn-group float-right right-action">
+                  <a href="javascript:void(0)" class="right-action-link text-gray" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Filter by <i class="fa fa-caret-down" aria-hidden="true"></i>
+                  </a>
+                  <div class="dropdown-menu dropdown-menu-right">
+                     <a class="dropdown-item" (click)="getContests('')">Show All</a>
+                     <a class="dropdown-item" (click)="getContests('main_contest')">Main Contest</a>
+                     <a class="dropdown-item" (click)="getContests('public_side_contest')">Public Side Contest</a>
+                     <a class="dropdown-item" (click)="getContests('private_side_contest')">Private Side Contest</a>
+                  </div>
+                </div>
+             </div>
+         </div>
+         <div class="col-md-12">
+         <div class="row upcoming mb-4">
+            <div class="col-sm-4 col-md-3" style="padding-right: 0.7rem" *ngFor="let contest of contests | paginate: { id: 'contentPagination', itemsPerPage: itemsPerPage, currentPage: currentPage, totalItems: totalRecords };">
+               <div routerLink="/user/contestDetails/{{contest.id}}" class="video-card">
+                  <div class="video-card-body">
+                     <div class="video-title pl-2">
+                        <a routerLink="/user/contestDetails/{{contest.id}}">{{contest.name}}</a>
+                     </div>
+                     <div class="video-view">
+                        {{contest.start_date_time | date: 'dd MMM'}} - {{contest.end_date_time | date: 'dd MMM'}}
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <pagination-controls *ngIf="contests.length > 0" id="contentPagination" class="text-center" (pageChange)="pagignation($event)"></pagination-controls>
+         <p *ngIf="contests.length == 0">No Contests found.</p>
+         </div>
+       </div>
+    </div>
+    <div style="min-height: 70vh" class="container-fluid pb-0 bgWhite" *ngIf="is_active == 3">
+        <div class="row pt-2 bgWhite">
+            <div class="col-md-12">
+               <div class="main-title">
+                  <p style="color: #000">Your Address</p>
+                  <p *ngIf="userDetails != null" class="font-bold-600" style="color:#000">{{userDetails.eth_address}}</p>
+               </div>
+            </div>
+         </div>
+         <hr class="mt-4 mb-4">
+         <div class="row pt-3 bgWhite">
+            <div class="col-md-12">
+               <div class="main-title">
+                  <p style="color: #000" class="mb-1">Display Name: </p>
+                  <p *ngIf="userDetails != null" class="font-bold-600 mb-4" style="color:#000">{{userDetails.display_name}}</p>
+                  <p *ngIf="isUserProfile == 0" class="mb-1">New Display Name</p>
+                  <p *ngIf="isUserProfile == 0"><input style="display:inline-block;width:250px;" autocomplete="off" [(ngModel)]="display_name" name="display_name" type="text" class="form-control" placeholder="Your Name"><button (click)="updateUserInfo()" [disabled]="display_name == ''" class="ml-4 btn btn-outline-primary">Sign to Save</button></p>
+               </div>
+            </div>
+            
+         </div>
+         <hr class="mt-4 mb-4">
+         <div class="row pt-2 bgWhite">
+            <div class="col-md-4">
+               <div class="main-title">
+                  <p style="color: #000" class="mb-1">Wallet tokens</p>
+                  <p *ngIf="userDetails != null" class="font-bold-600" style="color:#000">{{userDetails.walletToken}}</p>
+               </div>
+            </div>
+            <div class="col-md-4">
+               <div class="main-title">
+                  <p style="color: #000" class="mb-1">SNAFU tokens</p>
+                  <p *ngIf="userDetails != null" class="font-weight-bold" style="color:#000">{{userDetails.tokens}}</p>
+               </div>
+            </div>
+            <div class="col-md-4 text-right">
+               <button (click)="transactionType = 'Buy Tokens'" data-toggle="modal" data-target="#buyToekens" class="ml-4 btn btn-outline-primary">Buy Tokens</button>
+               <button (click)="withdrawTokens()" class="ml-4 btn btn-outline-primary">Withdraw Tokens</button>
+            </div>
+         </div>
+    </div>
+    <div style="min-height: 70vh" class="container-fluid pb-0 bgWhite" *ngIf="is_active == 4">
+        <div class="row pt-4" *ngFor="let transaction of transactions | paginate: { id: 'contentPagination', itemsPerPage: itemsPerPage, currentPage: currentPage, totalItems: totalRecords };">
+            <div class="col-md-8">
+               <div class="main-title">
+                  <p class="font-weight-bold" style="color:#000">{{transaction.type}}</p>
+                  <p style="color:#ccc">{{transaction.created_at | date:'MMM dd, yyyy | hh:mm a'}} <span class="ml-4">{{transaction.transaction_hash}}</span></p>
+               </div>
+            </div>
+            <div class="col-md-4 text-right">
+                <p *ngIf="transaction.action == 'Credit'" class="font-weight-bold text-success">+{{transaction.tokens}} SNAFU Tokens</p>
+                <p *ngIf="transaction.action == 'Debit'" class="font-weight-bold text-danger">{{transaction.tokens}} SNAFU Tokens</p>
+            </div>
+            <div class="col-md-12">
+               <hr class="mt-4 mb-4">
+            </div>
+         </div>
+         <pagination-controls *ngIf="transactions.length > 0" id="contentPagination" class="text-center" (pageChange)="pagignation($event)"></pagination-controls>
+         <p class="mt-4" *ngIf="transactions.length == 0">No Transactions found.</p>
+    </div>
+ </div>
+
+ <div class="modal fade" id="buyToekens" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+   <div class="modal-dialog modal-dialog-centered" role="document">
+     <div class="modal-content">
+       <div class="modal-header">
+         <h5 class="modal-title" id="exampleModalLongTitle">{{transactionType}}</h5>
+         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+           <span aria-hidden="true">&times;</span>
+         </button>
+       </div>
+       <div class="modal-body">
+         <form autocomplete="off" #settingForm="ngForm">
+            <p><input required autocomplete="off" pattern="[0-9]+([\.,][0-9]+)?" #amountRef="ngModel" [(ngModel)]="amount" name="amount" type="text" class="form-control" placeholder="Transfer amount"></p>
+            <div class="alert alert-danger" *ngIf="amountRef.touched && !amountRef.valid">
+               <div *ngIf="amountRef.errors.required">Amount is required.</div>
+               <div *ngIf="amountRef.errors.pattern">Amount must be numeric.</div>
+            </div>
+         </form>
+       </div>
+       <div class="modal-footer">
+         <button type="button" class="btn btn-outline-primary" data-dismiss="modal">Close</button>
+         <button type="button" id="closeModal" (click)="transactionMsg()" class="d-none btn btn-outline-primary" data-dismiss="modal">Close</button>
+         <button *ngIf="transactionType == 'Buy Tokens'" [disabled]="!settingForm.valid" (click)="buyTokens()" type="button" class="btn btn-outline-primary">Transfer</button>
+       </div>
+     </div>
+   </div>
+ </div>

@@ -23,9 +23,6 @@ export class UploadVideoComponent implements OnInit {
   }
 
   ngOnInit() {
-    // this.startDate = {isRange: false, singleDate: {jsDate: new Date()}};
-    // this.endDate = {isRange: false, singleDate: {jsDate: new Date()}};
-
     this.api.userDataChange$.subscribe(val => {this.userData = this.api.getData(); });
     this.route.params.subscribe(params => {
       this.contestId = params['id'] != undefined && params['id'] != '' ? params['id'] : null;
@@ -38,8 +35,7 @@ export class UploadVideoComponent implements OnInit {
     this.api.get("crud/setting").subscribe((response :  any) => {
       if(response.statusCode == 200) {
         if(response.result.length > 0) {
-          // this.private_side_contest_prize = response.result[0].private_side_contest_prize;
-          // this.public_side_contest_prize = response.result[0].public_side_contest_prize;
+          this.videoPrice = response.result[0].add_video_prize;
         }
         this.spinner.hide();
       }
@@ -55,10 +51,11 @@ export class UploadVideoComponent implements OnInit {
     this.videoTitle = this.videoTitle.trim();
     this.videoLink = this.videoLink.trim();
     if(this.videoTitle != '' && this.videoLink != '') {
+      let link = (this.videoLink).split("&")[0];
       this.spinner.show();
       let params = {
         title: this.videoTitle,
-        youtube_url: this.videoLink,
+        youtube_url: link,
         user_id: this.userData.id,
         type: this.type,
         contest_id: this.contestId

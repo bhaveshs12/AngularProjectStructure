@@ -15,6 +15,7 @@ import {ActivatedRoute} from '@angular/router';
 export class VoteVideoComponent implements OnInit {
 
   videoDetails:any = null;
+  ContestData:any = null;
   Videos:any = [];
   contestId:any;
   videoId:any;
@@ -27,6 +28,7 @@ export class VoteVideoComponent implements OnInit {
     this.route.params.subscribe(params => {
       this.contestId = params['contestId'];
       this.videoId = params['videoId'];
+      this.getContest(this.contestId);
       this.getVideoDetails();
     });
   }
@@ -46,6 +48,18 @@ export class VoteVideoComponent implements OnInit {
       else {
         this.spinner.hide();
         this.toastr.error('Get Expert Videos', 'Failed to Process !');
+      }
+    });
+  }
+
+  getContest(id) {
+    let body = this.adminService.getContest(id);
+    this.api.post("crud/contest", body).subscribe((response :  any) => {
+      if(response.statusCode == 200) {
+        this.ContestData = response.result.data.length > 0 ? response.result.data[0] : null;
+      }
+      else {
+        this.toastr.error('Get Contest', 'Failed to Process !');
       }
     });
   }

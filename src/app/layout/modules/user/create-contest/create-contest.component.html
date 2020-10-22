@@ -28,7 +28,7 @@
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label for="type">Type</label>
-                                <select required [(ngModel)]="type" type="text" #typeRef="ngModel" class="form-control" name="type">
+                                <select (change)="selectChange()" required [(ngModel)]="type" type="text" #typeRef="ngModel" class="form-control" name="type">
                                     <option value="">-Select Type-</option>
                                     <option value="public_side_contest">Public Side Contest</option>
                                     <option value="private_side_contest">Private Side Contest</option>
