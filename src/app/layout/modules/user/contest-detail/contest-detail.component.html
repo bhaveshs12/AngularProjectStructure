@@ -23,6 +23,12 @@
                   <button *ngIf="ContestData.type == 'main_contest'" class="customBtn btn btn-outline-primary pl-5 pr-5" type="submit">Main contest</button>
                   <button *ngIf="ContestData.type == 'public_side_contest'" class="customBtn btn btn-outline-primary pl-5 pr-5" type="submit">Public side contest</button>
                   <button *ngIf="ContestData.type == 'private_side_contest'" class="customBtn btn btn-outline-primary pl-5 pr-5" type="submit">Private side contest</button>
+                  
+                  <p class="mt-3" ngxClipboard [cbContent]="ShareLink" (click)="copy()" *ngIf="ContestData.type == 'private_side_contest'">Shareable Link: 
+                     <a style="position: relative;" href="javascript:void(0);">{{ShareLink}}<span class="tooltiptext">Link Copied</span></a>
+                     <i class="far fa-copy ml-2" style="color: #ff0000; font-size:20px; cursor: pointer;"></i>
+                  </p>
+                  
                   <p *ngIf="ContestData.description != null" style="font-size:11px" class="mt-5 mb-0">
                   {{ContestData.description}}
                   </p>
@@ -155,7 +161,6 @@
                      </a>
                      <div class="dropdown-menu dropdown-menu-right">
                         <a class="dropdown-item" (click)="getSNAFUVideos('vote')">Top Voted</a>
-                        <a class="dropdown-item" (click)="getSNAFUVideos('hot')">Hottest</a>
                         <a class="dropdown-item" (click)="getSNAFUVideos('recent')">Most Recent</a>
                      </div>
                   </div>

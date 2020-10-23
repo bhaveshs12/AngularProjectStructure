@@ -17,3 +17,6 @@
 .btn-outline-primary.disabled, .btn-outline-primary:disabled {
     color: #ff0000;
 }
+.FirstLetter::first-letter {
+    text-transform: uppercase;
+}

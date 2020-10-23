@@ -35,21 +35,36 @@ export class UserService {
         }
     }
 
+    getCurrentPrivateContest(params) {
+        return {
+            select: "contest.id, contest.name, contest.description, contest.type, contest.start_date_time, contest.end_date_time, contest.total_up_vote, contest.total_down_vote",
+            join: [{
+              "type": "INNER",
+              "join_table": "private_contest_user",
+              "on_join_table": "private_contest_user.contest_id",
+              "on_from": "contest.id"
+            }],
+            where: "DATE('" + moment().format('YYYY-MM-DD') + "') BETWEEN contest.start_date_time AND contest.end_date_time AND type='private_side_contest' AND private_contest_user.user_id = " + params.user_id,
+            limit: params.limit != '' ? params.limit : 1000,
+        }
+    }
+
     getCurrentMyPublicContest(uid) {
         return {
             select: "contest.topic_id, contest.id, contest.name, contest.description, contest.type, contest.start_date_time, contest.end_date_time, contest.total_up_vote, contest.total_down_vote",
             where: "DATE('" + moment().format('YYYY-MM-DD') + "') BETWEEN contest.start_date_time AND contest.end_date_time AND type='public_side_contest' AND contest.user_id = " + uid,
             sort_by: 'DATE(contest.start_date_time)',
-            sort_order: 'DESC'
+            sort_order: 'DESC',
         }
     }
 
-    getCurrentMyPrivateContest(uid) {
+    getCurrentMyPrivateContest(params) {
         return {
             select: "contest.topic_id, contest.id, contest.name, contest.description, contest.type, contest.start_date_time, contest.end_date_time, contest.total_up_vote, contest.total_down_vote",
-            where: "DATE('" + moment().format('YYYY-MM-DD') + "') BETWEEN contest.start_date_time AND contest.end_date_time AND type='private_side_contest' AND contest.user_id = " + uid,
+            where: "DATE('" + moment().format('YYYY-MM-DD') + "') BETWEEN contest.start_date_time AND contest.end_date_time AND type='private_side_contest' AND contest.user_id = " + params.user_id,
             sort_by: 'DATE(contest.start_date_time)',
-            sort_order: 'DESC'
+            sort_order: 'DESC',
+            limit: params.limit != '' ? params.limit : 1000,
         }
     }
 
@@ -57,6 +72,22 @@ export class UserService {
         return {
             select: "contest.topic_id, contest.id, contest.name, contest.description, contest.type, contest.start_date_time, contest.end_date_time, contest.total_up_vote, contest.total_down_vote",
             where: "type='public_side_contest'" + (params.searchText == '' ? '' : " AND contest.name LIKE '%"+params.searchText+"%'"),
+            limit: params.limit != '' ? params.limit : 1000,
+            sort_by: 'DATE(contest.start_date_time)',
+            sort_order: 'DESC'
+        }
+    }
+
+    getPrivateContests(params) {
+        return {
+            select: "contest.id, contest.name, contest.description, contest.type, contest.start_date_time, contest.end_date_time, contest.total_up_vote, contest.total_down_vote",
+            join: [{
+              "type": "INNER",
+              "join_table": "private_contest_user",
+              "on_join_table": "private_contest_user.contest_id",
+              "on_from": "contest.id"
+            }],
+            where: "type='private_side_contest' AND private_contest_user.user_id = " + params.user_id + (params.searchText == '' ? '' : " AND contest.name LIKE '%"+params.searchText+"%'"),
             limit: params.limit != '' ? params.limit : 1000,
             sort_by: 'DATE(contest.start_date_time)',
             sort_order: 'DESC'

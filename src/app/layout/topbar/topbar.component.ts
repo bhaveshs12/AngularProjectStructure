@@ -12,6 +12,7 @@ import { ApiRequestService } from '../../services/api-request.service';
 export class TopbarComponent implements OnInit {
 
   status:any = 0;
+  uid:any = null;
   constructor(private router: Router, private spinner: NgxSpinnerService, private api: ApiRequestService, private toastr: ToastrService) { 
   }
 
@@ -25,6 +26,28 @@ export class TopbarComponent implements OnInit {
     let data = this.api.getData();
     if(data != undefined) {
       this.status = 1;
+      this.updatePublicContest(data.id);
+    }
+  }
+
+  updatePublicContest(uid) {
+    let path = (window.location.pathname).split("/");
+    if(path.length > 0 && path[1] == 'public' && path[path.length-1] != uid) {
+      
+      this.spinner.show();
+      let body = {
+        contest_id: path[path.length-2],
+        user_id: uid
+      }
+      this.api.post("contest/add-user-to-private-contest", body).subscribe((response :  any) => {
+        if(response.statusCode == 200) {
+          this.spinner.hide();
+        }
+        else {
+          this.spinner.hide();
+          // this.toastr.error('', 'Failed to Process !');
+        }
+      });
     }
   }
 
@@ -35,8 +58,10 @@ export class TopbarComponent implements OnInit {
     }
     this.api.post("user/add-user", params).subscribe((response :  any) => {
       if(response.statusCode == 200) {
+        
         window['web3']['eth']['defaultAccount'] = address;
         this.status = 1;
+        this.updatePublicContest(response.result.id);
         this.api.setData(response.result);
         // this.toastr.success("Your wallet connected successfully!", 'Connect Your Wallet');
         this.spinner.hide();

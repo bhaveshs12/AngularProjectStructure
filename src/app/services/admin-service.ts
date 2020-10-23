@@ -27,32 +27,68 @@ export class AdminService {
     }
 
     getHomePageVideos(data) {
-        if (data.sortType == 'vote') {
-            return {
-                select: "video.id, video.title, video.youtube_url, video.user_id, video.created_at, (SELECT count(id) FROM vote_for_video WHERE vote_for_video.video_id = video.id AND type = 'up_vote') AS up_vote, (SELECT count(id) FROM vote_for_video WHERE vote_for_video.video_id = video.id AND type = 'down_vote') AS down_vote",
-                where: "video.type = '" + data.type + "' AND contest_id = " + data.id,
-                sort_by: "up_vote - down_vote",
-                sort_order: "DESC"
+        if(data.type == 'SNAFU') {
+            if(data.sortType == 'vote') {
+                return {
+                    "select": "DISTINCT video.id, video.title, video.youtube_url, video.user_id, video.created_at, (SELECT count(id) FROM vote_for_video WHERE vote_for_video.video_id = video.id AND vote_type = 'Snafu') AS up_vote, (SELECT count(id) FROM vote_for_video WHERE vote_for_video.video_id = video.id AND vote_type = 'Snafu') AS down_vote",
+                    "join": [
+                        {
+                            "type": "INNER",
+                            "join_table": "vote_for_video",
+                            "on_join_table": "vote_for_video.video_id",
+                            "on_from": "video.id"
+                        }
+                    ],
+                    "where": "vote_for_video.vote_type = 'Snafu' AND video.contest_id = " + data.id,
+                    "sort_by": "up_vote - down_vote",
+                    "sort_order": "DESC"
+                }
             }
-        }
-        else if(data.sortType == 'hot') {
-            let pastDate = moment().subtract(1, 'days').format('YYYY-MM-DD h:mm:ss');
-            let pastOfPastDate = moment().subtract(2, 'days').format('YYYY-MM-DD h:mm:ss');
-            let currentDate = moment().format('YYYY-MM-DD h:mm:ss');
-
-            return {
-                select: "video.id, video.title, video.youtube_url, video.user_id, video.created_at, (SELECT count(id) FROM vote_for_video WHERE vote_for_video.video_id = video.id AND type = 'up_vote') AS up_vote, (SELECT count(id) FROM vote_for_video WHERE vote_for_video.video_id = video.id AND type = 'down_vote') AS down_vote, ((SELECT count(id) FROM vote_for_video  WHERE vote_for_video.video_id = video.id AND vote_for_video.type = 'up_vote' AND vote_for_video.created_at > '"+pastDate+"' AND vote_for_video.created_at < '"+currentDate+"') - (SELECT count(id) FROM vote_for_video WHERE vote_for_video.video_id = video.id AND vote_for_video.type = 'down_vote' AND vote_for_video.created_at > '"+pastDate+"' AND vote_for_video.created_at < '"+currentDate+"')) AS currentCount, ((SELECT count(id) FROM vote_for_video WHERE vote_for_video.video_id = video.id AND vote_for_video.type = 'up_vote' AND vote_for_video.created_at > '"+pastOfPastDate+"' AND vote_for_video.created_at < '"+pastDate+"' ) - (SELECT count(id) FROM vote_for_video WHERE vote_for_video.video_id = video.id AND vote_for_video.type = 'down_vote' AND vote_for_video.created_at > '"+pastOfPastDate+"' AND vote_for_video.created_at < '"+currentDate+"')) AS prevCount",
-                where: "video.type = '" + data.type + "' AND contest_id = " + data.id,
-                sort_by: "currentCount - prevCount",
-                sort_order: "DESC"
+            else {
+                return {
+                    "select": "DISTINCT video.id, video.title, video.youtube_url, video.user_id, video.created_at, (SELECT count(id) FROM vote_for_video WHERE vote_for_video.video_id = video.id AND type = 'up_vote') AS up_vote, (SELECT count(id) FROM vote_for_video WHERE vote_for_video.video_id = video.id AND type = 'down_vote') AS down_vote",
+                    "join": [
+                        {
+                            "type": "INNER",
+                            "join_table": "vote_for_video",
+                            "on_join_table": "vote_for_video.video_id",
+                            "on_from": "video.id"
+                        }
+                    ],
+                    "where": "vote_for_video.vote_type = 'Snafu' AND video.contest_id = " + data.id,
+                    "sort_by": "DATE(video.created_at)",
+                    "sort_order": "DESC"
+                }
             }
         }
         else {
-            return {
-                select: "video.id, video.title, video.youtube_url, video.user_id, video.created_at, (SELECT count(id) FROM vote_for_video WHERE vote_for_video.video_id = video.id AND type = 'up_vote') AS up_vote, (SELECT count(id) FROM vote_for_video WHERE vote_for_video.video_id = video.id AND type = 'down_vote') AS down_vote",
-                where: "video.type = '" + data.type + "' AND contest_id = " + data.id,
-                sort_by: "DATE(video.created_at)",
-                sort_order: "DESC"
+            if (data.sortType == 'vote') {
+                return {
+                    select: "video.id, video.title, video.youtube_url, video.user_id, video.created_at, (SELECT count(id) FROM vote_for_video WHERE vote_for_video.video_id = video.id AND type = 'up_vote') AS up_vote, (SELECT count(id) FROM vote_for_video WHERE vote_for_video.video_id = video.id AND type = 'down_vote') AS down_vote",
+                    where: "video.type = '" + data.type + "' AND contest_id = " + data.id,
+                    sort_by: "up_vote - down_vote",
+                    sort_order: "DESC"
+                }
+            }
+            else if(data.sortType == 'hot') {
+                let pastDate = moment().subtract(1, 'days').format('YYYY-MM-DD h:mm:ss');
+                let pastOfPastDate = moment().subtract(2, 'days').format('YYYY-MM-DD h:mm:ss');
+                let currentDate = moment().format('YYYY-MM-DD h:mm:ss');
+    
+                return {
+                    select: "video.id, video.title, video.youtube_url, video.user_id, video.created_at, (SELECT count(id) FROM vote_for_video WHERE vote_for_video.video_id = video.id AND type = 'up_vote') AS up_vote, (SELECT count(id) FROM vote_for_video WHERE vote_for_video.video_id = video.id AND type = 'down_vote') AS down_vote, ((SELECT count(id) FROM vote_for_video  WHERE vote_for_video.video_id = video.id AND vote_for_video.type = 'up_vote' AND vote_for_video.created_at > '"+pastDate+"' AND vote_for_video.created_at < '"+currentDate+"') - (SELECT count(id) FROM vote_for_video WHERE vote_for_video.video_id = video.id AND vote_for_video.type = 'down_vote' AND vote_for_video.created_at > '"+pastDate+"' AND vote_for_video.created_at < '"+currentDate+"')) AS currentCount, ((SELECT count(id) FROM vote_for_video WHERE vote_for_video.video_id = video.id AND vote_for_video.type = 'up_vote' AND vote_for_video.created_at > '"+pastOfPastDate+"' AND vote_for_video.created_at < '"+pastDate+"' ) - (SELECT count(id) FROM vote_for_video WHERE vote_for_video.video_id = video.id AND vote_for_video.type = 'down_vote' AND vote_for_video.created_at > '"+pastOfPastDate+"' AND vote_for_video.created_at < '"+currentDate+"')) AS prevCount",
+                    where: "video.type = '" + data.type + "' AND contest_id = " + data.id,
+                    sort_by: "currentCount - prevCount",
+                    sort_order: "DESC"
+                }
+            }
+            else {
+                return {
+                    select: "video.id, video.title, video.youtube_url, video.user_id, video.created_at, (SELECT count(id) FROM vote_for_video WHERE vote_for_video.video_id = video.id AND type = 'up_vote') AS up_vote, (SELECT count(id) FROM vote_for_video WHERE vote_for_video.video_id = video.id AND type = 'down_vote') AS down_vote",
+                    where: "video.type = '" + data.type + "' AND contest_id = " + data.id,
+                    sort_by: "DATE(video.created_at)",
+                    sort_order: "DESC"
+                }
             }
         }
     }
@@ -212,7 +248,7 @@ export class AdminService {
 
     getTransactions(data) {
         return {
-            select: "user_transaction.id, user_transaction.transaction_hash, user_transaction.tokens, user_transaction.type, user_transaction.action,  user_transaction.created_at",
+            select: "user_transaction.id, user_transaction.transaction_hash, user_transaction.tokens, REPLACE(user_transaction.type, '_', ' ') as type, user_transaction.action,  user_transaction.created_at",
             where: "user_transaction.user_id = " + data.id,
             sort_by: "user_transaction.id",
             sort_order: "DESC",

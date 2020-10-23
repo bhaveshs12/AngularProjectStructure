@@ -34,3 +34,6 @@
 .upcoming .video-card {
     min-height: 150px;
 }
+.FirstLetter::first-letter {
+    text-transform: uppercase;
+}

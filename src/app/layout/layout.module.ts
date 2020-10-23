@@ -15,6 +15,7 @@ const routes: Routes = [
         component: LayoutComponent,
         children: [
             { path: 'admin', canActivate: [AuthGuardService], loadChildren: () => import('./modules/admin/admin.module').then(m => m.AdminModule) },
+            { path: 'public', loadChildren: () => import('./modules/public/public.module').then(m => m.PublicModule) },
             { path: 'user', canActivate: [AuthGuardService], loadChildren: () => import('./modules/user/user.module').then(m => m.UserModule) },
             { path: '', redirectTo: 'admin' }
         ]

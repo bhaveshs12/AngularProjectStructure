@@ -100,21 +100,21 @@
          </div>
          <hr class="mt-4 mb-4">
          <div class="row pt-2 bgWhite">
-            <div class="col-md-4">
+            <div class="col-md-3">
                <div class="main-title">
-                  <p style="color: #000" class="mb-1">Wallet tokens</p>
+                  <p style="color: #000" class="mb-1">Token Balance in Wallet</p>
                   <p *ngIf="userDetails != null" class="font-bold-600" style="color:#000">{{userDetails.walletToken}}</p>
                </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-3">
                <div class="main-title">
-                  <p style="color: #000" class="mb-1">SNAFU tokens</p>
+                  <p style="color: #000" class="mb-1">Token Balance on Platform</p>
                   <p *ngIf="userDetails != null" class="font-weight-bold" style="color:#000">{{userDetails.tokens}}</p>
                </div>
             </div>
-            <div class="col-md-4 text-right">
-               <button (click)="transactionType = 'Buy Tokens'" data-toggle="modal" data-target="#buyToekens" class="ml-4 btn btn-outline-primary">Buy Tokens</button>
-               <button (click)="withdrawTokens()" class="ml-4 btn btn-outline-primary">Withdraw Tokens</button>
+            <div class="col-md-6 text-right">
+               <button (click)="transactionType = 'Buy Tokens'; amount = undefined; settingForm.resetForm()" data-toggle="modal" data-target="#buyToekens" class="ml-4 btn btn-outline-primary">Buy Tokens</button>
+               <button (click)="withdrawTokens();" class="ml-4 btn btn-outline-primary">Withdraw Tokens</button>
             </div>
          </div>
     </div>
@@ -122,7 +122,7 @@
         <div class="row pt-4" *ngFor="let transaction of transactions | paginate: { id: 'contentPagination', itemsPerPage: itemsPerPage, currentPage: currentPage, totalItems: totalRecords };">
             <div class="col-md-8">
                <div class="main-title">
-                  <p class="font-weight-bold" style="color:#000">{{transaction.type}}</p>
+                  <p class="font-weight-bold FirstLetter" style="color:#000;">{{transaction.type}}</p>
                   <p style="color:#ccc">{{transaction.created_at | date:'MMM dd, yyyy | hh:mm a'}} <span class="ml-4">{{transaction.transaction_hash}}</span></p>
                </div>
             </div>
@@ -149,9 +149,9 @@
          </button>
        </div>
        <div class="modal-body">
-         <form autocomplete="off" #settingForm="ngForm">
+         <form autocomplete="off" #settingForm="ngForm" (ngSubmit)="settingForm.form.valid && buyTokens()">
             <p><input required autocomplete="off" pattern="[0-9]+([\.,][0-9]+)?" #amountRef="ngModel" [(ngModel)]="amount" name="amount" type="text" class="form-control" placeholder="Transfer amount"></p>
-            <div class="alert alert-danger" *ngIf="amountRef.touched && !amountRef.valid">
+            <div class="alert alert-danger" *ngIf="(amountRef.touched || settingForm.submitted) && !amountRef.valid">
                <div *ngIf="amountRef.errors.required">Amount is required.</div>
                <div *ngIf="amountRef.errors.pattern">Amount must be numeric.</div>
             </div>
@@ -160,7 +160,7 @@
        <div class="modal-footer">
          <button type="button" class="btn btn-outline-primary" data-dismiss="modal">Close</button>
          <button type="button" id="closeModal" (click)="transactionMsg()" class="d-none btn btn-outline-primary" data-dismiss="modal">Close</button>
-         <button *ngIf="transactionType == 'Buy Tokens'" [disabled]="!settingForm.valid" (click)="buyTokens()" type="button" class="btn btn-outline-primary">Transfer</button>
+         <button [disabled]="!settingForm.valid" (click)="buyTokens()" type="button" class="btn btn-outline-primary">Transfer</button>
        </div>
      </div>
    </div>

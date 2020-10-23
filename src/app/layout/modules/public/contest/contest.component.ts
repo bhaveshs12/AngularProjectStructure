@@ -5,22 +5,20 @@ import { NgxSpinnerService } from "ngx-spinner";
 import { ToastrService } from 'ngx-toastr';
 import { EmbedVideoService } from 'ngx-embed-video';
 import {ActivatedRoute} from '@angular/router';
-declare var $:any;
+
 @Component({
-  selector: 'app-contest-detail',
-  templateUrl: './contest-detail.component.html',
-  styleUrls: ['./contest-detail.component.scss']
+  selector: 'app-contest',
+  templateUrl: './contest.component.html',
+  styleUrls: ['./contest.component.scss']
 })
-export class ContestDetailComponent implements OnInit {
+export class ContestComponent implements OnInit {
 
   ContestData:any = null;
-  ShareLink:any = window.location.origin + "/public/contest/";
+  uid:any = null;
   ExpertVideos:any = [];
   BeginnerVideos:any = [];
   IntermediateVideos:any = [];
   SANFUVideos:any = [];
-  Winners:any = [];
-  userData:any = null;
 
   sliderOptions = {
     items: 4,
@@ -54,21 +52,11 @@ export class ContestDetailComponent implements OnInit {
   }
 
   ngOnInit() {
-    
-    this.api.userDataChange$.subscribe(val => {this.userData = this.api.getData(); });
     this.route.params.subscribe(params => {
       // console.log(params)
       let id = params['id'];
-      this.ShareLink += id + "/" + this.userData.id;
       this.getContest(id);
     });
-  }
-
-  copy() {
-    $(".tooltiptext").show();
-    setTimeout(() => {
-      $(".tooltiptext").hide();
-    }, 2000);
   }
 
   stopLoader() {

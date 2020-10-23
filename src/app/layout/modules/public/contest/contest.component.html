@@ -4,22 +4,19 @@
        <div class="top-category section-padding mb-4">
           <div class="row">
              <div class="col-md-12">
-                <div class="main-title">
-                  <div *ngIf="userData != null" class="btn-group float-right right-action">
-                     <a *ngIf="ContestData != null" routerLink="/user/uploadVideo/{{ContestData.id}}" class="createLink sright-action-link ml-4 font-bold-400" style="font-size: 13px;">
-                        <svg width="18" height="18" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                           <path fill-rule="evenodd" clip-rule="evenodd" d="M7.99984 15.3334C3.94975 15.3334 0.666504 12.0501 0.666504 8.00002C0.666504 3.94993 3.94975 0.666687 7.99984 0.666687C12.0499 0.666687 15.3332 3.94993 15.3332 8.00002C15.3332 12.0501 12.0499 15.3334 7.99984 15.3334ZM7.99984 14C11.3135 14 13.9998 11.3137 13.9998 8.00002C13.9998 4.68631 11.3135 2.00002 7.99984 2.00002C4.68613 2.00002 1.99984 4.68631 1.99984 8.00002C1.99984 11.3137 4.68613 14 7.99984 14ZM11.3332 7.33335H8.6665V4.66669H7.33317V7.33335H4.6665V8.66669H7.33317V11.3334H8.6665V8.66669H11.3332V7.33335Z" fill="#FF0000"/>
-                        </svg>
-                        &nbsp; Upload video</a>
-                  </div>
-                   <h6 class="font-bold-400 font-16">Contest Topic of the Week</h6>
-                   <h4 *ngIf="ContestData != null" class="font-bold-600 font-20 mt-3">{{ContestData.name}}</h4>
+                <div class="main-title" *ngIf="ContestData != null">
+                   <h4 class="font-bold-600 font-20 mt-3">{{ContestData.name}}</h4>
+                   <p style="font-size:11px">{{ContestData.start_date_time | date:'longDate'}} - {{ContestData.end_date_time | date:'longDate'}}</p>
+                   <p *ngIf="ContestData.description != null" style="font-size:11px" class="mt-5">
+                     {{ContestData.description}}
+                   </p>
                 </div>
              </div>
           </div>
        </div>
        <hr class="mt-4 mb-4">
        <div class="video-block section-padding">
+
          <div class="row">
             <div class="col-md-12">
                <div class="main-title">
@@ -40,11 +37,10 @@
                <owl-carousel [items]="ExpertVideos" [carouselClasses]="['owl-theme', 'sliding']" [options]="sliderOptions">
                   <div class="pr-4 item" *ngFor="let video of ExpertVideos">
                      <div class="video-card">
-                        <div routerLink="/user/voteVideo/{{ContestData.id}}/{{video.id}}" class="overlay"></div>
                         <div class="video-card-image" [innerHtml]="video.url"></div>
                         <div class="video-card-body">
                            <div class="video-title">
-                              <a routerLink="/user/voteVideo/{{ContestData.id}}/{{video.id}}">{{video.title}}</a>
+                              <a href="#">{{video.title}}</a>
                            </div>
                            <div class="video-view pt-3">
                               Upvotes: {{video.up_vote}} &nbsp;&nbsp;&nbsp; Downvotes: {{video.down_vote}}
@@ -53,7 +49,7 @@
                      </div>
                   </div>
                </owl-carousel>
-               <p *ngIf="ExpertVideos.length == 0">No Expert Videos found.</p>
+               <p *ngIf="ExpertVideos.length == 0">No vidoes found.</p>
             </div>
          </div>
 
@@ -79,11 +75,10 @@
                <owl-carousel [items]="IntermediateVideos" [carouselClasses]="['owl-theme', 'sliding']" [options]="sliderOptions">
                   <div class="pr-4 item" *ngFor="let video of IntermediateVideos">
                      <div class="video-card">
-                        <div routerLink="/user/voteVideo/{{ContestData.id}}/{{video.id}}" class="overlay"></div>
                         <div class="video-card-image" [innerHtml]="video.url"></div>
                         <div class="video-card-body">
                            <div class="video-title">
-                              <a routerLink="/user/voteVideo/{{ContestData.id}}/{{video.id}}">{{video.title}}</a>
+                              <a href="#">{{video.title}}</a>
                            </div>
                            <div class="video-view pt-3">
                               Upvotes: {{video.up_vote}} &nbsp;&nbsp;&nbsp; Downvotes: {{video.down_vote}}
@@ -92,7 +87,7 @@
                      </div>
                   </div>
                </owl-carousel>
-               <p *ngIf="IntermediateVideos.length == 0">No Intermediate Videos found.</p>
+               <p *ngIf="IntermediateVideos.length == 0">No vidoes found.</p>
             </div>
          </div>
 
@@ -118,11 +113,10 @@
                <owl-carousel [items]="BeginnerVideos" [carouselClasses]="['owl-theme', 'sliding']" [options]="sliderOptions">
                   <div class="pr-4 item" *ngFor="let video of BeginnerVideos">
                      <div class="video-card">
-                        <div routerLink="/user/voteVideo/{{ContestData.id}}/{{video.id}}" class="overlay"></div>
                         <div class="video-card-image" [innerHtml]="video.url"></div>
                         <div class="video-card-body">
                            <div class="video-title">
-                              <a routerLink="/user/voteVideo/{{ContestData.id}}/{{video.id}}">{{video.title}}</a>
+                              <a href="#">{{video.title}}</a>
                            </div>
                            <div class="video-view pt-3">
                               Upvotes: {{video.up_vote}} &nbsp;&nbsp;&nbsp; Downvotes: {{video.down_vote}}
@@ -131,7 +125,7 @@
                      </div>
                   </div>
                </owl-carousel>
-               <p *ngIf="BeginnerVideos.length == 0">No Beginner Videos found.</p>
+               <p *ngIf="BeginnerVideos.length == 0">No vidoes found.</p>
             </div>
          </div>
 
@@ -156,11 +150,10 @@
                <owl-carousel [items]="SANFUVideos" [carouselClasses]="['owl-theme', 'sliding']" [options]="sliderOptions">
                   <div class="pr-4 item" *ngFor="let video of SANFUVideos">
                      <div class="video-card">
-                        <div routerLink="/user/voteVideo/{{ContestData.id}}/{{video.id}}" class="overlay"></div>
                         <div class="video-card-image" [innerHtml]="video.url"></div>
                         <div class="video-card-body">
                            <div class="video-title">
-                              <a routerLink="/user/voteVideo/{{ContestData.id}}/{{video.id}}">{{video.title}}</a>
+                              <a href="#">{{video.title}}</a>
                            </div>
                            <div class="video-view pt-3">
                               Upvotes: {{video.up_vote}} &nbsp;&nbsp;&nbsp; Downvotes: {{video.down_vote}}
@@ -169,37 +162,10 @@
                      </div>
                   </div>
                </owl-carousel>
-               <p *ngIf="SANFUVideos.length == 0">No SNAFU Videos found.</p>
-            </div>
-         </div>
-       </div>
-
-       <hr class="mt-4 mb-4">
-       <div class="video-block section-padding">
-         <div class="row">
-            <div class="col-md-12">
-               <div class="main-title">
-                  <h6 class="font-bold-600 font-16">Upcoming Contests</h6>
-               </div>
-               <div class="row upcoming pb-5">
-                  <div class="col-sm-4 col-md-3" style="padding-right: 0.7rem" *ngFor="let contest of UpcomingContests">
-                     <div routerLink="/user/contestDetails/{{contest.id}}" class="video-card">
-                        <div class="video-card-body">
-                           <div class="video-title pl-2">
-                              <a routerLink="/user/contestDetails/{{contest.id}}">{{contest.name}}</a>
-                           </div>
-                           <div class="video-view">
-                              {{contest.start_date_time | date: 'dd MMM'}} - {{contest.end_date_time | date: 'dd MMM'}}
-                           </div>
-                        </div>
-                     </div>
-                  </div>
-                  <div class="col-md-12">
-                     <p *ngIf="UpcomingContests.length == 0">No Upcoming Contests found.</p>
-                  </div>
-               </div>
+               <p *ngIf="SANFUVideos.length == 0">No vidoes found.</p>
             </div>
          </div>
        </div>
     </div>
 </div>
+   

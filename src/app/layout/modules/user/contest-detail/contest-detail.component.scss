@@ -18,3 +18,13 @@ a.createLink {
     cursor: pointer;
     color: #ff0000 !important;
 }
+.tooltiptext {
+    position: absolute;
+    top:-45px;
+    right:-70px;
+    background-color: #ff0000;
+    color: #fff;
+    display: none;
+    padding: 10px 20px;
+    border-radius: 20px;
+}

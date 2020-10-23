@@ -9,6 +9,7 @@ import { NgxSpinnerModule } from "ngx-spinner";
 import {NgxPaginationModule} from 'ngx-pagination';
 import { NgxYoutubePlayerModule } from 'ngx-youtube-player';
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
+import { ClipboardModule } from 'ngx-clipboard';
 @NgModule({
   declarations: [],
   imports: [
@@ -22,7 +23,8 @@ import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
     NgxSpinnerModule,
     NgxPaginationModule,
     OwlDateTimeModule,
-    OwlNativeDateTimeModule
+    OwlNativeDateTimeModule,
+    ClipboardModule,
   ],
   exports: [
     HttpClientModule,
@@ -35,10 +37,12 @@ import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
     NgxPaginationModule,
     NgxYoutubePlayerModule,
     OwlDateTimeModule,
-    OwlNativeDateTimeModule
+    OwlNativeDateTimeModule,
+    ClipboardModule,
   ],
   providers: [
     HttpClientModule,
+    ClipboardModule
   ],
 })
 export class SharedModule { }

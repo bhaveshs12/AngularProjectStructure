@@ -38,8 +38,10 @@ export class SidebarComponent implements OnInit {
       }
       else if(this.userData.role_id == 2){
         this.role = 'user';
-        if(status)
+        let path = (window.location.pathname).split("/");
+        if(status && path.length > 0 && path[1] != 'public') {
           this.router.navigateByUrl('/user/home')
+        } 
       }
       else {
         this.role = 'guest';

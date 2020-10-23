@@ -486,12 +486,16 @@ export class ApiRequestService {
   }
 
   getVideoId(url) {
+    /*
     var video_id = url.split('v=')[1];
+    if(video_id.len)
     var ampersandPosition = video_id.indexOf('&');
     if(ampersandPosition != -1) {
       video_id = video_id.substring(0, ampersandPosition);
     }
-
-    return video_id;
+    */
+    var regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/;
+    var match = url.match(regExp);
+    return (match&&match[7].length==11)? match[7] : false;
   }
 }

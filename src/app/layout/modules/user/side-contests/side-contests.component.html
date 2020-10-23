@@ -88,7 +88,49 @@
                <p *ngIf="myPublicContests.length == 0 && currentMyPublicContest.length == 0">No Contests found.</p>
              </div>
           </div>
- 
+
+          <hr class="mt-4 mb-4">
+          <div class="row mt-4">
+             <div class="col-md-12">
+                <div class="main-title">
+                   <div class="btn-group float-right right-action">
+                      <a *ngIf="privateContests.length > 0 || currentPrivateContest.length > 0" routerLink="/user/viewAllContests/3">View All</a>
+                   </div>
+                   <h6 class="font-bold-600 font-16">Private contests
+                  </h6>
+                </div>
+            </div>
+            <div class="col-md-12 pr-0">
+               <div class="row upcoming">
+                  <div *ngFor="let contest of currentPrivateContest" class="col-sm-4 col-md-3 pr-3 mt-2">
+                     <div routerLink="/user/contestDetails/{{contest.id}}" class="video-card">
+                        <div class="video-card-body">
+                           <div class="video-title pl-2">
+                              <a href="javascript:void(0)">{{contest.name}}</a>
+                           </div>
+                           <div class="video-view">
+                              <button class="font-12 customBtn btn btn-outline-primary pl-5 pr-5" type="submit">Ongoing</button>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+                  <div *ngFor="let contest of privateContests" class="col-sm-4 col-md-3 pr-3 mt-2">
+                     <div routerLink="/user/contestDetails/{{contest.id}}" class="video-card">
+                        <div class="video-card-body">
+                           <div class="video-title pl-2">
+                              <a href="javascript:void(0)">{{contest.name}}</a>
+                           </div>
+                           <div class="video-view pt-2">
+                              {{contest.start_date_time | date: 'dd MMM'}} - {{contest.end_date_time | date: 'dd MMM'}}
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <p *ngIf="privateContests.length == 0 && currentPrivateContest.length == 0">No contests found.</p>
+            </div>
+          </div>
+
           <hr class="mt-4 mb-4">
  
           <div class="row mt-4">
@@ -104,7 +146,7 @@
                      &nbsp; Create contest</a>
                   </h6>
                 </div>
-             </div>
+            </div>
             <div class="col-md-12 pr-0">
                <div class="row upcoming">
                   <div *ngFor="let contest of currentMyPrivateContest" class="col-sm-4 col-md-3 pr-3 mt-2">

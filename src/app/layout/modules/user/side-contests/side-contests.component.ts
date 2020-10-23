@@ -11,9 +11,11 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class SideContestsComponent implements OnInit {
   currentPublicContest:any = [];
+  currentPrivateContest:any = [];
   currentMyPublicContest:any = [];
   currentMyPrivateContest:any = [];
   publicContests:any = [];
+  privateContests:any = [];
   myPublicContests:any = [];
   myPrivateContests:any = [];
   userData:any;
@@ -28,6 +30,7 @@ export class SideContestsComponent implements OnInit {
       searchText: ""
     }
     this.getCurrentPublicContest();
+    this.getCurrentPrivateContest();
     this.getCurrentMyPublicContest();
     this.getCurrentMyPrivateContest();
   }
@@ -41,6 +44,22 @@ export class SideContestsComponent implements OnInit {
               this.currentPublicContest = response.result.data;
           }
           this.getPublicContests();
+      }
+      else {
+        this.toastr.error('Get Side Contests', 'Failed to Process !');
+      }
+    });
+  }
+
+  getCurrentPrivateContest() {
+    this.spinner.show();
+    let body = this.userService.getCurrentPrivateContest(this.params);
+    this.api.post("crud/contest", body).subscribe((response :  any) => {
+      if(response.statusCode == 200) {
+          if(response.result.data.length > 0) {
+              this.currentPrivateContest = response.result.data;
+          }
+          this.getPrivateContests();
       }
       else {
         this.toastr.error('Get Side Contests', 'Failed to Process !');
@@ -66,7 +85,7 @@ export class SideContestsComponent implements OnInit {
 
   getCurrentMyPrivateContest() {
     this.spinner.show();
-    let body = this.userService.getCurrentMyPrivateContest(this.userData.id);
+    let body = this.userService.getCurrentMyPrivateContest(this.params);
     this.api.post("crud/contest", body).subscribe((response :  any) => {
       if(response.statusCode == 200) {
         if(response.result.data.length > 0) {
@@ -93,6 +112,27 @@ export class SideContestsComponent implements OnInit {
                 details.push(element)
             });
             this.publicContests = details;
+        }
+      }
+      else {
+        this.toastr.error('Get Side Contests', 'Failed to Process !');
+      }
+    });
+  }
+
+  getPrivateContests() {
+    let body = this.userService.getPrivateContests(this.params);
+    this.api.post("crud/contest", body).subscribe((response :  any) => {
+      this.spinner.hide();
+      if(response.statusCode == 200) {
+        if(response.result.data.length > 0) {
+            let details = [];
+            response.result.data.forEach(element => {
+              let index = this.currentPrivateContest.findIndex(obj => obj.id == element.id);
+              if(index < 0)
+                details.push(element)
+            });
+            this.privateContests = details;
         }
       }
       else {
