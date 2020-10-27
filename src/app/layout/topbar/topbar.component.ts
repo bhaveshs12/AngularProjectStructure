@@ -28,6 +28,18 @@ export class TopbarComponent implements OnInit {
       this.status = 1;
       this.updatePublicContest(data.id);
     }
+
+    if(window['ethereum'] != undefined) {
+      let obj = this;
+      window['ethereum'].on('accountsChanged', function (accounts) {
+        if(accounts[0] != undefined)
+          obj.addUser(accounts[0]);
+        else {
+          obj.api.removeData();
+          window.location.href = window.location.origin + '/admin';
+        }
+      })
+    }
   }
 
   updatePublicContest(uid) {
@@ -62,9 +74,12 @@ export class TopbarComponent implements OnInit {
         window['web3']['eth']['defaultAccount'] = address;
         this.status = 1;
         this.updatePublicContest(response.result.id);
-        this.api.setData(response.result);
-        // this.toastr.success("Your wallet connected successfully!", 'Connect Your Wallet');
         this.spinner.hide();
+        this.api.setData(response.result);
+        if(response.result.role_id == 1)
+          window.location.href = window.location.origin + '/admin';
+        else
+          window.location.href = window.location.origin + '/user';
       }
       else {
         this.spinner.hide();

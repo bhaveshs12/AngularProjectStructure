@@ -13,7 +13,7 @@
         <div class="row pb-5">
             <div class="col-md-12">
                 <form #contestForm="ngForm" (ngSubmit)="contestForm.form.valid && submit(contestForm)">
-                    <div class="row">
+                    <div class="row" *ngIf="videoType != 'public_side_contest' && videoType != 'private_side_contest';">
                         <div class="col-md-9">
                             <div class="form-group">
                                 <label for="videoTitle">Video title</label>
@@ -35,6 +35,18 @@
                                 </select>
                                 <div class="alert alert-danger" *ngIf="(typeRef.touched || contestForm.submitted) && !typeRef.valid">
                                     <div *ngIf="typeRef.errors.required">Type is required.</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" *ngIf="videoType == 'public_side_contest' || videoType == 'private_side_contest';">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="videoTitle">Video title</label>
+                                <input required [(ngModel)]="videoTitle" minlength="5" maxlength="100" name="videoTitle" type="text" #videoTitleRef="ngModel" class="form-control">
+                                <div class="alert alert-danger" *ngIf="(videoTitleRef.touched || contestForm.submitted) && !videoTitleRef.valid">
+                                    <div *ngIf="videoTitleRef.errors.required">Video title is required.</div>
+                                    <div *ngIf="videoTitleRef.errors.minlength">Video title must be of at least 5 characters.</div>
                                 </div>
                             </div>
                         </div>

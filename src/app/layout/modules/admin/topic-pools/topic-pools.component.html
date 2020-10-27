@@ -35,7 +35,7 @@
       <div class="row" *ngFor="let topic of poolsData | paginate: { id: 'contentPagination', itemsPerPage: itemsPerPage, currentPage: currentPage, totalItems: totalRecords }; let i = index;">
          <div class="col-md-12 mt-4">
             <div class="main-title">
-               <p class="font-bold-600 mb-0" style="color: #000"><span class="text-success" style="padding-right: 57px;">#{{topic.id}}</span>{{topic.name}}</p>
+               <p class="font-bold-600 mb-0" style="color: #000">{{topic.name}}</p>
                <p style="font-size:10px;color:#ACACAC">{{(topic.currentCount - topic.prevCount) >= 0 ? 'Rising' : 'Failing'}}</p>
                <p *ngIf="topic.description != null">{{topic.description}}</p>
             </div>

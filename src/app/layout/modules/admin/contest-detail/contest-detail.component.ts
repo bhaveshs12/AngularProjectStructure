@@ -182,8 +182,10 @@ export class ContestDetailComponent implements OnInit {
         this.ContestData = response.result.data.length > 0 ? response.result.data[0] : null;
         this.stopLoader();
         this.getExpertVideos('vote');
-        this.getIntermediateVideos('vote');
-        this.getBeginnerVideos('vote');
+        if(this.ContestData.type != 'public_side_contest' && this.ContestData.type != 'private_side_contest') {
+          this.getIntermediateVideos('vote');
+          this.getBeginnerVideos('vote');
+        }
         this.getSNAFUVideos('vote');
       }
       else {
@@ -203,6 +205,14 @@ export class ContestDetailComponent implements OnInit {
           details.forEach(element => {
             let id = this.api.getVideoId(element.youtube_url);
             element.url = this.embedService.embed_youtube(id, { attr: { width: "100%", height: "auto" }});
+
+            if(element.winnerType == 'Expert')
+              element.winnerType = 'First';
+            else if(element.winnerType == 'Expert')
+              element.winnerType = 'Second';
+            else
+              element.winnerType = 'Third';
+              
           });
         }
         this.Winners = details;
@@ -215,4 +225,29 @@ export class ContestDetailComponent implements OnInit {
     });
   }
 
+  sendTokens(winner) {
+    console.log(winner);
+    this.spinner.show();
+    let transactionDetails = [];
+    transactionDetails.push({
+      "user_id": winner.user_id,
+      "tokens": 0,
+      "transaction_hash": "",
+      "type": winner.type,
+      "action": "Credit",
+      "winner_id": winner.id
+    })
+
+    let body = {transactionDetails: transactionDetails};
+    this.api.post("user/add-transaction", body).subscribe((response :  any) => {
+      if(response.statusCode == 200) {
+        this.toastr.success('', 'Tokens sent successfully!');
+        this.spinner.hide();
+      }
+      else {
+        this.spinner.hide();
+        this.toastr.error('Send Tokens', 'Failed to Process !');
+      }
+    });
+  }
 }

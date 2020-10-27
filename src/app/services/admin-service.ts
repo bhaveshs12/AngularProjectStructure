@@ -167,7 +167,7 @@ export class AdminService {
 
     getWinners(data) {
         return {
-            select: "winner.id, winner.contest_id, winner.video_id, winner.created_at, video.user_id, video.youtube_url, video.title, video.type",
+            select: "winner.id, winner.winner_type AS winnerType, winner.contest_id, winner.video_id, winner.created_at, video.user_id, video.youtube_url, video.title, video.type",
             where: "winner.contest_id = " + data,
             join: [{
               "type": "INNER",

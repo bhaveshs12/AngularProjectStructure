@@ -16,6 +16,7 @@ export class UploadVideoComponent implements OnInit {
   videoTitle:any;
   videoLink:any;
   type:any = "";
+  videoType:any = "";
   contestId:any = null;
   videoPrice:any = 0;
 
@@ -27,6 +28,10 @@ export class UploadVideoComponent implements OnInit {
     this.route.params.subscribe(params => {
       this.contestId = params['id'] != undefined && params['id'] != '' ? params['id'] : null;
     });
+    this.route.queryParams.subscribe(params => {
+        this.videoType = params['type'];
+    });
+
     this.getSetting();
   }
 
@@ -48,6 +53,10 @@ export class UploadVideoComponent implements OnInit {
 
   submit(form) {
     // console.log(this.endDate)
+    if(this.videoType == 'public_side_contest' || this.videoType == 'private_side_contest') {
+      this.type = 'Expert';
+    }
+
     this.videoTitle = this.videoTitle.trim();
     this.videoLink = this.videoLink.trim();
     if(this.videoTitle != '' && this.videoLink != '') {

@@ -87,9 +87,9 @@ export class CreateContestComponent implements OnInit {
         type: this.type,
         start_date_time: moment(this.startDate).utc().format("YYYY-MM-DD HH:mm:ss"),
         end_date_time: moment(this.endDate).utc().format("YYYY-MM-DD HH:mm:ss"),
-        beginner_prize: this.priceOne,
-        intermediate_prize: this.priceTwo,
-        expert_prize: this.priceThree
+        beginner_prize: this.priceThree != undefined && this.priceThree != '' ? this.priceThree : 0,
+        intermediate_prize: this.priceTwo != undefined && this.priceTwo != '' ? this.priceTwo : 0,
+        expert_prize: this.priceOne
       }
       this.api.post("contest/add-contest", params).subscribe((response :  any) => {
         if(response.statusCode == 200) {

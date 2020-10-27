@@ -15,7 +15,7 @@
           </div>
        </div>
        <hr class="mt-4 mb-4">
-       <div class="video-block section-padding">
+       <div *ngIf="ContestData != null" class="video-block section-padding">
 
          <div class="row">
             <div class="col-md-12">
@@ -29,12 +29,13 @@
                      <div class="video-card">
                         <div class="video-card-image" [innerHtml]="video.url"></div>
                         <div class="video-card-body" style="position: relative;">
-                           <span class="pl-2 pr-2 pt-1 pb-1" style="color: #fff; background-color: #F5234A; position: absolute; right:5px; top: -35px;">{{video.type}}</span>
+                           <span *ngIf="ContestData.type != 'public_side_contest' && ContestData.type != 'private_side_contest'"  class="pl-2 pr-2 pt-1 pb-1" style="color: #fff; background-color: #F5234A; position: absolute; right:5px; top: -35px;">{{video.type}}</span>
+                           <span *ngIf="ContestData.type == 'public_side_contest' || ContestData.type == 'private_side_contest'"  class="pl-2 pr-2 pt-1 pb-1" style="color: #fff; background-color: #F5234A; position: absolute; right:5px; top: -35px;">{{video.winnerType}}</span>
                            <div class="video-title">
                               <a href="javascript:void(0)">{{video.title}}</a>
                            </div>
                            <div class="pt-2">
-                              <a href="javascript:void(0)">Send awards tokens</a>
+                              <a (click)="sendTokens(video)" href="javascript:void(0)">Send awards tokens</a>
                            </div>
                         </div>
                      </div>
@@ -46,7 +47,7 @@
 
          <hr class="mt-4 mb-4">
 
-         <div class="row">
+         <div class="row" *ngIf="ContestData.type != 'public_side_contest' && ContestData.type != 'private_side_contest'">
             <div class="col-md-12">
                <div class="main-title">
                   <div class="btn-group float-right right-action">
@@ -82,9 +83,9 @@
             </div>
          </div>
 
-         <hr class="mt-4 mb-4">
+         <hr class="mt-4 mb-4" *ngIf="ContestData.type != 'public_side_contest' && ContestData.type != 'private_side_contest'">
 
-         <div class="row mt-4">
+         <div class="row mt-4" *ngIf="ContestData.type != 'public_side_contest' && ContestData.type != 'private_side_contest'">
             <div class="col-md-12">
                <div class="main-title">
                   <div class="btn-group float-right right-action">
@@ -120,9 +121,9 @@
             </div>
          </div>
 
-         <hr class="mt-4 mb-4">
+         <hr class="mt-4 mb-4" *ngIf="ContestData.type != 'public_side_contest' && ContestData.type != 'private_side_contest'">
 
-         <div class="row mt-4">
+         <div class="row mt-4" *ngIf="ContestData.type != 'public_side_contest' && ContestData.type != 'private_side_contest'">
             <div class="col-md-12">
                <div class="main-title">
                   <div class="btn-group float-right right-action">
@@ -155,6 +156,43 @@
                   </div>
                </owl-carousel>
                <p *ngIf="BeginnerVideos.length == 0">No vidoes found.</p>
+            </div>
+         </div>
+
+         
+         <div class="row" *ngIf="ContestData.type == 'public_side_contest' || ContestData.type == 'private_side_contest'">
+            <div class="col-md-12">
+               <div class="main-title">
+                  <div class="btn-group float-right right-action">
+                     <a href="#" class="right-action-link text-gray" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                     Sort by <i class="fa fa-caret-down" aria-hidden="true"></i>
+                     </a>
+                     <div class="dropdown-menu dropdown-menu-right">
+                        <a class="dropdown-item" (click)="getExpertVideos('vote')">Top Voted</a>
+                        <a class="dropdown-item" (click)="getExpertVideos('hot')">Hottest</a>
+                        <a class="dropdown-item" (click)="getExpertVideos('recent')">Most Recent</a>
+                     </div>
+                  </div>
+                  <h6 class="font-bold-600 font-16">Videos</h6>
+               </div>
+            </div>
+            <div class="col-md-12 pr-0">
+               <owl-carousel [items]="ExpertVideos" [carouselClasses]="['owl-theme', 'sliding']" [options]="sliderOptions">
+                  <div class="pr-4 item" *ngFor="let video of ExpertVideos">
+                     <div class="video-card">
+                        <div class="video-card-image" [innerHtml]="video.url"></div>
+                        <div class="video-card-body">
+                           <div class="video-title">
+                              <a href="#">{{video.title}}</a>
+                           </div>
+                           <div class="video-view pt-3">
+                              Upvotes: {{video.up_vote}} &nbsp;&nbsp;&nbsp; Downvotes: {{video.down_vote}}
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </owl-carousel>
+               <p *ngIf="ExpertVideos.length == 0">No vidoes found.</p>
             </div>
          </div>
 

@@ -457,7 +457,7 @@ export class ApiRequestService {
   setData(data) {
     data = JSON.stringify(data);
     localStorage.setItem("userDetail", data);
-    this.userDataChange$.next(true);
+    // this.userDataChange$.next(true);
   }
 
   getData() {
