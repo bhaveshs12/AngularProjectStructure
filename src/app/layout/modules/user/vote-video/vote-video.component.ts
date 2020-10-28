@@ -43,7 +43,7 @@ export class VoteVideoComponent implements OnInit {
         let id = this.api.getVideoId(this.videoDetails.youtube_url);
         this.videoDetails.url = this.embedService.embed_youtube(id, { attr: { width: "100%", height: "420px" }});
         this.spinner.hide();
-        this.getVideos('vote');
+        this.getVideos('recent');
       }
       else {
         this.spinner.hide();

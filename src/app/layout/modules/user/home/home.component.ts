@@ -195,10 +195,10 @@ export class HomeComponent implements OnInit {
       if(response.statusCode == 200) {
         this.ContestData = response.result.data.length > 0 ? response.result.data[0] : null;
         this.stopLoader();
-        this.getExpertVideos('vote');
-        this.getIntermediateVideos('vote');
-        this.getBeginnerVideos('vote');
-        this.getSNAFUVideos('vote');
+        this.getExpertVideos('recent');
+        this.getIntermediateVideos('recent');
+        this.getBeginnerVideos('recent');
+        this.getSNAFUVideos('recent');
         this.getUpcomingContests();
       }
       else {

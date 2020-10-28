@@ -30,8 +30,8 @@
             <div *ngFor="let user of usersList | paginate: { id: 'contentPagination', itemsPerPage: itemsPerPage, currentPage: currentPage, totalItems: totalRecords };" class="row pt-5">
                 <div class="col-md-8">
                    <div class="main-title">
-                      <p class="font-bold-600 mb-0" style="color: #000">{{user.eth_address}}</p>
-                      <p style="font-size:10px;color:#000">{{user.display_name}}</p>
+                      <p class="font-bold-600 mb-0" style="color: #fff">{{user.eth_address}}</p>
+                      <p style="font-size:10px;color:#fff">{{user.display_name}}</p>
                    </div>
                 </div>
                 <div class="col-md-4 pt-1 text-right">

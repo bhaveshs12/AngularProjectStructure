@@ -18,10 +18,9 @@
                         <div class="col-md-9">
                             <div class="form-group">
                                 <label for="contestName">Contest Name</label>
-                                <input required [(ngModel)]="contestName" minlength="5" maxlength="100" name="contestName" type="text" #contestNameRef="ngModel" class="form-control" id="contestNameRef">
+                                <input required [(ngModel)]="contestName" maxlength="100" name="contestName" type="text" #contestNameRef="ngModel" class="form-control" id="contestNameRef">
                                 <div class="alert alert-danger" *ngIf="(contestNameRef.touched || contestForm.submitted) && !contestNameRef.valid">
                                     <div *ngIf="contestNameRef.errors.required">Contest Name is required.</div>
-                                    <div *ngIf="contestNameRef.errors.minlength">Contest Name must be of at least 5 characters.</div>
                                 </div>
                             </div>
                         </div>
@@ -43,10 +42,9 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="about">About</label>
-                                <textarea required [(ngModel)]="about" #aboutRef="ngModel" minlength="100" maxlength="300" name="about" id="about" cols="30" rows="5" class="form-control"></textarea>
+                                <textarea required [(ngModel)]="about" #aboutRef="ngModel" maxlength="300" name="about" id="about" cols="30" rows="5" class="form-control"></textarea>
                                 <div class="alert alert-danger" *ngIf="(aboutRef.touched || contestForm.submitted) && !aboutRef.valid">
                                     <div *ngIf="aboutRef.errors.required">About Us is required.</div>
-                                    <div *ngIf="aboutRef.errors.minlength">About must be of at least 100 characters.</div>
                                 </div>
                             </div>
                         </div>
@@ -105,8 +103,8 @@
                             </div>
                         </div>
                     </div>
-                    <p *ngIf="pageType == 1 && public_side_contest_prize > 0" style="color: #000; font-size:13px;">{{public_side_contest_prize}} SNAFU tokens are required to create public contest. Also you have to sent 1000 prize tokens in advance</p>
-                    <p *ngIf="pageType == 2 && private_side_contest_prize > 0" style="color: #000; font-size:13px;">{{private_side_contest_prize}} SNAFU tokens are required to create public contest. Also you have to sent 1000 prize tokens in advance</p>
+                    <p *ngIf="pageType == 1 && public_side_contest_prize > 0" style="color: #fff; font-size:13px;">Fee to start a side contest: {{public_side_contest_prize}} SNAFU Tokens. *Also note that your elected contest prize pool will be deducted from your wallet <u>upon contest creation.</u></p>
+                    <p *ngIf="pageType == 2 && private_side_contest_prize > 0" style="color: #fff; font-size:13px;">Fee to start a side contest: {{private_side_contest_prize}} SNAFU Tokens. *Also note that your elected contest prize pool will be deducted from your wallet <u>upon contest creation.</u></p>
                     <p>
                         <a routerLink="/user/contests" style="font-size:14px" class="pl-2 pr-2" type="submit">Cancel</a>
                         <button class="btn btn-outline-primary ml-4 pl-5 pr-5" type="submit">Create</button>

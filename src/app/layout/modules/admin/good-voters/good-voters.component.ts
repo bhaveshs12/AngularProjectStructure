@@ -69,8 +69,10 @@ export class GoodVotersComponent implements OnInit {
     this.selectedLength = 0;
     this.status = 1;
     this.goodVoters.forEach(element => {
-      element.value = true;
-      this.selectedLength++;
+      if(element.token_send == 0) {
+        element.value = true;
+        this.selectedLength++;
+      }
     });
   }
 

@@ -7,22 +7,23 @@
                 <div *ngIf="videoDetails != null" [innerHtml]="videoDetails.url"></div>
                 <div class="row ml-0 mr-0 mt-3 pt-3 pb-5 video-card" *ngIf="videoDetails != null">
                     <div class="col-md-9"><h3 style="font-size:18px;">{{videoDetails.title}} </h3></div>
-                    <div class="col-md-3 mt-1 text-right"><span class="mr-3 pl-4 pr-4 pt-2 pb-2" style="color: #fff; background-color: #ccc;">{{videoDetails.type}}</span></div>
+                    <div class="col-md-3 mt-1 text-right"><span class="mr-3 pl-4 pr-4 pt-2 pb-2" style="color: #fff; background-color: #333;">{{videoDetails.type}}</span></div>
                     <div *ngIf="ContestData != null" class="col-md-12 mt-4">
-                        <button [disabled]="ContestData.diff > 0" class="btn btn-success pl-3 pr-3" (click)="voteVideo('up_vote')" style="color: #000" type="submit">UpVote</button>
-                        <button [disabled]="ContestData.diff > 0" class="btn btn-danger pl-3 pr-3 ml-3" (click)="voteVideo('down_vote')" type="submit">DownVote</button>
-                        <button [disabled]="ContestData.diff > 0" class="btn btn-outline-primary pl-3 pr-3 ml-3" (click)="voteVideo('snafu')" type="submit">SNAFU</button>
+                        <button [disabled]="ContestData.diff > 0" class="btn btn-success pl-3 pr-3" (click)="voteVideo('up_vote')" style="color: #fff" type="submit">UpVote</button>
+                        <!-- <button [disabled]="ContestData.diff > 0" class="btn btn-danger pl-3 pr-3 ml-3" (click)="voteVideo('down_vote')" type="submit">DownVote</button> -->
+                        <a *ngIf="ContestData.diff <= 0" class="ml-4" (click)="voteVideo('snafu')" href="javascript:void(0)"><img width="70" src="assets/images/default/logo.png" /></a>
+                        <a *ngIf="ContestData.diff > 0" class="ml-4" style="cursor: not-allowed;" href="javascript:void(0)"><img width="70" src="assets/images/default/logo.png" /></a>
                     </div>
                 </div>
             </div>
             <div class="col-md-4">
-               <div class="main-title">
+               <div *ngIf="ContestData != null" class="main-title">
                   <div class="btn-group float-right right-action">
                      <a href="#" class="right-action-link text-gray" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                      Sort by <i class="fa fa-caret-down" aria-hidden="true"></i>
                      </a>
                      <div class="dropdown-menu dropdown-menu-right">
-                        <a class="dropdown-item" (click)="getVideos('vote')">Top Voted</a>
+                        <a *ngIf="ContestData.diff > 0" class="dropdown-item" (click)="getVideos('vote')">Top Voted</a>
                         <a class="dropdown-item" (click)="getVideos('hot')">Hottest</a>
                         <a class="dropdown-item" (click)="getVideos('recent')">Most Recent</a>
                      </div>

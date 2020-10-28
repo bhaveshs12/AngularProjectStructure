@@ -11,25 +11,23 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="contestName">Contest Name</label>
-                                <input required [(ngModel)]="contestName" minlength="5" maxlength="100" name="contestName" type="text" #contestNameRef="ngModel" class="form-control" id="contestNameRef">
+                                <input required [(ngModel)]="contestName" maxlength="100" name="contestName" type="text" #contestNameRef="ngModel" class="form-control" id="contestNameRef">
                                 <div class="alert alert-danger" *ngIf="(contestNameRef.touched || contestForm.submitted) && !contestNameRef.valid">
                                     <div *ngIf="contestNameRef.errors.required">Contest Name is required.</div>
-                                    <div *ngIf="contestNameRef.errors.minlength">Contest Name must be of at least 5 characters.</div>
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="about">About</label>
-                                <input required [(ngModel)]="about" minlength="100" maxlength="300" name="about" type="text" #aboutRef="ngModel" class="form-control" id="about">
+                                <input required [(ngModel)]="about" maxlength="300" name="about" type="text" #aboutRef="ngModel" class="form-control" id="about">
                                 <div class="alert alert-danger" *ngIf="(aboutRef.touched || contestForm.submitted) && !aboutRef.valid">
                                     <div *ngIf="aboutRef.errors.required">About is required.</div>
-                                    <div *ngIf="aboutRef.errors.minlength">About must be of at least 100 characters.</div>
                                 </div>
                             </div>
                         </div>
                         <div *ngIf="tokens != null" class="col-md-12">
-                            <p style="color: #000">{{tokens}} SNAFU tokens are required to suggest a topic.</p>
+                            <p style="color: #fff">{{tokens}} SNAFU tokens are required to suggest a topic.</p>
                         </div>
                     </div>
                     <button class="btn btn-outline-primary pl-5 pr-5" type="submit">Create</button>

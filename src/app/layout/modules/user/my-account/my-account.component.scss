@@ -10,12 +10,10 @@
     border-bottom: 3px solid #ff0000;
 }
 
-.bgWhite {
-    background-color: #fff;
-}
-
 .btn-outline-primary.disabled, .btn-outline-primary:disabled {
     color: #ff0000;
+    cursor: not-allowed;
+    opacity: 1 !important;
 }
 
 .upcoming a {

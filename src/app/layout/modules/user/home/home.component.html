@@ -12,14 +12,14 @@
                         </svg>
                         &nbsp; Upload video</a>
                   </div>
-                   <h6 class="font-bold-400 font-16">Contest Topic of the Week</h6>
+                   <h6 style="color: #ccc" class="font-bold-400 font-16">Contest Topic of the Week</h6>
                    <h4 *ngIf="ContestData != null" class="font-bold-600 font-20 mt-3">{{ContestData.name}}</h4>
                 </div>
              </div>
           </div>
        </div>
        <hr class="mt-4 mb-4">
-       <div class="video-block section-padding">
+       <div *ngIf="ContestData != null" class="video-block section-padding">
          <div class="row">
             <div class="col-md-12">
                <div class="main-title">
@@ -28,7 +28,7 @@
                      Sort by <i class="fa fa-caret-down" aria-hidden="true"></i>
                      </a>
                      <div class="dropdown-menu dropdown-menu-right">
-                        <a class="dropdown-item" (click)="getExpertVideos('vote')">Top Voted</a>
+                        <a *ngIf="ContestData.diff > 0" class="dropdown-item" (click)="getExpertVideos('vote')">Top Voted</a>
                         <a class="dropdown-item" (click)="getExpertVideos('hot')">Hottest</a>
                         <a class="dropdown-item" (click)="getExpertVideos('recent')">Most Recent</a>
                      </div>
@@ -67,7 +67,7 @@
                      Sort by <i class="fa fa-caret-down" aria-hidden="true"></i>
                      </a>
                      <div class="dropdown-menu dropdown-menu-right">
-                        <a class="dropdown-item" (click)="getIntermediateVideos('vote')">Top Voted</a>
+                        <a *ngIf="ContestData.diff > 0" class="dropdown-item" (click)="getIntermediateVideos('vote')">Top Voted</a>
                         <a class="dropdown-item" (click)="getIntermediateVideos('hot')">Hottest</a>
                         <a class="dropdown-item" (click)="getIntermediateVideos('recent')">Most Recent</a>
                      </div>
@@ -106,7 +106,7 @@
                      Sort by <i class="fa fa-caret-down" aria-hidden="true"></i>
                      </a>
                      <div class="dropdown-menu dropdown-menu-right">
-                        <a class="dropdown-item" (click)="getBeginnerVideos('vote')">Top Voted</a>
+                        <a *ngIf="ContestData.diff > 0" class="dropdown-item" (click)="getBeginnerVideos('vote')">Top Voted</a>
                         <a class="dropdown-item" (click)="getBeginnerVideos('hot')">Hottest</a>
                         <a class="dropdown-item" (click)="getBeginnerVideos('recent')">Most Recent</a>
                      </div>
@@ -145,7 +145,7 @@
                      Sort by <i class="fa fa-caret-down" aria-hidden="true"></i>
                      </a>
                      <div class="dropdown-menu dropdown-menu-right">
-                        <a class="dropdown-item" (click)="getSNAFUVideos('vote')">Top Voted</a>
+                        <a *ngIf="ContestData.diff > 0" class="dropdown-item" (click)="getSNAFUVideos('vote')">Top Voted</a>
                         <a class="dropdown-item" (click)="getSNAFUVideos('recent')">Most Recent</a>
                      </div>
                   </div>

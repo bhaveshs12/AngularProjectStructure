@@ -24,7 +24,7 @@
       <div class="row" *ngIf="ContestData != null">
          <div class="col-md-12 mt-4">
             <div class="main-title">
-               <p class="font-bold-600 mb-0" style="color: #000"><span class="text-success pr-3">#Winner</span>{{ContestData.name}}</p>
+               <p class="font-bold-600 mb-0" style="color: #fff"><span class="text-success pr-3">#Winner</span>{{ContestData.name}}</p>
                <p style="font-size:10px;color:#ACACAC">Rising</p>
                <p *ngIf="ContestData.description != null">{{ContestData.description}}</p>
             </div>
@@ -35,12 +35,12 @@
       <div class="row" *ngFor="let topic of poolsData | paginate: { id: 'contentPagination', itemsPerPage: itemsPerPage, currentPage: currentPage, totalItems: totalRecords }; let i = index;">
          <div class="col-md-12 mt-4">
             <div class="main-title">
-               <p class="font-bold-600 mb-0" style="color: #000">{{topic.name}}</p>
+               <p class="font-bold-600 mb-0" style="color: #fff">{{topic.name}}</p>
                <p style="font-size:10px;color:#ACACAC">{{(topic.currentCount - topic.prevCount) >= 0 ? 'Rising' : 'Failing'}}</p>
                <p *ngIf="topic.description != null">{{topic.description}}</p>
                <div class="mt-4">
-                  <a style="color: #000" class="btn btn-success pl-3 pr-2" (click)="voteTopic(topic.id, 'up_vote')">Upvote &nbsp;&nbsp;<span class="font-weight-bold">{{topic.up_vote}}</span></a>
-                  <a style="color: #000" class="btn btn-outline-primary ml-3" (click)="voteTopic(topic.id, 'down_vote')">Downvote <span class="font-weight-bold">{{topic.down_vote}}</span></a>
+                  <a style="color: #fff" class="btn btn-success pl-3 pr-2" (click)="voteTopic(topic.id, 'up_vote')">Upvote &nbsp;&nbsp;<span class="font-weight-bold">{{topic.up_vote}}</span></a>
+                  <a style="color: #fff" class="btn btn-outline-primary ml-3" (click)="voteTopic(topic.id, 'down_vote')">Downvote <span class="font-weight-bold">{{topic.down_vote}}</span></a>
                </div>
             </div>
             <hr class="mt-4 mb-4">

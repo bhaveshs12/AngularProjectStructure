@@ -8,7 +8,7 @@
      min-height: 100%;
 }
  body {
-     background-color: #fafafa;
+     background-color: #121212;
      color: #888;
      font-size: 13px;
      height: 100%;
@@ -104,7 +104,7 @@
 }
  .sidebar {
      width: 90px !important;
-     background: #FF0000;
+     background:#1c1c1c;
      min-height: 100%;
      z-index: 9;
      padding: 2px 0;
@@ -339,6 +339,7 @@
 }
  .osahan-nav {
      padding: 0;
+     background-color: #232323;
 }
  .osahan-navbar-search .form-control {
      background: #eceff0 none repeat scroll 0 0;
@@ -393,9 +394,9 @@
      border: none;
 }
 .btn-outline-primary:hover {
-    background-color: #fff !important;
+    background-color: #ff0000 !important;
     border-color: #ff0000;
-    color: #ff0000;
+    color: #fff !important;
 }
  .btn-outline-primary{
      border-color: #ff0000;
@@ -542,9 +543,8 @@
      margin-bottom: 10px;
 }
 .right-action-link .fa {
-    background: #fff none repeat scroll 0 0;
+    background: #333333 none repeat scroll 0 0;
     border-radius: 50px;
-    box-shadow: 0 0 6px #ececec;
     display: inline-block;
     height: 20px;
     line-height: 19px;
@@ -610,7 +610,7 @@
      border-top: 1px solid #eff2f3;
 }
  a:hover, h1, h2, h3, h4, h5, h6 {
-     color: #333;
+     color: #fff;
 }
  .upload-video .fas {
      font-size: 200px;
@@ -684,7 +684,6 @@
 }
  .video-card-image {
      border-radius: 2px;
-     box-shadow: 0 0 11px #ececec;
      overflow: hidden;
      position: relative;
 }
@@ -736,7 +735,7 @@
      transition-duration: 0.4s;
 }
  .video-title a {
-     color: #000;
+     color: #fff;
      font-weight: 600;
      text-decoration: none;
 }
@@ -753,9 +752,8 @@
      margin: 2px 0 0;
 }
  .video-card {
-     background: #fff none repeat scroll 0 0;
+     background:#1c1c1c none repeat scroll 0 0;
      border-radius: 2px;
-     box-shadow: 0 0 11px #ececec;
      transition-duration: 0.4s;
 }
  .video-card-body {
@@ -1455,7 +1453,7 @@
 
 .snafuLogo {
     width:225px;
-    background: #ff0000;
+    background: #232323;
     color: #fff;
 }
 
@@ -1524,4 +1522,10 @@ hr{
 }
 ul.ngx-pagination {
     padding-left: 0px !important;
+}
+a.createLink:hover svg path {
+    fill: #fff;
+}
+.ngx-pagination a, .ngx-pagination button {
+    color: #ff0000 !important;
 }

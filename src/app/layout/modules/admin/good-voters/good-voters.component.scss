@@ -1,6 +1,6 @@
 .custom-label {
     font-size:15px;
-    color: #000;
+    color: #fff;
 }
 
 .custom-control p {
@@ -14,4 +14,5 @@
 
 .btn-outline-primary.disabled, .btn-outline-primary:disabled {
     color: #ff0000;
+    cursor: not-allowed;
 }

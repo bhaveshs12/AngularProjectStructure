@@ -1,5 +1,5 @@
 <!-- <ngx-spinner type = "ball-spin" color = "#fff" bdColor = "rgba(0,0,0,0.4)" size = "default" [fullScreen] = "false"><p style="color: white" > Loading... </p></ngx-spinner> -->
-<nav class="navbar navbar-expand navbar-light bg-white static-top osahan-nav sticky-top">
+<nav class="navbar navbar-expand navbar-light static-top osahan-nav sticky-top">
     <p class="snafuLogo m-0 pt-2">
       <button style="margin-top:-5px;" class="btn btn-link btn-sm text-secondary order-1 order-sm-0 ml-2" id="sidebarToggle">
          <img width="20" src="assets/images/default/icon.png">
@@ -28,8 +28,8 @@
              <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal"><i class="fas fa-fw fa-sign-out-alt"></i> &nbsp; Logout</a>
           </div> -->
           <span><i class="far fa-bell fa-1x" style="font-size: 1.2em;"></i></span>
-          <a *ngIf="status == 0" (click)="connectWallet()" style="cursor: pointer;" class="ml-5">Connect to a Wallet</a>
-          <a *ngIf="status == 1" class="ml-5 text-success">Connected to a Wallet</a>
+          <a *ngIf="status == 0" (click)="connectWallet()" style="cursor: pointer;" class="ml-5 text-success">Connect to a Wallet</a>
+          <a *ngIf="status == 1" href="javascript:void(0);" class="ml-5 text-success">Connected to a Wallet</a>
        </li>
     </ul>
  </nav>

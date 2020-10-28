@@ -192,12 +192,12 @@ export class ContestDetailComponent implements OnInit {
       if(response.statusCode == 200) {
         this.ContestData = response.result.data.length > 0 ? response.result.data[0] : null;
         this.stopLoader();
-        this.getExpertVideos('vote');
+        this.getExpertVideos('recent');
         if(this.ContestData.type != 'public_side_contest' && this.ContestData.type != 'private_side_contest') {
-          this.getIntermediateVideos('vote');
-          this.getBeginnerVideos('vote');
+          this.getIntermediateVideos('recent');
+          this.getBeginnerVideos('recent');
         }
-        this.getSNAFUVideos('vote');
+        this.getSNAFUVideos('recent');
       }
       else {
         this.stopLoader();
