@@ -46,7 +46,7 @@
                            <div class="video-title">
                               <a routerLink="/user/voteVideo/{{ContestData.id}}/{{video.id}}">{{video.title}}</a>
                            </div>
-                           <div class="video-view pt-3">
+                           <div *ngIf="ContestData.diff > 0" class="video-view pt-3">
                               Upvotes: {{video.up_vote}} &nbsp;&nbsp;&nbsp; Downvotes: {{video.down_vote}}
                            </div>
                         </div>
@@ -85,7 +85,7 @@
                            <div class="video-title">
                               <a routerLink="/user/voteVideo/{{ContestData.id}}/{{video.id}}">{{video.title}}</a>
                            </div>
-                           <div class="video-view pt-3">
+                           <div *ngIf="ContestData.diff > 0" class="video-view pt-3">
                               Upvotes: {{video.up_vote}} &nbsp;&nbsp;&nbsp; Downvotes: {{video.down_vote}}
                            </div>
                         </div>
@@ -124,7 +124,7 @@
                            <div class="video-title">
                               <a routerLink="/user/voteVideo/{{ContestData.id}}/{{video.id}}">{{video.title}}</a>
                            </div>
-                           <div class="video-view pt-3">
+                           <div *ngIf="ContestData.diff > 0" class="video-view pt-3">
                               Upvotes: {{video.up_vote}} &nbsp;&nbsp;&nbsp; Downvotes: {{video.down_vote}}
                            </div>
                         </div>
@@ -162,7 +162,7 @@
                            <div class="video-title">
                               <a routerLink="/user/voteVideo/{{ContestData.id}}/{{video.id}}">{{video.title}}</a>
                            </div>
-                           <div class="video-view pt-3">
+                           <div *ngIf="ContestData.diff > 0" class="video-view pt-3">
                               Upvotes: {{video.up_vote}} &nbsp;&nbsp;&nbsp; Downvotes: {{video.down_vote}}
                            </div>
                         </div>
