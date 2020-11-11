@@ -31,6 +31,8 @@ export class MyAccountComponent implements OnInit {
   amount:any;
   transactionType:any;
   transactionStatus:any = false;
+  searchText:any = '';
+
   constructor(private embedService: EmbedVideoService, private route:ActivatedRoute, private spinner: NgxSpinnerService, private api: ApiRequestService, private adminService: AdminService, private toastr: ToastrService, private userService: UserService) { 
   }
 
@@ -111,7 +113,8 @@ export class MyAccountComponent implements OnInit {
     let params = {
       id: this.userData.id,
       limit: offset + "," + this.itemsPerPage,
-      contestType: this.contestType
+      contestType: this.contestType,
+      search: this.searchText
     }
     let body = this.userService.getContestEntered(params);
     this.api.post("/crud/contest", body).subscribe((response :  any) => {

@@ -11,8 +11,8 @@
                     <div *ngIf="ContestData != null" class="col-md-12 mt-4">
                         <button [disabled]="ContestData.diff > 0" class="btn btn-success pl-3 pr-3" (click)="voteVideo('up_vote')" style="color: #fff" type="submit">UpVote</button>
                         <!-- <button [disabled]="ContestData.diff > 0" class="btn btn-danger pl-3 pr-3 ml-3" (click)="voteVideo('down_vote')" type="submit">DownVote</button> -->
-                        <a *ngIf="ContestData.diff <= 0" class="ml-4" (click)="voteVideo('snafu')" href="javascript:void(0)"><img width="70" src="assets/images/default/logo.png" /></a>
-                        <a *ngIf="ContestData.diff > 0" class="ml-4" style="cursor: not-allowed;" href="javascript:void(0)"><img width="70" src="assets/images/default/logo.png" /></a>
+                        <a *ngIf="ContestData.diff <= 0" class="ml-4" (click)="voteVideo('snafu')" href="javascript:void(0)"><img class="sanfuBtn" width="70" src="assets/images/default/logo.png" /></a>
+                        <a *ngIf="ContestData.diff > 0" class="ml-4" style="cursor: not-allowed;" href="javascript:void(0)"><img class="sanfuBtn" width="70" src="assets/images/default/logo.png" /></a>
                     </div>
                 </div>
             </div>

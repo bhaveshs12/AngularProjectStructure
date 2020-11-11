@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import * as moment from 'moment';
+import { ContestComponent } from '../layout/modules/public/contest/contest.component';
 
 @Injectable({
     providedIn: 'root'
@@ -136,6 +137,9 @@ export class UserService {
         let where = '';
         if(data.contestType != '') {
             where = " AND contest.type = '" + data.contestType+"'";
+        }
+        if(data.search != undefined && data.search != '') {
+            where += " AND contest.name LIKE '%"+data.search+"%'";
         }
 
         return {

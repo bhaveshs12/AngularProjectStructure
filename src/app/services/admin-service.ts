@@ -147,7 +147,22 @@ export class AdminService {
             where += " AND contest.type = '" + type + "'";
 
         return {
-            select: "contest.topic_id, contest.id, contest.name, contest.description, contest.type, contest.start_date_time, contest.end_date_time, contest.total_up_vote, contest.total_down_vote",
+            // select: "contest.topic_id, contest.id, contest.name, contest.description, contest.type, contest.start_date_time, contest.end_date_time, contest.total_up_vote, contest.total_down_vote",
+            select: "contest.topic_id, contest.id, contest.name, contest.description, contest.type, contest.start_date_time, contest.end_date_time, contest.total_up_vote, contest.total_down_vote, video.youtube_url",
+            join: [
+                {
+                    "type": "LEFT",
+                    "join_table": "winner",
+                    "on_join_table": "winner.contest_id",
+                    "on_from": "contest.id"
+                },
+                {
+                    "type": "LEFT",
+                    "join_table": "video",
+                    "on_join_table": "video.id",
+                    "on_from": "winner.video_id AND winner.winner_type = 'Expert'"
+                }
+            ],
             where: where,
             sort_by: "contest.created_at",
             sort_order: "ASC",

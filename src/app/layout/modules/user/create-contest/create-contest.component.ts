@@ -31,6 +31,7 @@ export class CreateContestComponent implements OnInit {
   userData:any;
   private_side_contest_prize:any = 0;
   public_side_contest_prize:any = 0;
+  countDownSanfu:any = false;
 
   constructor(private route:ActivatedRoute, private router: Router, private spinner: NgxSpinnerService, private api: ApiRequestService, private userService: UserService, private toastr: ToastrService) { 
   }
@@ -45,6 +46,10 @@ export class CreateContestComponent implements OnInit {
       this.type = this.pageType == 1 ? 'public_side_contest' : 'private_side_contest';
     });
     this.getSetting();
+  }
+
+  onChange(a) {
+
   }
 
   selectChange() {
@@ -74,19 +79,34 @@ export class CreateContestComponent implements OnInit {
     console.log(date)
   }
 
+  getDate() {
+    let obj = {startDate: null, endDate: null};
+    if(this.countDownSanfu) {
+      let startDate = moment().day(3).format('YYYY-MM-DD 16:00:00');
+      let endDate = moment(startDate).add(6, 'days').format('YYYY-MM-DD HH:mm:ss');
+      obj['startDate'] = startDate;
+      obj['endDate'] = endDate;
+    }
+    else {
+      obj['startDate'] = moment(this.startDate).utc().format("YYYY-MM-DD HH:mm:ss");
+      obj['endDate'] = moment(this.endDate).utc().format("YYYY-MM-DD HH:mm:ss");
+    }
+    return obj;
+  }
+
   submit(form) {
-    // console.log(this.endDate)
     this.contestName = this.contestName.trim();
     this.about = this.about.trim();
     if(this.contestName != '' && this.about != '') {
       this.spinner.show();
+      let dateObj = this.getDate();
       let params = {
         name: this.contestName,
         description: this.about,
         user_id: this.userData.id,
         type: this.type,
-        start_date_time: moment(this.startDate).utc().format("YYYY-MM-DD HH:mm:ss"),
-        end_date_time: moment(this.endDate).utc().format("YYYY-MM-DD HH:mm:ss"),
+        start_date_time: dateObj.startDate,
+        end_date_time: dateObj.endDate,
         beginner_prize: this.priceThree != undefined && this.priceThree != '' ? this.priceThree : 0,
         intermediate_prize: this.priceTwo != undefined && this.priceTwo != '' ? this.priceTwo : 0,
         expert_prize: this.priceOne

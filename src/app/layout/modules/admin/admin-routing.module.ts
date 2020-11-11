@@ -9,6 +9,7 @@ import { WinnersComponent } from './winners/winners.component';
 import { GoodVotersComponent } from './good-voters/good-voters.component';
 import { AddEditContestComponent } from './add-edit-contest/add-edit-contest.component';
 import { ContestDetailComponent } from './contest-detail/contest-detail.component';
+import { ContactUsComponent } from './contact-us/contact-us.component';
 
 const routes: Routes = [
     { path: '', redirectTo: 'home' },
@@ -21,7 +22,8 @@ const routes: Routes = [
     { path: 'winners', component: WinnersComponent},
     { path: 'goodVoters', component: GoodVotersComponent},
     { path: 'createContest', component: AddEditContestComponent},
-    { path: 'contestDetails/:id', component: ContestDetailComponent}
+    { path: 'contestDetails/:id', component: ContestDetailComponent},
+    { path: 'contact', component: ContactUsComponent}
   ];
 
 @NgModule({

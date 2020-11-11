@@ -13,7 +13,6 @@ import { SideContestsComponent } from './side-contests/side-contests.component';
 import { ViewAllContestsComponent } from './view-all-contests/view-all-contests.component';
 import { CreateContestComponent } from './create-contest/create-contest.component';
 import { UploadVideoComponent } from './upload-video/upload-video.component';
-
 @NgModule({
   declarations: [HomeComponent, VoteVideoComponent, TopicsPoolComponent, SideContestsComponent, SuggestTopicComponent, ContestHistoryComponent, MyAccountComponent, ContestDetailComponent, ViewAllContestsComponent, CreateContestComponent, UploadVideoComponent],
   imports: [

@@ -1,3 +1,12 @@
+.custom-label {
+    font-size:15px;
+    color: #fff;
+}
+
+.custom-control p {
+    font-size:12px;
+}
+
 .upcoming a {
     font-size:15px;
     min-height: 80px;
@@ -21,7 +30,7 @@ a.createLink {
     position: absolute;
     top:-45px;
     right:-70px;
-    background-color: #ff0000;
+    background-color: #4eda92;
     color: #fff;
     display: none;
     padding: 10px 20px;

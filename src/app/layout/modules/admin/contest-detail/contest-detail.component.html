@@ -29,7 +29,7 @@
                      <div class="video-card">
                         <div class="video-card-image" [innerHtml]="video.url"></div>
                         <div class="video-card-body" style="position: relative;">
-                           <span *ngIf="ContestData.type != 'public_side_contest' && ContestData.type != 'private_side_contest'"  class="pl-2 pr-2 pt-1 pb-1" style="color: #fff; background-color: #F5234A; position: absolute; right:5px; top: -35px;">{{video.type}}</span>
+                           <span *ngIf="ContestData.type != 'public_side_contest' && ContestData.type != 'private_side_contest'"  class="pl-2 pr-2 pt-1 pb-1" style="color: #fff; background-color: #F5234A; position: absolute; right:5px; top: -35px;">{{video.winnerType}}</span>
                            <span *ngIf="ContestData.type == 'public_side_contest' || ContestData.type == 'private_side_contest'"  class="pl-2 pr-2 pt-1 pb-1" style="color: #fff; background-color: #F5234A; position: absolute; right:5px; top: -35px;">{{video.winnerType}}</span>
                            <div class="video-title">
                               <a href="javascript:void(0)">{{video.title}}</a>
@@ -79,7 +79,7 @@
                      </div>
                   </div>
                </owl-carousel>
-               <p *ngIf="ExpertVideos.length == 0">No vidoes found.</p>
+               <p *ngIf="ExpertVideos.length == 0">No videos found.</p>
             </div>
          </div>
 
@@ -117,7 +117,7 @@
                      </div>
                   </div>
                </owl-carousel>
-               <p *ngIf="IntermediateVideos.length == 0">No vidoes found.</p>
+               <p *ngIf="IntermediateVideos.length == 0">No videos found.</p>
             </div>
          </div>
 
@@ -155,7 +155,7 @@
                      </div>
                   </div>
                </owl-carousel>
-               <p *ngIf="BeginnerVideos.length == 0">No vidoes found.</p>
+               <p *ngIf="BeginnerVideos.length == 0">No videos found.</p>
             </div>
          </div>
 
@@ -192,7 +192,7 @@
                      </div>
                   </div>
                </owl-carousel>
-               <p *ngIf="ExpertVideos.length == 0">No vidoes found.</p>
+               <p *ngIf="ExpertVideos.length == 0">No videos found.</p>
             </div>
          </div>
 

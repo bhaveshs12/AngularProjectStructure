@@ -4,6 +4,7 @@ import { ToastrService } from 'ngx-toastr';
 import { NgxSpinnerService } from "ngx-spinner";
 import { Router } from '@angular/router';
 import { ApiRequestService } from '../../services/api-request.service';
+import { AdminService } from '../../services/admin-service';
 @Component({
   selector: 'app-topbar',
   templateUrl: './topbar.component.html',
@@ -13,10 +14,12 @@ export class TopbarComponent implements OnInit {
 
   status:any = 0;
   uid:any = null;
-  constructor(private router: Router, private spinner: NgxSpinnerService, private api: ApiRequestService, private toastr: ToastrService) { 
+  
+  constructor(private adminService: AdminService, private spinner: NgxSpinnerService, private api: ApiRequestService, private toastr: ToastrService) { 
   }
 
   ngOnInit() {
+    this.getCurrentContest();
     $(document).on('click', '#sidebarToggle', function(e) {  
       e.preventDefault();
       $("body").toggleClass("sidebar-toggled");
@@ -40,6 +43,49 @@ export class TopbarComponent implements OnInit {
         }
       })
     }
+  }
+
+  showTimer(dateTime) {
+      // Set the date we're counting down to
+      var countDownDate = new Date(dateTime).getTime();
+
+      // Update the count down every 1 second
+      var x = setInterval(function() {
+
+        // Get today's date and time
+        var now = new Date().getTime();
+          
+        // Find the distance between now and the count down date
+        var distance = countDownDate - now;
+          
+        // Time calculations for days, hours, minutes and seconds
+        var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+          
+        // Output the result in an element with id="demo"
+        document.getElementById("demo").innerHTML = days + "d " + hours + "h "
+        + minutes + "m " + seconds + "s ";
+
+        $(".timer").show();
+      }, 1000);
+  }
+
+  getCurrentContest() {
+    this.spinner.show();
+    let body = this.adminService.getCurrentContest(null);
+    this.api.post("crud/contest", body).subscribe((response :  any) => {
+      if(response.statusCode == 200) {
+          let time = response.result.data[0].end_date_time;
+          this.showTimer(time);
+          this.spinner.hide();
+      }
+      else {
+        this.spinner.hide();
+        this.toastr.error('Get Contest Topic of the Week', 'Failed to Process !');
+      }
+    });
   }
 
   updatePublicContest(uid) {

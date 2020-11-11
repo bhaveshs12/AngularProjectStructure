@@ -5,7 +5,7 @@
           <div class="row">
              <div class="col-md-12">
                 <div class="main-title">
-                    <h5 class="font-weight-bold mt-2"><span class="pr-2" style="color: #FF0000"><i class="fas fa-user"></i></span><span *ngIf="userDetails != null">{{userDetails.display_name}}</span></h5>
+                    <h5 class="font-weight-bold mt-2"><span class="pr-2" style="color: #4eda92"><i class="fas fa-user"></i></span><span *ngIf="userDetails != null">{{userDetails.display_name}}</span></h5>
                     <div class="filter-btn customBtn mt-5">
                         <a type="button" (click)="resetFields(1)" [ngClass]="is_active == '1' ? 'activeBtn': ''">Voted videos</a>
                         <a type="button" (click)="resetFields(2)" [ngClass]="is_active == '2' ? 'activeBtn': ''">Contests entered</a>
@@ -55,9 +55,19 @@
                      <a class="dropdown-item" (click)="getContests('private_side_contest')">Private Side Contest</a>
                   </div>
                 </div>
+                <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-5 my-2 my-md-0 osahan-navbar-search">
+                  <div class="input-group">
+                    <input (keydown.enter)="getContests(contestType)" name="searchText" [(ngModel)]="searchText" type="text" class="form-control" placeholder="Search for...">
+                    <div class="input-group-append">
+                       <button (click)="getContests(contestType)" class="btn btn-light" type="button">
+                       <i class="fas fa-search"></i> 
+                       </button>
+                    </div>
+                  </div>
+               </form>  
              </div>
          </div>
-         <div class="col-md-12">
+         <div class="col-md-12 mt-5">
          <div class="row upcoming mb-4">
             <div class="col-sm-4 col-md-3" style="padding-right: 0.7rem" *ngFor="let contest of contests | paginate: { id: 'contentPagination', itemsPerPage: itemsPerPage, currentPage: currentPage, totalItems: totalRecords };">
                <div routerLink="/user/contestDetails/{{contest.id}}" class="video-card">

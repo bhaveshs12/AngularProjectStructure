@@ -29,6 +29,12 @@
        <span>Contest History</span>
        </a>
     </li>
+    <li class="nav-item" [ngClass]="{'active' : url == '/user/contact'}">
+      <a class="nav-link" routerLink="/user/contact">
+        <i class="fa fa-envelope" style="font-size: 1.3em" aria-hidden="true"></i>
+      <span>Contact Us</span>
+      </a>
+    </li>
     <li class="nav-item" [ngClass]="{'active' : url == '/user/myAccount'}">
        <a class="nav-link" routerLink="/user/myAccount">
          <img height="20" src="assets/images/default/account.png" />
@@ -62,6 +68,12 @@
      <span>Users</span>
      </a>
   </li>
+  <li class="nav-item" [ngClass]="{'active' : url == '/admin/contact'}">
+    <a class="nav-link" routerLink="/admin/contact">
+      <i class="fa fa-envelope" style="font-size: 1.3em" aria-hidden="true"></i>
+    <span>Contact Us</span>
+    </a>
+  </li>
   <li class="nav-item" [ngClass]="{'active' : url == '/admin/myAccount' || url == '/user/myAccount'}">
      <a class="nav-link" routerLink="/admin/myAccount">
        <img height="20" src="assets/images/default/account.png" />
@@ -88,5 +100,11 @@
        <img height="22" src="assets/images/default/contest.png" />
      <span>Contest History</span>
      </a>
+  </li>
+  <li class="nav-item" [ngClass]="{'active' : url == '/admin/contact'}">
+    <a class="nav-link" routerLink="/admin/contact">
+      <i class="fa fa-envelope" style="font-size: 1.3em" aria-hidden="true"></i>
+    <span>Contact Us</span>
+    </a>
   </li>
 </ul>

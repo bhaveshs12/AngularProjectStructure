@@ -11,6 +11,7 @@ import { SideContestsComponent } from './side-contests/side-contests.component';
 import { ViewAllContestsComponent } from './view-all-contests/view-all-contests.component';
 import { CreateContestComponent } from './create-contest/create-contest.component';
 import { UploadVideoComponent } from './upload-video/upload-video.component';
+import { ContactUsComponent } from '../admin/contact-us/contact-us.component';
 
 const routes: Routes = [
     { path: '', redirectTo: 'home' },
@@ -24,7 +25,8 @@ const routes: Routes = [
     { path: 'voteVideo/:contestId/:videoId', component: VoteVideoComponent},
     { path: 'contestDetails/:id', component: ContestDetailComponent},
     { path: 'viewAllContests/:type', component: ViewAllContestsComponent},
-    { path: 'uploadVideo/:id', component: UploadVideoComponent}
+    { path: 'uploadVideo/:id', component: UploadVideoComponent},
+    { path: 'contact', component: ContactUsComponent}
   ];
 
 @NgModule({

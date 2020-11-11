@@ -5,7 +5,7 @@
           <div class="row">
              <div class="col-md-12">
                 <div class="main-title">
-                    <h5 class="font-weight-bold mt-2"><span class="pr-2" style="color: #FF0000"><i class="fas fa-user"></i></span><span *ngIf="userDetails != null">{{userDetails.display_name}}</span></h5>
+                    <h5 class="font-weight-bold mt-2"><span class="pr-2" style="color: #4eda92;"><i class="fas fa-user"></i></span><span *ngIf="userDetails != null">{{userDetails.display_name}}</span></h5>
                     <div class="filter-btn customBtn mt-5">
                         <a type="button" (click)="is_active = 1" [ngClass]="is_active == '1' ? 'activeBtn': ''">Account Details</a>
                         <a *ngIf="isUserProfile == 1" type="button" (click)="is_active = 2" [ngClass]="is_active == '2' ? 'activeBtn': ''">Transactions</a>

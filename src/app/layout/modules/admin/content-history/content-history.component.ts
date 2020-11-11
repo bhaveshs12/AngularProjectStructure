@@ -3,6 +3,7 @@ import { ApiRequestService } from '../../../../services/api-request.service';
 import { AdminService } from '../../../../services/admin-service';
 import { NgxSpinnerService } from "ngx-spinner";
 import { ToastrService } from 'ngx-toastr';
+import { EmbedVideoService } from 'ngx-embed-video';
 @Component({
   selector: 'app-content-history',
   templateUrl: './content-history.component.html',
@@ -18,7 +19,7 @@ export class ContentHistoryComponent implements OnInit {
   userData:any;
   sortType:any = '';
 
-  constructor(private spinner: NgxSpinnerService, private api: ApiRequestService, private adminService: AdminService, private toastr: ToastrService) { }
+  constructor(private spinner: NgxSpinnerService, private api: ApiRequestService, private adminService: AdminService, private toastr: ToastrService, private embedService: EmbedVideoService) { }
 
   ngOnInit() {
     this.api.userDataChange$.subscribe(val => {this.userData = this.api.getData(); });
@@ -46,6 +47,17 @@ export class ContentHistoryComponent implements OnInit {
       if(response.statusCode == 200) {
         this.totalRecords = response.result.totalrecords; 
         this.historyData = response.result.data;
+        if(this.historyData.length > 0) {
+          this.historyData.forEach(element => {
+            if(element.youtube_url != null) {
+              let id = this.api.getVideoId(element.youtube_url);
+              element.url = this.embedService.embed_youtube(id, { attr: { width: "100%", height: "auto" }});
+            }
+            else {
+              element.url = null;
+            }
+          });
+        }
         this.spinner.hide();
       }
       else {

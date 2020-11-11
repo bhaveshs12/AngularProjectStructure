@@ -16,7 +16,17 @@
                            <a class="dropdown-item" (click)="getContestHistory('private', 0)">Private Side Contest</a>
                         </div>
                       </div>
-                      <p style="color: #fff" class="font-bold-600 font-16 mb-0">Contest history</p>
+                      <p style="color: #fff" class="font-bold-600 font-16 mb-3">Contest history</p>
+                     <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-5 my-2 my-md-0 osahan-navbar-search">
+                        <div class="input-group">
+                          <input (keydown.enter)="getContestHistory(sortType, 0)" name="searchText" [(ngModel)]="searchText" type="text" class="form-control" placeholder="Search for...">
+                          <div class="input-group-append">
+                             <button (click)="getContestHistory(sortType, 0)" class="btn btn-light" type="button">
+                             <i class="fas fa-search"></i> 
+                             </button>
+                          </div>
+                        </div>
+                     </form>   
                    </div>
                </div>
             </div>
@@ -28,6 +38,10 @@
                   <div *ngFor="let contest of historyData | paginate: { id: 'contentPagination', itemsPerPage: itemsPerPage, currentPage: currentPage, totalItems: totalRecords };" class="col-sm-4 col-md-3 pr-4 mt-5">
                      <div class="video-card">
                         <div class="video-card-body">
+                           <div *ngIf="contest.url != null" class="video-card-image" [innerHtml]="contest.url"></div>
+                           <div *ngIf="contest.url == null" class="video-card-image">
+                              <img style="height: auto" src="/assets/images/default/no-video.jpg">
+                           </div>
                            <div class="video-title pl-2">
                               <a routerLink="/user/contestDetails/{{contest.id}}">{{contest.name}}</a>
                            </div>

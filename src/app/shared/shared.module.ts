@@ -10,8 +10,9 @@ import {NgxPaginationModule} from 'ngx-pagination';
 import { NgxYoutubePlayerModule } from 'ngx-youtube-player';
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 import { ClipboardModule } from 'ngx-clipboard';
+import { ContactUsComponent } from '../layout/modules/admin/contact-us/contact-us.component';
 @NgModule({
-  declarations: [],
+  declarations: [ContactUsComponent],
   imports: [
     CommonModule,
     ToastrModule.forRoot(),
@@ -39,6 +40,7 @@ import { ClipboardModule } from 'ngx-clipboard';
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
     ClipboardModule,
+    ContactUsComponent
   ],
   providers: [
     HttpClientModule,

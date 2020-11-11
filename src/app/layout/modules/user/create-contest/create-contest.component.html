@@ -50,6 +50,14 @@
                         </div>
                     </div>
                     <div class="row">
+                        <div class="col-md-12 mb-2">
+                            <div class="custom-control custom-checkbox">
+                                <input (change)="onChange($event.target.checked)" type="checkbox" class="custom-control-input" name="countDownSanfu" [(ngModel)]="countDownSanfu" id="countDownSanfu">
+                                <label class="custom-label custom-control-label pt-1" for="countDownSanfu">Countdown to Snafu</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" *ngIf="!countDownSanfu">
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label for="startDate">Start date</label>
@@ -79,8 +87,8 @@
                                 <label for="priceOne">First Prize</label>
                                 <input required [(ngModel)]="priceOne" pattern="[0-9]+" type="text" #priceOneRef="ngModel" class="form-control" name="priceOne">
                                 <div class="alert alert-danger" *ngIf="(priceOneRef.touched || contestForm.submitted) && !priceOneRef.valid">
-                                    <div *ngIf="priceOneRef.errors.required">First Price is required.</div>
-                                    <div *ngIf="priceOneRef.errors.pattern">First Price must be numeric.</div>
+                                    <div *ngIf="priceOneRef.errors.required">First Prize is required.</div>
+                                    <div *ngIf="priceOneRef.errors.pattern">First Prize must be numeric.</div>
                                 </div>
                             </div>
                         </div>
@@ -89,7 +97,7 @@
                                 <label for="priceTwo">Second prize</label>
                                 <input [(ngModel)]="priceTwo" pattern="[0-9]+" type="text" #priceTwoRef="ngModel" class="form-control" name="priceTwo">
                                 <div class="alert alert-danger" *ngIf="(priceTwoRef.touched || contestForm.submitted) && !priceTwoRef.valid">
-                                    <div *ngIf="priceTwoRef.errors.pattern">Second Price must be numeric.</div>
+                                    <div *ngIf="priceTwoRef.errors.pattern">Second Prize must be numeric.</div>
                                 </div>
                             </div>
                         </div>
@@ -98,7 +106,7 @@
                                 <label for="priceThree">Third Prize</label>
                                 <input [(ngModel)]="priceThree" pattern="[0-9]+" type="text" #priceThreeRef="ngModel" class="form-control" name="priceThree">
                                 <div class="alert alert-danger" *ngIf="(priceThreeRef.touched || contestForm.submitted) && !priceThreeRef.valid">
-                                    <div *ngIf="priceThreeRef.errors.pattern">Third Price must be numeric.</div>
+                                    <div *ngIf="priceThreeRef.errors.pattern">Third Prize must be numeric.</div>
                                 </div>
                             </div>
                         </div>

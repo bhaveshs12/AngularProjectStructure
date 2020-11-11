@@ -40,6 +40,7 @@ export class WinnersComponent implements OnInit {
       if(response.statusCode == 200) {
         this.winners = response.result.data;
         this.winners.forEach(element => {
+          element.type = element.type == 'main_contest' ? 'Main Contest' : (element.type == 'public_side_contest' ? 'Public side contest' : 'Private side contest');
           if(element.token_Send == 0) {
             this.disableSelectAll = false;
           }

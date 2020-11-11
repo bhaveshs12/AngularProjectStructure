@@ -1,17 +1,17 @@
 .customBtn a {
-    color: #ff0000;
+    color: #fff;
     margin-right: 50px;
     font-weight: 700;
 }
 
 .customBtn a.activeBtn {
-    color: #ff0000;
+    color: #4eda92;
     padding-bottom:2px;
-    border-bottom: 3px solid #ff0000;
+    border-bottom: 3px solid #4eda92;
 }
 
 .btn-outline-primary.disabled, .btn-outline-primary:disabled {
-    color: #ff0000;
+    color: #4eda92;
     cursor: not-allowed;
     opacity: 1 !important;
 }

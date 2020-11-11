@@ -56,7 +56,6 @@ export class ContestDetailComponent implements OnInit {
       // console.log(params)
       let id = params['id'];
       this.getContest(id);
-      this.getWinners(id);
     });
   }
 
@@ -181,6 +180,7 @@ export class ContestDetailComponent implements OnInit {
       if(response.statusCode == 200) {
         this.ContestData = response.result.data.length > 0 ? response.result.data[0] : null;
         this.stopLoader();
+        this.getWinners(id);
         this.getExpertVideos('vote');
         if(this.ContestData.type != 'public_side_contest' && this.ContestData.type != 'private_side_contest') {
           this.getIntermediateVideos('vote');
@@ -206,13 +206,14 @@ export class ContestDetailComponent implements OnInit {
             let id = this.api.getVideoId(element.youtube_url);
             element.url = this.embedService.embed_youtube(id, { attr: { width: "100%", height: "auto" }});
 
-            if(element.winnerType == 'Expert')
-              element.winnerType = 'First';
-            else if(element.winnerType == 'Expert')
-              element.winnerType = 'Second';
-            else
-              element.winnerType = 'Third';
-              
+            if(this.ContestData.type != 'main_contest') {
+              if(element.winnerType == 'Expert')
+                element.winnerType = 'First';
+              else if(element.winnerType == 'Expert')
+                element.winnerType = 'Second';
+              else
+                element.winnerType = 'Third';
+            }
           });
         }
         this.Winners = details;
