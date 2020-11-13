@@ -92,10 +92,6 @@ export class GoodVotersComponent implements OnInit {
         if(element.value == true && element.token_send == 0) {
           transactionDetails.push({
             "user_id": element.user_id,
-            "tokens": element.tokens,
-            "transaction_hash": "",
-            "type": "Good_voter",
-            "action": "Credit",
             "vote_video_id": element.id
           })
         }
@@ -104,16 +100,12 @@ export class GoodVotersComponent implements OnInit {
     else {
       transactionDetails.push({
         "user_id": voter.user_id,
-        "tokens": voter.tokens,
-        "transaction_hash": "",
-        "type": "Good_voter",
-        "action": "Credit",
         "vote_video_id": voter.id
       })
     }
 
-    let body = {transactionDetails: transactionDetails};
-    this.api.post("user/add-transaction", body).subscribe((response :  any) => {
+    let body = {goodVoterDetails: transactionDetails};
+    this.api.post("user/add-good-voter-winner-tokens", body).subscribe((response :  any) => {
       if(response.statusCode == 200) {
         this.toastr.success('', 'Tokens sent successfully!');
         this.spinner.hide();

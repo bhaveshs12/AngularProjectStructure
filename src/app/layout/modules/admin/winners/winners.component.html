@@ -23,7 +23,7 @@
                             <label *ngIf="status == 1 && winner.token_Send == 0" class="custom-label custom-control-label" for="{{winner.id}}">{{winner.eth_address}}</label>
                             <label *ngIf="status != 1 || winner.token_Send == 1" class="custom-label">{{winner.eth_address}}</label>
                             <p class="mt-2">
-                                <span *ngIf="winner.display_name != null">{{winner.display_name}} - </span> {{winner.videoType}} Contest
+                                <span *ngIf="winner.display_name != null">{{winner.display_name}} - </span> {{winner.rank_position == 1 ? 'First' : (winner.rank_position == 2 ? 'Second' : 'Third')}} {{winner.videoType}} Contest
                                 <span class="ml-3"><i class="fa fa-circle"></i> &nbsp; &nbsp; {{winner.type}}</span>
                                 <span class="ml-3"><i class="fa fa-circle"></i> &nbsp; &nbsp; {{winner.tokens}} Tokens</span>
                             </p>

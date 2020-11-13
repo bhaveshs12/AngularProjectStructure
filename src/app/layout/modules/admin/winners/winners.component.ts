@@ -88,11 +88,6 @@ export class WinnersComponent implements OnInit {
       this.winners.forEach(element => {
         if(element.value == true && element.token_Send == 0) {
           transactionDetails.push({
-            "user_id": element.user_id,
-            "tokens": element.tokens,
-            "transaction_hash": "",
-            "type": element.videoType,
-            "action": "Credit",
             "winner_id": element.id
           })
         }
@@ -100,17 +95,12 @@ export class WinnersComponent implements OnInit {
     }
     else {
       transactionDetails.push({
-        "user_id": winner.user_id,
-        "tokens": winner.tokens,
-        "transaction_hash": "",
-        "type": winner.videoType,
-        "action": "Credit",
         "winner_id": winner.id
       })
     }
 
-    let body = {transactionDetails: transactionDetails};
-    this.api.post("user/add-transaction", body).subscribe((response :  any) => {
+    let body = {winnerDetails: transactionDetails};
+    this.api.post("user/add-winner-tokens", body).subscribe((response :  any) => {
       if(response.statusCode == 200) {
         this.toastr.success('', 'Tokens sent successfully!');
         this.spinner.hide();

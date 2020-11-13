@@ -231,16 +231,11 @@ export class ContestDetailComponent implements OnInit {
     this.spinner.show();
     let transactionDetails = [];
     transactionDetails.push({
-      "user_id": winner.user_id,
-      "tokens": 0,
-      "transaction_hash": "",
-      "type": winner.type,
-      "action": "Credit",
       "winner_id": winner.id
     })
 
-    let body = {transactionDetails: transactionDetails};
-    this.api.post("user/add-transaction", body).subscribe((response :  any) => {
+    let body = {winnerDetails: transactionDetails};
+    this.api.post("user/add-winner-tokens", body).subscribe((response :  any) => {
       if(response.statusCode == 200) {
         this.toastr.success('', 'Tokens sent successfully!');
         this.spinner.hide();

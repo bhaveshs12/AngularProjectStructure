@@ -11,8 +11,9 @@ import { NgxYoutubePlayerModule } from 'ngx-youtube-player';
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 import { ClipboardModule } from 'ngx-clipboard';
 import { ContactUsComponent } from '../layout/modules/admin/contact-us/contact-us.component';
+import { HowtoComponent } from '../layout/modules/admin/howto/howto.component';
 @NgModule({
-  declarations: [ContactUsComponent],
+  declarations: [ContactUsComponent, HowtoComponent],
   imports: [
     CommonModule,
     ToastrModule.forRoot(),
@@ -40,7 +41,8 @@ import { ContactUsComponent } from '../layout/modules/admin/contact-us/contact-u
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
     ClipboardModule,
-    ContactUsComponent
+    ContactUsComponent,
+    HowtoComponent
   ],
   providers: [
     HttpClientModule,

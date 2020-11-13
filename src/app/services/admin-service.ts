@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import * as moment from 'moment';
+import { ContestComponent } from '../layout/modules/public/contest/contest.component';
 
 @Injectable({
     providedIn: 'root'
@@ -10,7 +11,7 @@ export class AdminService {
     
     getCurrentContest(data) {
         return {
-            select: "contest.topic_id, contest.id, contest.name, contest.description, contest.type, contest.start_date_time, contest.end_date_time, contest.total_up_vote, contest.total_down_vote",
+            select: "contest.topic_id, contest.id, contest.name, contest.description, contest.type, contest.start_date_time, contest.end_date_time, contest.total_up_vote, contest.total_down_vote, contest.expert_prize, contest.expert_prize_2, contest.expert_prize_3,contest.intermediate_prize,contest.intermediate_prize_2,contest.intermediate_prize_3,contest.beginner_prize,contest.beginner_prize_2,contest.beginner_prize_3",
             where: "DATE('" + moment().format('YYYY-MM-DD') + "') BETWEEN contest.start_date_time AND contest.end_date_time AND type='main_contest'",
             limit: "1"
         }
@@ -18,7 +19,7 @@ export class AdminService {
 
     getContest(id) {
         return {
-            select: "contest.topic_id, contest.id, contest.name, contest.description, contest.type, contest.start_date_time, DATEDIFF(DATE(NOW()), DATE(contest.end_date_time)) as diff, contest.end_date_time, contest.total_up_vote, contest.total_down_vote",
+            select: "contest.topic_id, contest.id, contest.name, contest.description, contest.type, contest.start_date_time, DATEDIFF(DATE(NOW()), DATE(contest.end_date_time)) as diff, contest.end_date_time, contest.total_up_vote, contest.total_down_vote, contest.expert_prize, contest.expert_prize_2, contest.expert_prize_3,contest.intermediate_prize,contest.intermediate_prize_2,contest.intermediate_prize_3,contest.beginner_prize,contest.beginner_prize_2,contest.beginner_prize_3",
             where: "contest.id = "+id,
             sort_by: "topic_id",
             sort_order: "ASC",
@@ -182,7 +183,7 @@ export class AdminService {
 
     getWinners(data) {
         return {
-            select: "winner.id, winner.winner_type AS winnerType, winner.contest_id, winner.video_id, winner.created_at, video.user_id, video.youtube_url, video.title, video.type",
+            select: "winner.id, winner.winner_type AS winnerType, winner.rank_position, winner.contest_id, winner.video_id, winner.created_at, video.user_id, video.youtube_url, video.title, video.type",
             where: "winner.contest_id = " + data,
             join: [{
               "type": "INNER",
@@ -201,7 +202,7 @@ export class AdminService {
 
     getWinnerList(limit) {
         return {
-            select: "winner.id, winner.contest_id, winner.video_id, winner.created_at, user_info.eth_address, user_info.display_name, contest.type, video.user_id, video.type as videoType, false as value, winner.token_Send, (CASE WHEN video.type = 'Beginner' THEN contest.beginner_prize WHEN video.type = 'Expert' THEN contest.expert_prize WHEN video.type = 'Intermediate' THEN contest.intermediate_prize ELSE contest.snafu_prize END) AS tokens",
+            select: "winner.id, winner.contest_id, winner.rank_position, winner.video_id, winner.created_at, user_info.eth_address, user_info.display_name, contest.type, video.user_id, video.type as videoType, false as value, winner.token_Send, (CASE WHEN video.type = 'Beginner' THEN contest.beginner_prize WHEN video.type = 'Expert' THEN contest.expert_prize WHEN video.type = 'Intermediate' THEN contest.intermediate_prize ELSE contest.snafu_prize END) AS tokens",
             join: [
                 {
                     "type": "INNER",
@@ -284,8 +285,14 @@ export class AdminService {
        return {
             set: {
                 "beginner_prize": data.beginnerPrice,
+                "beginner_prize_2": data.beginnerPrice2,
+                "beginner_prize_3": data.beginnerPrice3,
                 "expert_prize": data.expertPrice,
+                "expert_prize_2": data.expertPrice2,
+                "expert_prize_3": data.expertPrice3,
                 "intermediate_prize": data.intermediatePrice,
+                "intermediate_prize_2": data.intermediatePrice2,
+                "intermediate_prize_3": data.intermediatePrice3,
                 "snafu_prize": data.snafuPrice,
                 "good_voter_prize": data.voterPrice,
                 "add_topic_prize": data.addTopicPrice,

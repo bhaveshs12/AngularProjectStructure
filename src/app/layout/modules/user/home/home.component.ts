@@ -20,10 +20,6 @@ export class HomeComponent implements OnInit {
   UpcomingContests:any = [];
   userData:any = null;
 
-  firstPrize:any = 0;
-  secondPrize:any = 0;
-  thirdPrize:any = 0;
-
   player: YT.Player;
   private id: string = 'qDuKsiwS5xw';
 
@@ -59,28 +55,8 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getSetting();
     this.api.userDataChange$.subscribe(val => {this.userData = this.api.getData(); });
     this.getCurrentContest();
-  }
-
-  getSetting() {
-    this.spinner.show();
-    this.api.get("crud/setting").subscribe((response :  any) => {
-      if(response.statusCode == 200) {
-        if(response.result.length > 0) {
-          let priceDetails = response.result[0];
-          this.firstPrize = priceDetails.expert_prize;
-          this.secondPrize = priceDetails.intermediate_prize;
-          this.thirdPrize = priceDetails.beginner_prize;
-        }
-        this.spinner.hide();
-      }
-      else {
-        this.spinner.hide();
-        this.toastr.error('Get Price Details', 'Failed to Process !');
-      }
-    });
   }
 
   stopLoader() {

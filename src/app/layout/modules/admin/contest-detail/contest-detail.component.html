@@ -29,8 +29,8 @@
                      <div class="video-card">
                         <div class="video-card-image" [innerHtml]="video.url"></div>
                         <div class="video-card-body" style="position: relative;">
-                           <span *ngIf="ContestData.type != 'public_side_contest' && ContestData.type != 'private_side_contest'"  class="pl-2 pr-2 pt-1 pb-1" style="color: #fff; background-color: #F5234A; position: absolute; right:5px; top: -35px;">{{video.winnerType}}</span>
-                           <span *ngIf="ContestData.type == 'public_side_contest' || ContestData.type == 'private_side_contest'"  class="pl-2 pr-2 pt-1 pb-1" style="color: #fff; background-color: #F5234A; position: absolute; right:5px; top: -35px;">{{video.winnerType}}</span>
+                           <span *ngIf="ContestData.type != 'public_side_contest' && ContestData.type != 'private_side_contest' && video.winnerType != 'Snafu'"  class="pl-2 pr-2 pt-1 pb-1" style="color: #fff; background-color: #F5234A; position: absolute; right:5px; top: -35px;">{{video.rank_position == 1 ? 'First' : (video.rank_position == 2 ? 'Second' : 'Third')}} {{video.winnerType}}</span>
+                           <span *ngIf="ContestData.type == 'public_side_contest' || ContestData.type == 'private_side_contest' || video.winnerType == 'Snafu'"  class="pl-2 pr-2 pt-1 pb-1" style="color: #fff; background-color: #F5234A; position: absolute; right:5px; top: -35px;">{{video.winnerType}}</span>
                            <div class="video-title">
                               <a href="javascript:void(0)">{{video.title}}</a>
                            </div>

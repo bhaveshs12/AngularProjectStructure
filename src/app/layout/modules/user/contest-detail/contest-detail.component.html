@@ -53,9 +53,6 @@
                   </div>
                   <h6 class="font-bold-600 font-16">
                      Expert Videos
-                     <span class="text-success ml-2 font-12" *ngIf="ContestData.type == 'main_contest'">
-                        (Expert prize: {{firstPrize}} SNAFU tokens)
-                     </span>
                   </h6>
                </div>
             </div>
@@ -76,6 +73,11 @@
                   </div>
                </owl-carousel>
                <p *ngIf="ExpertVideos.length == 0">No Expert videos found.</p>
+               <p class="mb-0 mt-3"><span class="text-success font-12" *ngIf="ContestData.type == 'main_contest'">
+                  (First prize: {{ContestData.expert_prize}} SNAFU tokens)
+                  (Second prize: {{ContestData.expert_prize_2}} SNAFU tokens)
+                  (Third prize: {{ContestData.expert_prize_3}} SNAFU tokens)
+               </span></p>
             </div>
          </div>
 
@@ -96,9 +98,6 @@
                   </div>
                   <h6 class="font-bold-600 font-16">
                      Intermediate Videos
-                     <span class="text-success ml-2 font-12" *ngIf="ContestData.type == 'main_contest'">
-                        (Intermediate prize: {{secondPrize}} SNAFU tokens)
-                     </span>
                   </h6>
                </div>
             </div>
@@ -119,6 +118,13 @@
                   </div>
                </owl-carousel>
                <p *ngIf="IntermediateVideos.length == 0">No Intermediate videos found.</p>
+               <p class="mb-0 mt-3">                        
+                  <span class="text-success font-12" *ngIf="ContestData.type == 'main_contest'">
+                  (First prize: {{ContestData.intermediate_prize}} SNAFU tokens)
+                  (Second prize: {{ContestData.intermediate_prize_2}} SNAFU tokens)
+                  (Third prize: {{ContestData.intermediate_prize_3}} SNAFU tokens)
+                  </span>
+               </p>
             </div>
          </div>
 
@@ -139,9 +145,6 @@
                   </div>
                   <h6 class="font-bold-600 font-16">
                      Beginner Videos
-                     <span class="text-success ml-2 font-12" *ngIf="ContestData.type == 'main_contest'">
-                        (Beginner prize: {{thirdPrize}} SNAFU tokens)
-                     </span>
                   </h6>
                </div>
             </div>
@@ -162,6 +165,11 @@
                   </div>
                </owl-carousel>
                <p *ngIf="BeginnerVideos.length == 0">No Beginner videos found.</p>
+               <p class="mb-0 mt-3"><span class="text-success font-12" *ngIf="ContestData.type == 'main_contest'">
+                  (First prize: {{ContestData.beginner_prize}} SNAFU tokens)
+                  (Second prize: {{ContestData.beginner_prize_2}} SNAFU tokens)
+                  (Third prize: {{ContestData.beginner_prize_3}} SNAFU tokens)
+               </span></p>
             </div>
          </div>
 

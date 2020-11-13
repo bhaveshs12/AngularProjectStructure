@@ -25,6 +25,12 @@ export class MyAccountComponent implements OnInit {
   expertPrice = 0;
   beginnerPrice = 0;
   intermediatePrice = 0;
+  expertPrice2 = 0;
+  beginnerPrice2 = 0;
+  intermediatePrice2 = 0;
+  expertPrice3 = 0;
+  beginnerPrice3 = 0;
+  intermediatePrice3 = 0;
   snafuPrice = 0;
   voterPrice = 0;
   addTopicPrice = 0;
@@ -102,8 +108,14 @@ export class MyAccountComponent implements OnInit {
       if(response.statusCode == 200) {
         let priceDetails = response.result[0];
         this.beginnerPrice = priceDetails.beginner_prize;
+        this.beginnerPrice2 = priceDetails.beginner_prize_2;
+        this.beginnerPrice3 = priceDetails.beginner_prize_3;
         this.intermediatePrice = priceDetails.intermediate_prize;
+        this.intermediatePrice2 = priceDetails.intermediate_prize_2;
+        this.intermediatePrice3 = priceDetails.intermediate_prize_3;
         this.expertPrice = priceDetails.expert_prize;
+        this.expertPrice2 = priceDetails.expert_prize_2;
+        this.expertPrice3 = priceDetails.expert_prize_3;
         this.snafuPrice = priceDetails.snafu_prize;
         this.voterPrice = priceDetails.good_voter_prize;
         this.settingId = priceDetails.id;
@@ -150,8 +162,14 @@ export class MyAccountComponent implements OnInit {
     this.spinner.show();
     let data = {
       beginnerPrice: this.beginnerPrice,
+      beginnerPrice2: this.beginnerPrice2,
+      beginnerPrice3: this.beginnerPrice3,
       intermediatePrice: this.intermediatePrice,
+      intermediatePrice2: this.intermediatePrice2,
+      intermediatePrice3: this.intermediatePrice3,
       expertPrice:this.expertPrice,
+      expertPrice2:this.expertPrice2,
+      expertPrice3:this.expertPrice3,
       snafuPrice: this.snafuPrice,
       voterPrice: this.voterPrice,
       addTopicPrice : this.addTopicPrice,

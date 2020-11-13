@@ -67,7 +67,7 @@ export class UploadVideoComponent implements OnInit {
         youtube_url: link,
         user_id: this.userData.id,
         type: this.type,
-        contest_id: this.contestId
+        contest_id: parseInt(this.contestId)
       }
       this.api.post("video/add-video", params).subscribe((response :  any) => {
         if(response.statusCode == 200) {
