@@ -9,6 +9,9 @@
                     <div class="col-md-9"><h3 style="font-size:18px;">{{videoDetails.title}} </h3></div>
                     <div class="col-md-3 mt-1 text-right"><span class="mr-3 pl-4 pr-4 pt-2 pb-2" style="color: #fff; background-color: #333;">{{videoDetails.type}}</span></div>
                     <div *ngIf="ContestData != null" class="col-md-12 mt-4">
+                        <p class="mb-3"><span class="text-success font-12" *ngIf="videoPrice != null">
+                            Each Vote will require {{videoPrice}} SNAFU tokens
+                         </span></p>
                         <button [disabled]="ContestData.diff > 0" class="btn btn-success pl-3 pr-3" (click)="voteVideo('up_vote')" style="color: #fff" type="submit">UpVote</button>
                         <!-- <button [disabled]="ContestData.diff > 0" class="btn btn-danger pl-3 pr-3 ml-3" (click)="voteVideo('down_vote')" type="submit">DownVote</button> -->
                         <a *ngIf="ContestData.diff <= 0" class="ml-4" (click)="voteVideo('snafu')" href="javascript:void(0)"><img class="sanfuBtn" width="70" src="assets/images/default/logo.png" /></a>

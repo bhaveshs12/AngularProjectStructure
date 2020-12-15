@@ -63,7 +63,7 @@
                             </div>
                         </div>
                     </div>
-                    <p *ngIf="videoPrice > 0" style="color: #fff; font-size:13px;">{{videoPrice}} SNAFU tokens are required to upload video</p>
+                    <p *ngIf="videoPrice >= 0" style="color: #fff; font-size:13px;">{{videoPrice}} SNAFU tokens are required to upload video</p>
                     <p>
                         <a routerLink="/user/contestDetails/{{contestId}}" style="font-size:14px" class="pl-2 pr-2" type="submit">Cancel</a>
                         <button class="btn btn-outline-primary ml-4 pl-5 pr-5" type="submit">Create</button>

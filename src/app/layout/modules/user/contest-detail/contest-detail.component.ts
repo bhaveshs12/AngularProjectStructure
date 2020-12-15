@@ -25,7 +25,8 @@ export class ContestDetailComponent implements OnInit {
   firstPrize:any = 0;
   secondPrize:any = 0;
   thirdPrize:any = 0;
-
+  snafu_prize:any = 0;
+  
   sliderOptions = {
     items: 4,
     loop: false,
@@ -77,6 +78,7 @@ export class ContestDetailComponent implements OnInit {
           this.firstPrize = priceDetails.expert_prize;
           this.secondPrize = priceDetails.intermediate_prize;
           this.thirdPrize = priceDetails.beginner_prize;
+          this.snafu_prize = priceDetails.snafu_prize;
         }
         this.spinner.hide();
       }

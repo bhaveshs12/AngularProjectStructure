@@ -111,8 +111,8 @@
                             </div>
                         </div>
                     </div>
-                    <p *ngIf="pageType == 1 && public_side_contest_prize > 0" style="color: #fff; font-size:13px;">Fee to start a side contest: {{public_side_contest_prize}} SNAFU Tokens. *Also note that your elected contest prize pool will be deducted from your wallet <u>upon contest creation.</u></p>
-                    <p *ngIf="pageType == 2 && private_side_contest_prize > 0" style="color: #fff; font-size:13px;">Fee to start a side contest: {{private_side_contest_prize}} SNAFU Tokens. *Also note that your elected contest prize pool will be deducted from your wallet <u>upon contest creation.</u></p>
+                    <p *ngIf="pageType == 1 && public_side_contest_prize >= 0" style="color: #fff; font-size:13px;">Fee to start a public side contest: {{public_side_contest_prize}} SNAFU Tokens. *Also note that your elected contest prize pool will be deducted from your wallet <u>upon contest creation.</u></p>
+                    <p *ngIf="pageType == 2 && private_side_contest_prize >= 0" style="color: #fff; font-size:13px;">Fee to start a private side contest: {{private_side_contest_prize}} SNAFU Tokens. *Also note that your elected contest prize pool will be deducted from your wallet <u>upon contest creation.</u></p>
                     <p>
                         <a routerLink="/user/contests" style="font-size:14px" class="pl-2 pr-2" type="submit">Cancel</a>
                         <button class="btn btn-outline-primary ml-4 pl-5 pr-5" type="submit">Create</button>

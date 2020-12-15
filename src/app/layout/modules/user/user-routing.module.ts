@@ -13,6 +13,7 @@ import { CreateContestComponent } from './create-contest/create-contest.componen
 import { UploadVideoComponent } from './upload-video/upload-video.component';
 import { ContactUsComponent } from '../admin/contact-us/contact-us.component';
 import { HowtoComponent } from '../admin/howto/howto.component';
+import { TeamsComponent } from '../admin/teams/teams.component';
 
 const routes: Routes = [
     { path: '', redirectTo: 'home' },
@@ -28,7 +29,8 @@ const routes: Routes = [
     { path: 'viewAllContests/:type', component: ViewAllContestsComponent},
     { path: 'uploadVideo/:id', component: UploadVideoComponent},
     { path: 'contact', component: ContactUsComponent},
-    { path: 'howto', component: HowtoComponent}
+    { path: 'howto', component: HowtoComponent},
+    { path: 'teams', component: TeamsComponent}
   ];
 
 @NgModule({

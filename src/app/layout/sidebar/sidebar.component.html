@@ -32,15 +32,21 @@
     <li class="nav-item" [ngClass]="{'active' : url == '/user/howto'}">
       <a class="nav-link" routerLink="/user/howto">
         <i class="fa fa-film" style="font-size: 1.3em" aria-hidden="true"></i>
-      <span>How To Sanfu</span>
+      <span>How To Snafu!</span>
       </a>
     </li>
-    <li class="nav-item" [ngClass]="{'active' : url == '/user/contact'}">
+    <li class="nav-item" [ngClass]="{'active' : url == '/user/teams'}">
+      <a class="nav-link" routerLink="/user/teams">
+        <i class="fa fa-users" style="font-size: 1.3em" aria-hidden="true"></i>
+      <span>Our Team</span>
+      </a>
+    </li>
+    <!-- <li class="nav-item" [ngClass]="{'active' : url == '/user/contact'}">
       <a class="nav-link" routerLink="/user/contact">
         <i class="fa fa-envelope" style="font-size: 1.3em" aria-hidden="true"></i>
       <span>Contact Us</span>
       </a>
-    </li>
+    </li> -->
     <li class="nav-item" [ngClass]="{'active' : url == '/user/myAccount'}">
        <a class="nav-link" routerLink="/user/myAccount">
          <img height="20" src="assets/images/default/account.png" />
@@ -77,15 +83,21 @@
   <li class="nav-item" [ngClass]="{'active' : url == '/admin/howto'}">
     <a class="nav-link" routerLink="/admin/howto">
       <i class="fa fa-film" style="font-size: 1.3em" aria-hidden="true"></i>
-    <span>How To Sanfu</span>
+    <span>How To Snafu!</span>
     </a>
   </li>
-  <li class="nav-item" [ngClass]="{'active' : url == '/admin/contact'}">
+  <li class="nav-item" [ngClass]="{'active' : url == '/admin/teams'}">
+    <a class="nav-link" routerLink="/admin/teams">
+      <i class="fa fa-users" style="font-size: 1.3em" aria-hidden="true"></i>
+    <span>Our Team!</span>
+    </a>
+  </li>
+  <!-- <li class="nav-item" [ngClass]="{'active' : url == '/admin/contact'}">
     <a class="nav-link" routerLink="/admin/contact">
       <i class="fa fa-envelope" style="font-size: 1.3em" aria-hidden="true"></i>
     <span>Contact Us</span>
     </a>
-  </li>
+  </li> -->
   <li class="nav-item" [ngClass]="{'active' : url == '/admin/myAccount' || url == '/user/myAccount'}">
      <a class="nav-link" routerLink="/admin/myAccount">
        <img height="20" src="assets/images/default/account.png" />
@@ -116,13 +128,19 @@
   <li class="nav-item" [ngClass]="{'active' : url == '/admin/howto'}">
     <a class="nav-link" routerLink="/admin/howto">
       <i class="fa fa-film" style="font-size: 1.3em" aria-hidden="true"></i>
-    <span>How To Sanfu</span>
+    <span>How To Snafu!</span>
     </a>
   </li>
-  <li class="nav-item" [ngClass]="{'active' : url == '/admin/contact'}">
+  <li class="nav-item" [ngClass]="{'active' : url == '/admin/teams'}">
+    <a class="nav-link" routerLink="/admin/teams">
+      <i class="fa fa-users" style="font-size: 1.3em" aria-hidden="true"></i>
+    <span>Our Team</span>
+    </a>
+  </li>
+  <!-- <li class="nav-item" [ngClass]="{'active' : url == '/admin/contact'}">
     <a class="nav-link" routerLink="/admin/contact">
       <i class="fa fa-envelope" style="font-size: 1.3em" aria-hidden="true"></i>
     <span>Contact Us</span>
     </a>
-  </li>
+  </li> -->
 </ul>

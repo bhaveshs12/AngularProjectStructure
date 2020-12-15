@@ -20,6 +20,8 @@ export class VoteVideoComponent implements OnInit {
   contestId:any;
   videoId:any;
   userData:any;
+  videoPrice:any = null;
+
   constructor(private route:ActivatedRoute, private spinner: NgxSpinnerService, private api: ApiRequestService, private adminService: AdminService, private toastr: ToastrService, private embedService: EmbedVideoService, private userService: UserService) { 
   }
 
@@ -30,6 +32,7 @@ export class VoteVideoComponent implements OnInit {
       this.videoId = params['videoId'];
       this.getContest(this.contestId);
       this.getVideoDetails();
+      this.getSetting();
     });
   }
 
@@ -112,7 +115,24 @@ export class VoteVideoComponent implements OnInit {
       }
       else {
         this.spinner.hide();
-        this.toastr.error('Vot a Video', 'Failed to Process !');
+        this.toastr.error('Vote a Video', response.message);
+      }
+    });
+  }
+
+  getSetting() {
+    this.spinner.show();
+    this.api.get("crud/setting").subscribe((response :  any) => {
+      if(response.statusCode == 200) {
+        if(response.result.length > 0) {
+          let priceDetails = response.result[0];
+          this.videoPrice = priceDetails.video_vote_prize;
+        }
+        this.spinner.hide();
+      }
+      else {
+        this.spinner.hide();
+        this.toastr.error('Get Price Details', 'Failed to Process !');
       }
     });
   }

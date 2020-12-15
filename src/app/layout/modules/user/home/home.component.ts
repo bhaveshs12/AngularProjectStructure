@@ -20,6 +20,7 @@ export class HomeComponent implements OnInit {
   UpcomingContests:any = [];
   userData:any = null;
 
+  snafu_prize:any = 0;
   player: YT.Player;
   private id: string = 'qDuKsiwS5xw';
 
@@ -57,6 +58,7 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     this.api.userDataChange$.subscribe(val => {this.userData = this.api.getData(); });
     this.getCurrentContest();
+    this.getSetting();
   }
 
   stopLoader() {
@@ -204,6 +206,22 @@ export class HomeComponent implements OnInit {
       else {
         this.stopLoader();
         this.toastr.error('Get Contest Topic of the Week', 'Failed to Process !');
+      }
+    });
+  }
+
+  getSetting() {
+    this.spinner.show();
+    this.api.get("crud/setting").subscribe((response :  any) => {
+      if(response.statusCode == 200) {
+        if(response.result.length > 0) {
+          this.snafu_prize = response.result[0].snafu_prize;
+        }
+        this.spinner.hide();
+      }
+      else {
+        this.spinner.hide();
+        this.toastr.error('Get Setting Details', 'Failed to Process !');
       }
     });
   }

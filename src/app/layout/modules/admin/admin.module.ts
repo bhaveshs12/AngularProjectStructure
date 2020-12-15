@@ -12,7 +12,6 @@ import { WinnersComponent } from './winners/winners.component';
 import { GoodVotersComponent } from './good-voters/good-voters.component';
 import { AddEditContestComponent } from './add-edit-contest/add-edit-contest.component';
 import { ContestDetailComponent } from './contest-detail/contest-detail.component';
-
 @NgModule({
   declarations: [HomeComponent, TopicPoolsComponent, ContentHistoryComponent, UsersComponent, MyAccountComponent, WinnersComponent, GoodVotersComponent, AddEditContestComponent, ContestDetailComponent],
   imports: [

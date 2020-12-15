@@ -18,11 +18,14 @@ export class TopicsPoolComponent implements OnInit {
   totalRecords:any = 0;
   itemsPerPage:any = 7;
   sortType:any = 'vote';
+  topicPrice:any = null;
+
   constructor(private spinner: NgxSpinnerService, private api: ApiRequestService, private adminService: AdminService, private toastr: ToastrService) { }
 
   ngOnInit() {
     this.api.userDataChange$.subscribe(val => {this.userData = this.api.getData(); });
     this.getCurrentContest();
+    this.getSetting();
   }
 
   getTopicPools(sortType, resetPage) {
@@ -89,7 +92,25 @@ export class TopicsPoolComponent implements OnInit {
       }
       else {
         this.spinner.hide();
-        this.toastr.error('Vote to Topic', 'Failed to Process !');
+        // this.toastr.error('Vote a Video', response.message);
+        this.toastr.error('Vote to Topic', response.message);
+      }
+    });
+  }
+
+  getSetting() {
+    this.spinner.show();
+    this.api.get("crud/setting").subscribe((response :  any) => {
+      if(response.statusCode == 200) {
+        if(response.result.length > 0) {
+          let priceDetails = response.result[0];
+          this.topicPrice = priceDetails.topic_vote_prize;
+        }
+        this.spinner.hide();
+      }
+      else {
+        this.spinner.hide();
+        this.toastr.error('Get Price Details', 'Failed to Process !');
       }
     });
   }

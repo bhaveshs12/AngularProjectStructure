@@ -12,8 +12,9 @@ import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 import { ClipboardModule } from 'ngx-clipboard';
 import { ContactUsComponent } from '../layout/modules/admin/contact-us/contact-us.component';
 import { HowtoComponent } from '../layout/modules/admin/howto/howto.component';
+import { TeamsComponent } from '../layout/modules/admin/teams/teams.component';
 @NgModule({
-  declarations: [ContactUsComponent, HowtoComponent],
+  declarations: [ContactUsComponent, HowtoComponent, TeamsComponent],
   imports: [
     CommonModule,
     ToastrModule.forRoot(),
@@ -42,7 +43,8 @@ import { HowtoComponent } from '../layout/modules/admin/howto/howto.component';
     OwlNativeDateTimeModule,
     ClipboardModule,
     ContactUsComponent,
-    HowtoComponent
+    HowtoComponent,
+    TeamsComponent
   ],
   providers: [
     HttpClientModule,

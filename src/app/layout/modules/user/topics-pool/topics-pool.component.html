@@ -1,7 +1,7 @@
 <ngx-spinner type = "ball-spin" color = "#fff" bdColor = "rgba(0,0,0,0.4)" size = "default" [fullScreen] = "false"><p style="color: white" > Loading... </p></ngx-spinner>
 <div id="content-wrapper">
    <div class="container-fluid pb-0">
-      <div class="top-category section-padding mb-4">
+      <div class="top-category section-padding">
          <div class="row">
             <div class="col-md-12">
                <div class="main-title">
@@ -16,6 +16,9 @@
                      </div>
                      </div>
                   <h4 class="font-bold-600 font-16 mt-2 mr-2">Topics Pool &nbsp;<a class="ml-5 font-bold-400" style="font-size: 13px;" routerLink="/user/suggestTopic/">Suggest a topic</a></h4>
+                  <p class="mb-0 mt-3"><span class="text-success font-12" *ngIf="topicPrice != null">
+                     Each Upvote and Downvote will require {{topicPrice}} SNAFU tokens
+                  </span></p>
                </div>
             </div>
          </div>
@@ -46,6 +49,9 @@
             <hr class="mt-4 mb-4">
          </div>
       </div>
+      <p class="mb-0"><span class="text-success font-12" *ngIf="topicPrice != null">
+         Each Upvote and Downvote will require {{topicPrice}} SNAFU tokens
+      </span></p>
       <pagination-controls *ngIf="poolsData.length > 0" id="contentPagination" class="text-center" (pageChange)="pagignation($event)"></pagination-controls>
    </div>
 </div>

@@ -11,6 +11,8 @@ import { AddEditContestComponent } from './add-edit-contest/add-edit-contest.com
 import { ContestDetailComponent } from './contest-detail/contest-detail.component';
 import { ContactUsComponent } from './contact-us/contact-us.component';
 import { HowtoComponent } from './howto/howto.component';
+import { TeamsComponent } from './teams/teams.component';
+
 const routes: Routes = [
     { path: '', redirectTo: 'home' },
     { path: 'home', component: HomeComponent },
@@ -24,7 +26,8 @@ const routes: Routes = [
     { path: 'createContest', component: AddEditContestComponent},
     { path: 'contestDetails/:id', component: ContestDetailComponent},
     { path: 'contact', component: ContactUsComponent},
-    { path: 'howto', component: HowtoComponent}
+    { path: 'howto', component: HowtoComponent},
+    { path: 'teams', component: TeamsComponent}
   ];
 
 @NgModule({
